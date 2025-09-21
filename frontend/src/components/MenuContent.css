@@ -1,0 +1,39 @@
+.menu-content {
+  flex: 1;
+  min-height: 600px;
+}
+
+.menu-header {
+  margin-bottom: 30px;
+}
+
+.category-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+}
+
+.category-subtitle {
+  font-size: 16px;
+  color: #888;
+  margin: 0;
+  font-style: italic;
+}
+
+.menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.no-results p {
+  font-size: 18px;
+  margin: 0;
+}
