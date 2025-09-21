@@ -1,196 +1,110 @@
-export const mockMenuData = {
-  kalyan: {
-    title: "Кальян",
-    items: [
-      {
-        id: "kalyan-1",
-        name: "Panda Premium",
-        price: 250,
-        rating: 12,
-        description: "",
-        image: null,
-        weight: null
-      }
-    ]
+export const mockMenuItems = [
+  {
+    id: '1',
+    name: 'Мохито Классик',
+    description: 'Освежающий коктейль с мятой, лаймом и содовой. Идеальный выбор для жаркого дня.',
+    price: 350,
+    category: 'cocktails',
+    image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400',
+    badges: ['hit'],
+    available: true
   },
-  burger: {
-    title: "Бургер",
-    subtitle: "Бургери, хот доги, сирники, картопля",
-    items: [
-      {
-        id: "burger-1",
-        name: "Комбо Panda",
-        price: 180,
-        rating: 4,
-        description: "- Куряча/яловича котлета\n- Соуси: Сирний/Бургерний, BBQ\n- Сир Чеддер 2х\n- Бекон\n- Свіжий помідор\n- Лист салату\n- Цибуля маринована\n- Маринований огірок\n- Картопля фрі 200г\n- Добавки: Ананас; Сир Дор-Блю, Пармезан\n-  Соуси: Сирний, Часниковий, Кисло-Солодкий, Кетчуп\n- Напій на вибір: Schweppes, Фанта, Спрайт",
-        image: null,
-        weight: null
-      },
-      {
-        id: "burger-2",
-        name: "Бургер \"Panda\"",
-        price: 165,
-        rating: 2,
-        description: "- Куряча/яловича котлета\n- Соуси: Сирний/Бургерний, BBQ\n- Сир Чеддер 2х\n- Бекон\n- Свіжий помідор\n- Лист салату\n- Цибуля маринована\n- Слайси маринованого огірка\n- Картопля фрі 100г\n- Добавки: Ананас; Сир Дор-Блю, Пармезан\n-  Соуси: Сирний, Часниковий, Кисло-Солодкий, Кетчуп, Брусничний",
-        image: null,
-        weight: null
-      },
-      {
-        id: "burger-3",
-        name: "Double Cheese Bacon Burger",
-        price: 140,
-        rating: 23,
-        description: "- Куряча/яловича котлета\n- Соуси: Сирний/Бургерний, BBQ\n- Сир Чеддер 2х\n- Бекон\n- Свіжий помідор\n- Лист салата\n- Цибуля маринована\n- Маринований огірок\n- Добавки: Ананас; Сир Дор-Блю, Пармезан\n-  Соуси: Сирний, Часниковий, Кисло-Солодкий, Кетчуп.",
-        image: "https://cdn-media.choiceqr.com/prod-eat-panda1/menu/thumbnail_oXtjcpf-hfoHmZH-tQInHeo_o-E-Q.jpeg",
-        weight: "370г"
-      },
-      {
-        id: "burger-4",
-        name: "Бургер курячий класичний",
-        price: 110,
-        rating: 9,
-        description: "- Курка карі\n- Соуси: Сирний/Бургерний, BBQ\n- Сир Чеддер\n- Свіжий помідор\n- Лист салату\n- Цибуля маринована\n- Маринований огірок\n- Добавки, за додаткову вартість: Ананас; Сир Дор-Блю, Пармезан\n-  Соуси: Сирний, Часниковий, Кисло-Солодкий, Кетчуп.",
-        image: "https://cdn-media.choiceqr.com/prod-eat-panda1/menu/thumbnail_rRICzmU-HiIJDoD-lDrGGrC_l-O-B.jpeg",
-        weight: "350г"
-      },
-      {
-        id: "burger-5",
-        name: "Бургер яловичий класичний",
-        price: 110,
-        rating: 3,
-        description: "- Яловича котлета\n- Соуси: Сирний/Бургерний, BBQ\n- Сир Чеддер\n- Свіжий помідор\n- Лист салату\n- Цибуля маринована\n- Маринований огірок\n- Добавки, за додаткову вартість: Ананас; Сир Дор-Блю, Пармезан\n-  Соуси: Сирний, Часниковий, Кисло-Солодкий, Кетчуп.",
-        image: "https://cdn-media.choiceqr.com/prod-eat-panda1/menu/thumbnail_RsTxmHO-JUflUPQ-RIxeWZY_z-J-s.jpeg",
-        weight: "350г"
-      }
-    ]
+  {
+    id: '2',
+    name: 'Кальян Двойное Яблоко',
+    description: 'Классический вкус двойного яблока. Мягкий и насыщенный дым.',
+    price: 800,
+    category: 'hookah',
+    image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',
+    badges: ['popular'],
+    available: true
   },
-  "hot-dog": {
-    title: "Hot Dog",
-    items: [
-      {
-        id: "hotdog-1",
-        name: "Hot Dog копчена сосиска",
-        price: 80,
-        rating: 7,
-        description: "- Соуси: кетчуп, майонез, гірчиця\n- копчена, копчена з Дор Блю",
-        image: "https://cdn-media.choiceqr.com/prod-eat-panda1/menu/thumbnail_JRLNoCO-bSXbbxF-HZXtTnt_L-w-G.jpeg",
-        weight: "10хв"
-      },
-      {
-        id: "hotdog-2",
-        name: "Hot Dog молочна сосиска",
-        price: 80,
-        rating: 9,
-        description: "- Соуси: кетчуп, майонез, гірчиця\n- молочна сосиска",
-        image: "https://cdn-media.choiceqr.com/prod-eat-panda1/menu/thumbnail_tXJunIm-HsULpIk-jdTVvpH_o-O-z.jpeg",
-        weight: "10хв"
-      },
-      {
-        id: "hotdog-3",
-        name: "Hot dog Panda",
-        price: 100,
-        rating: 2,
-        description: "- Соуси: сирний, BBQ\n- Ковбаска ассорті: копчена з Дор Блю, молочна, копчена, куряча\n- Cир\n- Бекон\nДобавки: кукурудза",
-        image: null,
-        weight: null
-      }
-    ]
+  {
+    id: '3',
+    name: 'Бургер BBQ Бекон',
+    description: 'Сочная говяжья котлета с беконом, сыром чеддер и соусом BBQ.',
+    price: 520,
+    category: 'food',
+    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400',
+    badges: ['new'],
+    available: true
   },
-  kava: {
-    title: "Кава",
-    items: [
-      {
-        id: "coffee-1",
-        name: "Еспресо",
-        price: 25,
-        rating: null,
-        description: "",
-        image: null,
-        weight: null
-      },
-      {
-        id: "coffee-2",
-        name: "Доппіо",
-        price: 40,
-        rating: null,
-        description: "",
-        image: null,
-        weight: null
-      },
-      {
-        id: "coffee-3",
-        name: "Американо",
-        price: 35,
-        rating: null,
-        description: "",
-        image: null,
-        weight: null
-      },
-      {
-        id: "coffee-4",
-        name: "Американо з молоком",
-        price: 40,
-        rating: null,
-        description: "",
-        image: null,
-        weight: null
-      },
-      {
-        id: "coffee-5",
-        name: "Капучино",
-        price: 45,
-        rating: null,
-        description: "",
-        image: null,
-        weight: null
-      },
-      {
-        id: "coffee-6",
-        name: "Латте",
-        price: 45,
-        rating: null,
-        description: "",
-        image: null,
-        weight: null
-      }
-    ]
+  {
+    id: '4',
+    name: 'Космополитан',
+    description: 'Элегантный коктейль с водкой, клюквенным соком и лаймом.',
+    price: 420,
+    category: 'cocktails',
+    image: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400',
+    badges: [],
+    available: true
+  },
+  {
+    id: '5',
+    name: 'Кальян Ягодный Микс',
+    description: 'Сочетание лесных ягод с нотками мяты. Яркий и насыщенный вкус.',
+    price: 900,
+    category: 'hookah',
+    image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400',
+    badges: ['hit', 'new'],
+    available: true
+  },
+  {
+    id: '6',
+    name: 'Куриные Крылья Острые',
+    description: 'Пикантные куриные крылышки в остром соусе с сельдереем.',
+    price: 380,
+    category: 'food',
+    image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=400',
+    badges: ['popular'],
+    available: true
+  },
+  {
+    id: '7',
+    name: 'Long Island',
+    description: 'Крепкий коктейль с пятью видами алкоголя и колой.',
+    price: 480,
+    category: 'cocktails',
+    image: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400',
+    badges: [],
+    available: true
+  },
+  {
+    id: '8',
+    name: 'Кальян Тропический',
+    description: 'Экзотический микс манго, ананаса и кокоса.',
+    price: 950,
+    category: 'hookah',
+    image: 'https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=400',
+    badges: ['new'],
+    available: true
+  },
+  {
+    id: '9',
+    name: 'Цезарь с Курицей',
+    description: 'Классический салат цезарь с хрустящим салатом и курицей гриль.',
+    price: 290,
+    category: 'food',
+    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400',
+    badges: [],
+    available: true
+  },
+  {
+    id: '10',
+    name: 'Пина Колада',
+    description: 'Тропический коктейль с кокосом, ананасом и ромом.',
+    price: 390,
+    category: 'cocktails',
+    image: 'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400',
+    badges: ['hit'],
+    available: true
   }
-};
-
-export const mockCategories = [
-  { id: "kalyan", name: "Кальян" },
-  { id: "burger", name: "Бургер" },
-  { id: "hot-dog", name: "Hot Dog" },
-  { id: "tortilya", name: "Тортилья" },
-  { id: "sirni-palochki", name: "Сирні палочки" },
-  { id: "nagetsi", name: "Нагетси" },
-  { id: "kartoplya", name: "Картопля" },
-  { id: "kokteyli-alkogolni", name: "Коктейлі алкогольні" },
-  { id: "limonadi-ta-osvizhayuchi-napoyi", name: "Лимонади та освіжаючі напої" },
-  { id: "chayi-z-fruktovim-ta-yagidnim-p-yure", name: "Чаї з фруктовим та ягідним п'юре" },
-  { id: "chay-z-siropami", name: "Чай з сиропами" },
-  { id: "kitayskiy-chay", name: "Китайський чай" },
-  { id: "chay-0-950", name: "Чай 0,950" },
-  { id: "gazovani-napoyi", name: "Газовані напої" },
-  { id: "kava", name: "Кава" }
 ];
 
-export const mockRestaurantInfo = {
-  name: "Panda",
-  subtitle: "Чайна",
-  wifi: "pandapanda9898",
-  hours: "17:00 - 23:00",
-  address: "бульвар Шкільний, 8а, Южноукраїнськ, Миколаївська область, Україна",
-  phone: "0663789032",
-  email: "petrivna0809@gmail.com",
-  instagram: "https://www.instagram.com/panda_yuzhnoukrainsk/",
-  workingHours: {
-    "Понеділок": "17:00 - 23:00",
-    "Вівторок": "17:00 - 23:00", 
-    "Середа": "17:00 - 23:00",
-    "Четвер": "17:00 - 23:00",
-    "П'ятниця": "17:00 - 23:00",
-    "Субота": "17:00 - 23:00",
-    "Неділя": "17:00 - 23:00"
-  }
+export const categoryNames = {
+  all: 'Все',
+  cocktails: 'Коктейли',
+  hookah: 'Кальяны', 
+  food: 'Еда',
+  desserts: 'Десерты'
 };
