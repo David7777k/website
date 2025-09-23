@@ -1,0 +1,42 @@
+.status-bar {
+  background-color: #222;
+  padding: 12px 20px;
+  border-bottom: 1px solid #333;
+}
+
+.status-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #1e4d2b;
+  border: 1px solid #22c55e;
+  padding: 6px 12px;
+  border-radius: 20px;
+  color: #22c55e;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.status-hours {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #888;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .status-content {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
