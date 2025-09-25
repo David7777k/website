@@ -194,6 +194,9 @@ frontend:
       - working: true
         agent: "main"
         comment: "Значительно улучшен слайдер с лучшими эффектами, форматированием дат, градиентными бордерами и интерактивными элементами."
+      - working: true
+        agent: "testing"
+        comment: "TESTED: Hero slider is excellent. UFC tournament event displays correctly with proper date formatting (26 вер. 20:08), gradient borders, interactive elements, and responsive design. Minor: poster image missing (404) but doesn't affect functionality."
 
   - task: "Improved Bottom Navigation"
     implemented: true
