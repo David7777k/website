@@ -4,36 +4,188 @@
 
 html, body, #__next { height: 100%; }
 
-/* Panda theme */
+/* Panda theme - Enhanced */
 :root{
   --bg: #0B0B0B;
-  --bg-2: #0F0F10;
-  --panel: #0E0E0E;
-  --muted: #9AA0A6;
+  --bg-secondary: #111111;
+  --bg-card: #151515;
+  --panel: #1A1A1A;
+  --muted: #8B9098;
   --text: #FFFFFF;
+  --text-secondary: #B8BCC8;
   --bamboo: #00A86B;
-  --bamboo-2: #5DBB63;
+  --bamboo-light: #5DBB63;
+  --bamboo-dark: #007C51;
   --accent: #E53935;
-  --glass: rgba(255,255,255,0.04);
+  --accent-hover: #D32F2F;
+  --glass: rgba(255,255,255,0.05);
+  --border: rgba(255,255,255,0.08);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  --gradient-bamboo: linear-gradient(135deg, var(--bamboo), var(--bamboo-light));
+  --gradient-dark: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
-html, body { font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+html, body { 
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; 
+  scroll-behavior: smooth;
+}
 
+/* Enhanced Cards */
 .card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 1rem;
-  padding: 1rem;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  background: var(--gradient-dark);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s ease;
 }
 
-/* Buttons */
-.btn { display:inline-flex; align-items:center; justify-content:center; border-radius:1rem; padding:0.5rem 1rem; font-size:0.875rem; font-weight:600 }
-.btn-primary { background: linear-gradient(90deg,var(--bamboo),var(--bamboo-2)); color: #04110b }
-.btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.06) }
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(0, 168, 107, 0.2);
+}
 
-.text-bamboo { color: var(--bamboo) }
-.bg-bamboo { background: linear-gradient(90deg, var(--bamboo), var(--bamboo-2)) }
+.card-interactive {
+  cursor: pointer;
+  background: var(--gradient-dark);
+  border: 1px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
 
-.pattern-bamboo { background-image: radial-gradient(circle at 20% 20%, rgba(93,187,99,0.06), transparent 10%), radial-gradient(circle at 80% 80%, rgba(0,168,107,0.04), transparent 12%); }
+.card-interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--bamboo);
+  background: linear-gradient(180deg, rgba(0, 168, 107, 0.05), rgba(0, 168, 107, 0.02));
+}
+
+/* Enhanced Buttons */
+.btn { 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 1.25rem; 
+  padding: 0.75rem 1.5rem; 
+  font-size: 0.875rem; 
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary { 
+  background: var(--gradient-bamboo); 
+  color: #0A0F0B;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--bamboo-dark), var(--bamboo));
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--panel);
+  border-color: var(--bamboo);
+  transform: translateY(-1px);
+}
+
+.btn-ghost { 
+  background: transparent; 
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover {
+  background: var(--glass);
+  border-color: var(--bamboo);
+  color: var(--text);
+}
+
+/* Utility classes */
+.text-bamboo { color: var(--bamboo); }
+.text-bamboo-light { color: var(--bamboo-light); }
+.bg-bamboo { background: var(--gradient-bamboo); }
+.bg-card { background: var(--bg-card); }
+.bg-panel { background: var(--panel); }
+.border-subtle { border-color: var(--border); }
+
+/* Patterns and effects */
+.pattern-bamboo { 
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(0, 168, 107, 0.08), transparent 15%), 
+    radial-gradient(circle at 75% 75%, rgba(93, 187, 99, 0.06), transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(0, 168, 107, 0.03), transparent 25%);
+}
+
+.pattern-dots {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pulse-bamboo {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 168, 107, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(0, 168, 107, 0); }
+}
+
+.pulse-bamboo {
+  animation: pulse-bamboo 2s ease-in-out infinite;
+}
+
+/* Gradients */
+.gradient-text-bamboo {
+  background: var(--gradient-bamboo);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-border-bamboo {
+  position: relative;
+  background: var(--bg-card);
+  border-radius: 1.5rem;
+}
+
+.gradient-border-bamboo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  background: var(--gradient-bamboo);
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+}
