@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Quick start
 
 This repository contains a React frontend and a FastAPI backend. To make local development easier on Windows (PowerShell), there is a helper script `start.ps1` that launches both backend and frontend in separate PowerShell windows.
@@ -19,4 +20,6 @@ Optional setup:
 - Copy `frontend/.env.example` to `frontend/.env` to point the frontend at the backend API
 
 If you want a different flow (e.g., Docker, single-terminal multiplexing, or macOS/Linux scripts), tell me which platform and I'll add it.
+=======
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 # Here are your Instructions

@@ -10,14 +10,23 @@
 }
 
 .menu-card:hover {
+<<<<<<< HEAD
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(2,6,23,0.45);
+=======
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-large);
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   border-color: rgba(255, 255, 255, 0.2);
 }
 
 .card-image-container {
   position: relative;
+<<<<<<< HEAD
   height: 220px;
+=======
+  height: 240px;
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   overflow: hidden;
 }
 
@@ -39,7 +48,10 @@
   object-fit: cover;
   transition: var(--transition);
   opacity: 0;
+<<<<<<< HEAD
   display: block;
+=======
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 }
 
 .card-image.loaded {

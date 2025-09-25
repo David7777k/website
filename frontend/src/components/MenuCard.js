@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Heart, Star, Flame, Sparkles } from 'lucide-react';
 import './MenuCard.css';
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
 
 const MenuCard = ({ item, delay = 0 }) => {
   const { t } = useTranslation();
+=======
+
+const MenuCard = ({ item, delay = 0 }) => {
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   const [imageLoaded, setImageLoaded] = useState(false);
   const [liked, setLiked] = useState(false);
 
@@ -24,11 +29,19 @@ const MenuCard = ({ item, delay = 0 }) => {
   const getBadgeText = (badge) => {
     switch (badge) {
       case 'hit':
+<<<<<<< HEAD
         return t('badge_hit');
       case 'new':
         return t('badge_new');
       case 'popular':
         return t('badge_popular');
+=======
+        return 'Хит';
+      case 'new':
+        return 'Новинка';
+      case 'popular':
+        return 'Популярное';
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
       default:
         return badge;
     }
@@ -64,7 +77,11 @@ const MenuCard = ({ item, delay = 0 }) => {
         <button 
           className={`like-btn ${liked ? 'liked' : ''}`}
           onClick={() => setLiked(!liked)}
+<<<<<<< HEAD
           aria-label={t('add_to_favorites')}
+=======
+          aria-label="Добавить в избранное"
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
         >
           <Heart size={20} fill={liked ? "currentColor" : "none"} />
         </button>
@@ -80,11 +97,19 @@ const MenuCard = ({ item, delay = 0 }) => {
         
         <div className="card-actions">
           <button className="btn btn-primary card-btn">
+<<<<<<< HEAD
             {t('order')}
           </button>
           <div className="card-availability">
             <div className={`availability-dot ${item.available ? 'available' : 'unavailable'}`}></div>
             <span>{item.available ? t('available') : t('unavailable')}</span>
+=======
+            Заказать
+          </button>
+          <div className="card-availability">
+            <div className={`availability-dot ${item.available ? 'available' : 'unavailable'}`}></div>
+            <span>{item.available ? 'Доступно' : 'Недоступно'}</span>
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
           </div>
         </div>
       </div>

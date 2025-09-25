@@ -1,6 +1,7 @@
 export const mockMenuItems = [
   {
     id: '1',
+<<<<<<< HEAD
     name: {
       ru: 'Мохито Классический',
       uk: 'Мохіто Класичний'
@@ -9,6 +10,10 @@ export const mockMenuItems = [
       ru: "Освежающий коктейль с мятой, лаймом и содовой. Идеальный выбор для жаркого дня.",
       uk: "Оcвіжаючий коктейль з м'ятою, лаймом і содовою. Ідеальний вибір для спекотного дня."
     },
+=======
+    name: 'Мохіто Класік',
+    description: 'Освіжаючий коктейль з м\'ятою, лаймом і содовою. Ідеальний вибір для спекотного дня.',
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
     price: 140,
     category: 'cocktails',
     image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400',
@@ -17,15 +22,21 @@ export const mockMenuItems = [
   },
   {
     id: '2',
+<<<<<<< HEAD
     name: { ru: 'Panda Premium', uk: 'Panda Premium' },
     description: {
       ru: 'Премиальный кальян. Пользователь самостоятельно выбирает вкус при заказе.',
       uk: 'Преміальний кальян. Користувач самостійно обирає смак при замовленні.'
     },
+=======
+    name: 'Panda Premium',
+    description: 'Преміальний кальян з широким вибором смаків. Ви можете обрати будь-який смак за бажанням - від класичного подвійного яблука до екзотичних тропічних міксів.',
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
     price: 300,
     category: 'hookah',
     image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400',
     badges: ['popular', 'hit'],
+<<<<<<< HEAD
     available: true,
     flavors: [
       { ru: 'Яблоко', uk: 'Яблуко' },
@@ -40,6 +51,14 @@ export const mockMenuItems = [
     id: '3',
     name: { ru: 'Бургер BBQ Бекон', uk: 'Бургер BBQ Бекон' },
     description: { ru: 'Сочное говяжье котлета с беконом, сыром чеддер и соусом BBQ.', uk: 'Соковита яловича котлета з беконом, сиром чеддер і соусом BBQ.' },
+=======
+    available: true
+  },
+  {
+    id: '3',
+    name: 'Бургер BBQ Бекон',
+    description: 'Соковита яловича котлета з беконом, сиром чеддер і соусом BBQ.',
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
     price: 210,
     category: 'food',
     image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400',
@@ -119,6 +138,7 @@ export const mockMenuItems = [
 ];
 
 export const categoryNames = {
+<<<<<<< HEAD
   all: { ru: 'Все', uk: 'Усе' },
   cocktails: { ru: 'Коктейли', uk: 'Коктейлі' },
   hookah: { ru: 'Кальян', uk: 'Кальян' },
@@ -142,3 +162,11 @@ export function getMockMenuItems(lang = 'ru') {
     flavors: item.flavors ? item.flavors.map(f => (typeof f === 'object' ? (f[lang] || f.ru) : f)) : undefined
   }));
 }
+=======
+  all: 'Усе',
+  cocktails: 'Коктейлі',
+  hookah: 'Кальян', 
+  food: 'Їжа',
+  desserts: 'Десерти'
+};
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34

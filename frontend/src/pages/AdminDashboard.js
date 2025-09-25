@@ -11,10 +11,17 @@ const AdminDashboard = () => {
   const { user } = useAuth();
 
   const tabs = [
+<<<<<<< HEAD
     { id: 'overview', label: 'Огляд', icon: BarChart3 },
     { id: 'menu', label: 'Меню', icon: Package },
     { id: 'users', label: 'Користувачі', icon: Users },
     { id: 'settings', label: 'Налаштування', icon: Settings }
+=======
+    { id: 'overview', label: 'Обзор', icon: BarChart3 },
+    { id: 'menu', label: 'Меню', icon: Package },
+    { id: 'users', label: 'Пользователи', icon: Users },
+    { id: 'settings', label: 'Настройки', icon: Settings }
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   ];
 
   const renderContent = () => {
@@ -45,7 +52,11 @@ const AdminDashboard = () => {
               </div>
               <div className="user-details">
                 <h3>{user?.username}</h3>
+<<<<<<< HEAD
                 <span>Адміністратор</span>
+=======
+                <span>Администратор</span>
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
               </div>
             </div>
             

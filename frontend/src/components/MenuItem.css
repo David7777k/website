@@ -197,9 +197,13 @@
   
   .item-image {
     width: 100%;
+<<<<<<< HEAD
     height: 180px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+=======
+    height: 200px;
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   }
   
   .item-content {

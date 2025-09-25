@@ -66,7 +66,10 @@ const MenuItem = ({ item, isFavorite, onToggleFavorite }) => {
           </div>
         )}
 
+<<<<<<< HEAD
         {/* Flavor selector for hookah */}
+=======
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
         {item.category === 'hookah' && item.flavors && (
           <div className="hookah-flavors">
             <label htmlFor={`flavor-${item.id}`}>Смак:</label>
@@ -81,7 +84,11 @@ const MenuItem = ({ item, isFavorite, onToggleFavorite }) => {
             </select>
           </div>
         )}
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
         <div className="item-actions">
           <div className="item-controls">
             <button

@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, User } from 'lucide-react';
+<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
+=======
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 import './Header.css';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+<<<<<<< HEAD
   const { t, i18n } = useTranslation();
 
   const changeLang = (lng) => {
     i18n.changeLanguage(lng);
   };
+=======
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 
   return (
     <header className="header">
@@ -24,6 +30,7 @@ const Header = () => {
 
         <nav className={`nav ${isMenuOpen ? 'nav-open' : ''}`}>
           <a href="#menu" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+<<<<<<< HEAD
             {t('menu')}
           </a>
           <a href="#about" className="nav-link" onClick={() => setIsMenuOpen(false)}>
@@ -31,6 +38,15 @@ const Header = () => {
           </a>
           <a href="#contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
             {t('contact')}
+=======
+            Меню
+          </a>
+          <a href="#about" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+            Про нас
+          </a>
+          <a href="#contact" className="nav-link" onClick={() => setIsMenuOpen(false)}>
+            Контакти
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
           </a>
           <Link 
             to="/admin/login" 
@@ -38,6 +54,7 @@ const Header = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             <User size={18} />
+<<<<<<< HEAD
             {t('admin')}
           </Link>
 
@@ -45,6 +62,10 @@ const Header = () => {
             <button onClick={() => changeLang('ru')} className={`lang-btn ${i18n.language === 'ru' ? 'active' : ''}`}>RU</button>
             <button onClick={() => changeLang('uk')} className={`lang-btn ${i18n.language === 'uk' ? 'active' : ''}`}>UK</button>
           </div>
+=======
+            Admin
+          </Link>
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
         </nav>
 
         <button 

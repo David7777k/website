@@ -12,7 +12,11 @@ import bcrypt
 from datetime import datetime, timedelta
 import base64
 
+<<<<<<< HEAD
 from .models import MenuItem, MenuItemCreate, MenuItemUpdate, User, UserLogin, Token, UserSummary
+=======
+from models import MenuItem, MenuItemCreate, MenuItemUpdate, User, UserLogin, Token
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -66,6 +70,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     
     return User(**user_data)
 
+<<<<<<< HEAD
 
 def admin_required(current_user: User = Depends(get_current_user)):
     if current_user.role not in ("admin", "superadmin"):
@@ -86,6 +91,19 @@ async def create_default_admin():
             print("Default admin user created: admin/admin123")
     except Exception as e:
         logger.warning(f"Could not ensure default admin (DB unavailable?): {e}")
+=======
+# Initialize default admin user
+async def create_default_admin():
+    admin_exists = await db.users.find_one({"username": "admin"})
+    if not admin_exists:
+        admin_user = User(
+            username="admin",
+            password_hash=hash_password("admin123"),
+            role="admin"
+        )
+        await db.users.insert_one(admin_user.dict())
+        print("Default admin user created: admin/admin123")
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 
 # Authentication routes
 @api_router.post("/admin/login", response_model=Token)
@@ -215,6 +233,7 @@ logger = logging.getLogger(__name__)
 @app.on_event("startup")
 async def startup_event():
     await create_default_admin()
+<<<<<<< HEAD
     # Ensure useful indexes exist for users collection
     try:
         await db.users.create_index("username", unique=True)
@@ -223,10 +242,13 @@ async def startup_event():
         await db.users.create_index([("created_at", -1)])
     except Exception as e:
         logger.warning(f"Could not create indexes: {e}")
+=======
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
+<<<<<<< HEAD
 
 
 # Read-only user listing for admin UI
@@ -257,3 +279,5 @@ async def list_users(page: int = 1, limit: int = 25, search: Optional[str] = Non
         })
 
     return {"items": results, "total": total, "page": page, "limit": limit}
+=======
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34

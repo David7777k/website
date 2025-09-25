@@ -5,14 +5,22 @@ import './StatsOverview.css';
 const StatsOverview = () => {
   const stats = [
     {
+<<<<<<< HEAD
       title: 'Всего позиций',
+=======
+      title: 'Усього позицій',
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
       value: '24',
       change: '+3',
       changeType: 'positive',
       icon: Package
     },
     {
+<<<<<<< HEAD
       title: 'Популярные',
+=======
+      title: 'Популярні',
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
       value: '8',
       change: '+2',
       changeType: 'positive', 
@@ -26,7 +34,11 @@ const StatsOverview = () => {
       icon: TrendingUp
     },
     {
+<<<<<<< HEAD
       title: 'Посетители',
+=======
+      title: 'Відвідувачі',
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
       value: '142',
       change: '+12',
       changeType: 'positive',
@@ -41,6 +53,7 @@ const StatsOverview = () => {
     { action: 'Завантажено фото', item: 'Курячі Крилця Гострі', time: '8 годин тому' }
   ];
 
+<<<<<<< HEAD
   const exportCsv = () => {
     const rows = [];
     rows.push(['Type','Title','Value','Change']);
@@ -68,6 +81,13 @@ const StatsOverview = () => {
         <div className="overview-actions">
           <button className="btn" onClick={exportCsv}>Експортувати статистику (CSV)</button>
         </div>
+=======
+  return (
+    <div className="stats-overview">
+      <div className="overview-header">
+  <h2>Огляд</h2>
+  <p>Статистика вашого меню</p>
+>>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
       </div>
 
       <div className="stats-grid">
