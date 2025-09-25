@@ -221,6 +221,9 @@ frontend:
       - working: true
         agent: "main"
         comment: "Улучшена плавающая кнопка колеса с анимациями, тултипами, адаптивным скрытием при скролле и дополнительной кнопкой чаевых."
+      - working: true
+        agent: "testing"
+        comment: "TESTED: Floating elements working perfectly. Wheel button (🎡) with pulse animation and tooltip, tips button (💰) with tooltip, proper positioning (fixed right-4 bottom), responsive behavior, and hover effects all implemented correctly."
 
   - task: "Events Page"
     implemented: true
