@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                        Int       @id @default(autoincrement())
+  phone                     String?   @unique
+  oauth_id                  String?   @unique
+  name                      String?
+  birthdate                 DateTime?
+  created_at                DateTime  @default(now())
+  first_visit_confirmed_at  DateTime?
+  wheel_spins               WheelSpin[]
+  coupons                   Coupon[]
+  music_orders              MusicOrder[]
+  referrals_sent            Referral[] @relation("referrer")
+  referrals_received        Referral[] @relation("referee")
+  tips                      Tip[]      @relation("tipper")
+}
+
+model Event {
+  id         Int      @id @default(autoincrement())
+  title      String
+  description String?
+  poster_url String?
+  starts_at  DateTime
+  ends_at    DateTime
+  is_active  Boolean  @default(false)
+  created_at DateTime @default(now())
+}
+
+model WheelSpin {
+  id              Int      @id @default(autoincrement())
+  user            User     @relation(fields: [user_id], references: [id])
+  user_id         Int
+  prize           String
+  spun_at         DateTime @default(now())
+  next_allowed_at DateTime
+  client_fp       String?
+  ip              String?
+}
+
+model Coupon {
+  id         Int      @id @default(autoincrement())
+  user       User     @relation(fields: [user_id], references: [id])
+  user_id    Int
+  type       String
+  value_pct  Int?
+  kind       String?
+  code       String   @unique
+  expires_at DateTime
+  redeemed_at DateTime?
+  created_at DateTime @default(now())
+}
+
+model MusicOrder {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [user_id], references: [id])
+  user_id     Int
+  title       String
+  note        String?
+  paid_amount Int
+  status      String   @default("pending")
+  order_code  String   @unique
+  created_at  DateTime @default(now())
+}
+
+model Referral {
+  id                    Int      @id @default(autoincrement())
+  referrer              User     @relation("referrer", fields: [referrer_id], references: [id])
+  referrer_id           Int
+  referee               User?    @relation("referee", fields: [referee_id], references: [id])
+  referee_id            Int?
+  status                String   @default("pending")
+  created_at            DateTime @default(now())
+  confirmed_at          DateTime?
+  confirmed_by_staff_id Int?
+  checkins              ReferralCheckin[]
+}
+
+model ReferralCheckin {
+  id            Int      @id @default(autoincrement())
+  referral      Referral @relation(fields: [referral_id], references: [id])
+  referral_id   Int
+  code_hash     String
+  expires_at    DateTime
+  attempts      Int      @default(5)
+  consumed_at   DateTime?
+  bill_amount   Int?
+  bill_no       String?
+  created_at    DateTime @default(now())
+}
+
+model Tip {
+  id         Int      @id @default(autoincrement())
+  staff      Staff    @relation(fields: [staff_id], references: [id])
+  staff_id   Int
+  user       User?    @relation("tipper", fields: [user_id], references: [id])
+  user_id    Int?
+  amount     Int
+  message    String?
+  created_at DateTime @default(now())
+}
+
+model Staff {
+  id         Int      @id @default(autoincrement())
+  name       String
+  instagram  String?
+  photo_url  String?
+  is_active  Boolean  @default(true)
+  tips       Tip[]
+}
+
+model Faq {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
+  order    Int    @default(0)
+}
+

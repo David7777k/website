@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Search } from 'lucide-react';
 import MenuCard from './MenuCard';
 import { categoryNames } from '../data/mockData';
@@ -13,6 +14,16 @@ const MenuSection = ({
   onSearchChange,
   loading
 }) => {
+  const { i18n } = useTranslation();
+
+  const getCategoryLabel = (category) => {
+    const value = categoryNames[category] || category;
+    if (typeof value === 'object') {
+      return value[i18n.language] || value.ru || category;
+    }
+    return value;
+  };
+
   return (
     <section id="menu" className="menu-section">
       <div className="container">
@@ -44,7 +55,7 @@ const MenuSection = ({
                   selectedCategory === category ? 'active' : ''
                 }`}
               >
-                {categoryNames[category] || category}
+                  {getCategoryLabel(category)}
               </button>
             ))}
           </div>

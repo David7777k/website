@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Plus, Search, Filter, Edit3, Trash2, Star, Sparkles, Flame } from 'lucide-react';
 import MenuItemForm from './MenuItemForm';
-import { mockMenuItems } from '../../data/mockData';
+import { mockMenuItems, getMockMenuItems } from '../../data/mockData';
 import './MenuManager.css';
 import { useTranslation } from 'react-i18next';
 
 const MenuManager = () => {
-  const { t } = useTranslation();
-  const [menuItems, setMenuItems] = useState(mockMenuItems);
+  const { t, i18n } = useTranslation();
+
+  // Initialize with localized strings so components render text, not objects
+  const [menuItems, setMenuItems] = useState(() => getMockMenuItems(i18n.language || 'ru'));
   const [showForm, setShowForm] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,6 +17,7 @@ const MenuManager = () => {
   const [selectedIds, setSelectedIds] = useState([]);
 
   const categories = ['all', 'cocktails', 'hookah', 'food', 'desserts'];
+
   const categoryNames = {
     all: t('category_all'),
     cocktails: t('category_cocktails'),
@@ -23,12 +26,23 @@ const MenuManager = () => {
     desserts: t('category_desserts')
   };
 
+  const getCategoryLabel = (key) => {
+    const val = categoryNames[key] || key;
+    // categoryNames here are strings from t(), so just return
+    return val;
+  };
+
   const filteredItems = menuItems.filter(item => {
     const categoryMatch = selectedCategory === 'all' || item.category === selectedCategory;
     const searchMatch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                        item.description.toLowerCase().includes(searchQuery.toLowerCase());
     return categoryMatch && searchMatch;
   });
+
+  // keep menuItems localized when language changes
+  React.useEffect(() => {
+    setMenuItems(getMockMenuItems(i18n.language || 'ru'));
+  }, [i18n.language]);
 
   const handleAddItem = () => {
     setEditingItem(null);
@@ -159,7 +173,7 @@ const MenuManager = () => {
             >
               {categories.map(category => (
                 <option key={category} value={category}>
-                  {categoryNames[category]}
+                  {getCategoryLabel(category)}
                 </option>
               ))}
             </select>
@@ -190,7 +204,7 @@ const MenuManager = () => {
                 <div className="item-price">{item.price} ₴</div>
               </div>
               
-              <p className="item-category">{categoryNames[item.category]}</p>
+              <p className="item-category">{getCategoryLabel(item.category)}</p>
               <p className="item-description">{item.description}</p>
               
               <div className="item-status">
