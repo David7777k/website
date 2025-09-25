@@ -1,4 +1,4 @@
-.menu-item {
+﻿.menu-item {
   background-color: rgba(42, 42, 42, 0.95);
   border-radius: 12px;
   padding: 0;
@@ -197,14 +197,9 @@
   
   .item-image {
     width: 100%;
-<<<<<<< HEAD
     height: 180px;
     border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-=======
-    height: 200px;
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-  }
+    border-bottom-right-radius: 0;  }
   
   .item-content {
     padding: 16px;

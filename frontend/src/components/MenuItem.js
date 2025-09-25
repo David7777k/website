@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { Heart, Share2, Plus, Minus } from "lucide-react";
 import "./MenuItem.css";
 
@@ -15,12 +15,12 @@ const MenuItem = ({ item, isFavorite, onToggleFavorite }) => {
     if (navigator.share) {
       navigator.share({
         title: item.name,
-        text: `${item.name} - ${item.price} ₴`,
+        text: `${item.name} - ${item.price} в‚ґ`,
         url: window.location.href
       });
     } else {
       navigator.clipboard.writeText(
-        `${item.name} - ${item.price} ₴ - ${window.location.href}`
+        `${item.name} - ${item.price} в‚ґ - ${window.location.href}`
       );
     }
   };
@@ -45,7 +45,7 @@ const MenuItem = ({ item, isFavorite, onToggleFavorite }) => {
       <div className="item-content">
         <div className="item-header">
           <h3 className="item-name">{item.name}</h3>
-          <div className="item-price">{item.price} ₴</div>
+          <div className="item-price">{item.price} в‚ґ</div>
         </div>
         
         {item.weight && (
@@ -60,19 +60,15 @@ const MenuItem = ({ item, isFavorite, onToggleFavorite }) => {
                 className="toggle-description"
                 onClick={() => setShowFullDescription(!showFullDescription)}
               >
-                {showFullDescription ? "Показати менше" : "Показати більше"}
+                {showFullDescription ? "РџРѕРєР°Р·Р°С‚Рё РјРµРЅС€Рµ" : "РџРѕРєР°Р·Р°С‚Рё Р±С–Р»СЊС€Рµ"}
               </button>
             )}
           </div>
         )}
 
-<<<<<<< HEAD
-        {/* Flavor selector for hookah */}
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-        {item.category === 'hookah' && item.flavors && (
+        {/* Flavor selector for hookah */}        {item.category === 'hookah' && item.flavors && (
           <div className="hookah-flavors">
-            <label htmlFor={`flavor-${item.id}`}>Смак:</label>
+            <label htmlFor={`flavor-${item.id}`}>РЎРјР°Рє:</label>
             <select
               id={`flavor-${item.id}`}
               value={selectedFlavor}
@@ -84,12 +80,7 @@ const MenuItem = ({ item, isFavorite, onToggleFavorite }) => {
             </select>
           </div>
         )}
-<<<<<<< HEAD
-        
-=======
-
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-        <div className="item-actions">
+                <div className="item-actions">
           <div className="item-controls">
             <button
               className={`favorite-btn ${isFavorite ? "active" : ""}`}

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
 
 * {
   margin: 0;
@@ -40,7 +40,6 @@ body {
   overflow-x: hidden;
 }
 
-<<<<<<< HEAD
 /* Mobile-first container */
 .container {
   width: 100%;
@@ -48,20 +47,13 @@ body {
   margin: 0 auto;
   padding: 16px;
 }
-
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 .App {
   min-height: 100vh;
   background: radial-gradient(ellipse at top, rgba(102, 126, 234, 0.1) 0%, transparent 70%),
               radial-gradient(ellipse at bottom right, rgba(255, 107, 107, 0.1) 0%, transparent 70%),
               var(--primary-bg);
-<<<<<<< HEAD
   /* Make room for the fixed header so content doesn't get covered */
-  padding-top: var(--header-height);
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-}
+  padding-top: var(--header-height);}
 
 /* Scrollbar Styling */
 ::-webkit-scrollbar {

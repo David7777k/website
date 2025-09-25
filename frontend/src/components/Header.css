@@ -1,4 +1,4 @@
-.header {
+﻿.header {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,11 +8,7 @@
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: var(--transition);
-<<<<<<< HEAD
-  height: var(--header-height);
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-}
+  height: var(--header-height);}
 
 .header .container {
   max-width: 1400px;
@@ -143,12 +139,7 @@
 
   .nav {
     position: fixed;
-<<<<<<< HEAD
-    top: var(--header-height);
-=======
-    top: 80px;
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-    left: 0;
+    top: var(--header-height);    left: 0;
     right: 0;
     background: rgba(10, 10, 10, 0.98);
     backdrop-filter: blur(20px);

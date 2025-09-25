@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+﻿from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
 import uuid
@@ -40,7 +40,6 @@ class User(BaseModel):
     role: str = "admin"
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
-<<<<<<< HEAD
 
 class UserSummary(BaseModel):
     id: Optional[str] = Field(default_factory=lambda: str(uuid.uuid4()))
@@ -50,9 +49,6 @@ class UserSummary(BaseModel):
     disabled: bool = False
     last_login: Optional[datetime] = None
     created_at: Optional[datetime] = Field(default_factory=datetime.utcnow)
-
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 class UserLogin(BaseModel):
     username: str
     password: str

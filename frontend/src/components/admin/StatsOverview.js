@@ -1,45 +1,30 @@
-import React from 'react';
+﻿import React from 'react';
 import { Package, Star, TrendingUp, Users } from 'lucide-react';
 import './StatsOverview.css';
 
 const StatsOverview = () => {
   const stats = [
     {
-<<<<<<< HEAD
-      title: 'Всего позиций',
-=======
-      title: 'Усього позицій',
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-      value: '24',
+      title: 'Р’СЃРµРіРѕ РїРѕР·РёС†РёР№',      value: '24',
       change: '+3',
       changeType: 'positive',
       icon: Package
     },
     {
-<<<<<<< HEAD
-      title: 'Популярные',
-=======
-      title: 'Популярні',
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-      value: '8',
+      title: 'РџРѕРїСѓР»СЏСЂРЅС‹Рµ',      value: '8',
       change: '+2',
       changeType: 'positive', 
       icon: Star
     },
     {
-      title: 'Новинки',
+      title: 'РќРѕРІРёРЅРєРё',
       value: '5',
       change: '+1',
       changeType: 'positive',
       icon: TrendingUp
     },
     {
-<<<<<<< HEAD
-      title: 'Посетители',
-=======
-      title: 'Відвідувачі',
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-      value: '142',
+      title: 'РџРѕСЃРµС‚РёС‚РµР»Рё',      value: '142',
       change: '+12',
       changeType: 'positive',
       icon: Users
@@ -47,13 +32,12 @@ const StatsOverview = () => {
   ];
 
   const recentActions = [
-    { action: 'Додано нову позицію', item: 'Panda Premium', time: '2 години тому' },
-    { action: 'Оновлено ціну', item: 'Мохіто Класичний', time: '4 години тому' },
-    { action: 'Позначено як хіт', item: 'Бургер BBQ Бекон', time: '6 годин тому' },
-    { action: 'Завантажено фото', item: 'Курячі Крилця Гострі', time: '8 годин тому' }
+    { action: 'Р”РѕРґР°РЅРѕ РЅРѕРІСѓ РїРѕР·РёС†С–СЋ', item: 'Panda Premium', time: '2 РіРѕРґРёРЅРё С‚РѕРјСѓ' },
+    { action: 'РћРЅРѕРІР»РµРЅРѕ С†С–РЅСѓ', item: 'РњРѕС…С–С‚Рѕ РљР»Р°СЃРёС‡РЅРёР№', time: '4 РіРѕРґРёРЅРё С‚РѕРјСѓ' },
+    { action: 'РџРѕР·РЅР°С‡РµРЅРѕ СЏРє С…С–С‚', item: 'Р‘СѓСЂРіРµСЂ BBQ Р‘РµРєРѕРЅ', time: '6 РіРѕРґРёРЅ С‚РѕРјСѓ' },
+    { action: 'Р—Р°РІР°РЅС‚Р°Р¶РµРЅРѕ С„РѕС‚Рѕ', item: 'РљСѓСЂСЏС‡С– РљСЂРёР»С†СЏ Р“РѕСЃС‚СЂС–', time: '8 РіРѕРґРёРЅ С‚РѕРјСѓ' }
   ];
 
-<<<<<<< HEAD
   const exportCsv = () => {
     const rows = [];
     rows.push(['Type','Title','Value','Change']);
@@ -76,19 +60,11 @@ const StatsOverview = () => {
   return (
     <div className="stats-overview">
       <div className="overview-header">
-          <h2>Огляд</h2>
-        <p>Статистика вашого меню</p>
+          <h2>РћРіР»СЏРґ</h2>
+        <p>РЎС‚Р°С‚РёСЃС‚РёРєР° РІР°С€РѕРіРѕ РјРµРЅСЋ</p>
         <div className="overview-actions">
-          <button className="btn" onClick={exportCsv}>Експортувати статистику (CSV)</button>
-        </div>
-=======
-  return (
-    <div className="stats-overview">
-      <div className="overview-header">
-  <h2>Огляд</h2>
-  <p>Статистика вашого меню</p>
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-      </div>
+          <button className="btn" onClick={exportCsv}>Р•РєСЃРїРѕСЂС‚СѓРІР°С‚Рё СЃС‚Р°С‚РёСЃС‚РёРєСѓ (CSV)</button>
+        </div>      </div>
 
       <div className="stats-grid">
         {stats.map((stat, index) => {
@@ -102,7 +78,7 @@ const StatsOverview = () => {
                 <div className="stat-value">{stat.value}</div>
                 <div className="stat-title">{stat.title}</div>
                 <div className={`stat-change ${stat.changeType}`}>
-                  {stat.change} за неделю
+                  {stat.change} Р·Р° РЅРµРґРµР»СЋ
                 </div>
               </div>
             </div>
@@ -111,7 +87,7 @@ const StatsOverview = () => {
       </div>
 
       <div className="recent-activity">
-        <h3>Нещодавня активність</h3>
+        <h3>РќРµС‰РѕРґР°РІРЅСЏ Р°РєС‚РёРІРЅС–СЃС‚СЊ</h3>
         <div className="activity-list">
           {recentActions.map((action, index) => (
             <div key={index} className="activity-item">
