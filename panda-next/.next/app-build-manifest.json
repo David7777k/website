@@ -21,6 +21,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/events/page.js"
     ],
+    "/faq/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/faq/page.js"
+    ],
     "/not-found": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
