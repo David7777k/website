@@ -1,50 +1,102 @@
 <#
 start.ps1
 
-Simple helper to start the frontend and backend on Windows (PowerShell).
+Улучшенный helper для запуска сервисов проекта на Windows (PowerShell).
 
-What it does:
-- Opens one PowerShell window for the backend and one for the frontend
-- Creates a Python virtual environment in `backend/.venv` and installs requirements if missing
-- Starts the backend with uvicorn on port 8000
-- Starts the frontend with `yarn start` (falls back to `npm start`)
+Возможности:
+- Интерактивное меню или запуск по флагу
+- Открывает отдельные PowerShell-окна для backend, frontend и panda-next
+- Автоматически создаёт виртуальное окружение для backend и устанавливает зависимости
+- Автоматически устанавливает зависимости для frontend и panda-next если нужно
 
-Usage:
-  Right-click -> Run with PowerShell (or from a PowerShell prompt run `./start.ps1`)
+Примеры:
+  ./start.ps1          # интерактивное меню
+  ./start.ps1 -All     # запустить backend, frontend и panda-next
+  ./start.ps1 -Backend # запустить только backend
+  ./start.ps1 -Install # установить зависимости для всех компонентов
 
 #>
 
+param(
+    [switch]$All,
+    [switch]$Backend,
+    [switch]$Frontend,
+    [switch]$PandaNext,
+    [switch]$Install
+)
+
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
+Write-Host "Project root: $Root"
 
-Write-Host "Starting project from: $Root"
-
-# Backend command: create venv if needed, install requirements, run uvicorn
-$backendScript = @"
-Set-Location -Path '$Root\backend'
+function Start-BackendWindow {
+    $script = @'
+Set-Location -Path .
 if (-not (Test-Path '.venv')) {
-    Write-Host 'Creating Python virtual environment (.venv) and installing requirements (this may take a minute)...'
     python -m venv .venv
-    & '.\.venv\Scripts\pip.exe' install --upgrade pip
-    & '.\.venv\Scripts\pip.exe' install -r requirements.txt
+    .\.venv\Scripts\pip.exe install --upgrade pip
+    .\.venv\Scripts\pip.exe install -r requirements.txt
 }
-Write-Host 'Starting backend (uvicorn) on http://localhost:8000'
-& '.\.venv\Scripts\python.exe' -m uvicorn server:app --reload --port 8000
-"@
+.
+.venv\Scripts\python.exe -m uvicorn server:app --reload --port 8000
+'@
+    Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoExit','-Command',$script -WorkingDirectory "$Root\backend"
+}
 
-Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoExit', '-Command', $backendScript -WorkingDirectory "$Root\backend"
-
-# Frontend command: use yarn if available, otherwise npm
-$frontendScript = @"
-Set-Location -Path '$Root\frontend'
+function Start-FrontendWindow {
+    $script = @'
+Set-Location -Path .
 if (Test-Path 'yarn.lock') {
-    Write-Host 'Detected yarn.lock -> running: yarn start'
+    yarn install
     yarn start
 } else {
-    Write-Host 'No yarn.lock -> running: npm start'
+    if (-not (Test-Path 'node_modules')) { npm install }
     npm start
 }
-"@
+'@
+    Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoExit','-Command',$script -WorkingDirectory "$Root\frontend"
+}
 
-Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoExit', '-Command', $frontendScript -WorkingDirectory "$Root\frontend"
+function Start-PandaNextWindow {
+    $script = @'
+Set-Location -Path .
+if (-not (Test-Path 'node_modules')) {
+    npm install
+}
+npm run dev
+'@
+    Start-Process -FilePath 'powershell.exe' -ArgumentList '-NoExit','-Command',$script -WorkingDirectory "$Root\panda-next"
+}
 
-Write-Host "Launched frontend and backend in separate PowerShell windows."
+function Install-AllDeps {
+    Push-Location "$Root\backend"
+    if (-not (Test-Path '.venv')) { python -m venv .venv }
+    .\.venv\Scripts\pip.exe install --upgrade pip
+    .\.venv\Scripts\pip.exe install -r requirements.txt
+    Pop-Location
+
+    Push-Location "$Root\frontend"
+    if (Test-Path 'yarn.lock') { yarn install } else { npm install }
+    Pop-Location
+
+    Push-Location "$Root\panda-next"
+    npm install
+    Pop-Location
+}
+
+if ($Install) { Install-AllDeps; return }
+if ($All) { Start-BackendWindow; Start-FrontendWindow; Start-PandaNextWindow; return }
+if ($Backend) { Start-BackendWindow; return }
+if ($Frontend) { Start-FrontendWindow; return }
+if ($PandaNext) { Start-PandaNextWindow; return }
+
+# interactive menu
+Write-Host "Select: 1) backend 2) frontend 3) panda-next 4) all 5) install 0) exit"
+$choice = Read-Host "Choice"
+switch ($choice) {
+    '1' { Start-BackendWindow }
+    '2' { Start-FrontendWindow }
+    '3' { Start-PandaNextWindow }
+    '4' { Start-BackendWindow; Start-FrontendWindow; Start-PandaNextWindow }
+    '5' { Install-AllDeps }
+    default { Write-Host 'Exit' }
+}
