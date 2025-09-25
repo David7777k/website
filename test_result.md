@@ -137,6 +137,9 @@ frontend:
       - working: true
         agent: "main"
         comment: "Обновлен header с стеклянным эффектом, липким позиционированием, красивой навигацией и языковым переключателем UA/RU. Улучшена структура макета."
+      - working: true
+        agent: "testing"
+        comment: "TESTED: Header navigation is perfect. Glass effect, sticky positioning, all navigation links (Головна, Події, Меню, FAQ, Акції) working correctly. Language switcher UA/RU implemented. Mobile hamburger menu present. Panda logo with hover effects working."
 
   - task: "Enhanced Homepage with New Components"
     implemented: true
