@@ -192,3 +192,119 @@ model Visit {
   created_at    DateTime @default(now())
 }
 
+// New enhanced models for advanced functionality
+model PromoCode {
+  id            Int      @id @default(autoincrement())
+  code          String   @unique
+  title         String
+  description   String?
+  type          String   // percent, fixed, special
+  value         Int      // percentage or fixed amount
+  min_amount    Int?     // minimum order amount
+  max_uses      Int?     // usage limit
+  uses_count    Int      @default(0)
+  valid_from    DateTime @default(now())
+  valid_until   DateTime
+  is_active     Boolean  @default(true)
+  source        String   @default("admin") // admin, wheel, birthday, referral
+  created_by    String?  // staff/admin id
+  created_at    DateTime @default(now())
+  
+  // Relations
+  usage_logs    PromoUsage[]
+}
+
+model PromoUsage {
+  id          Int       @id @default(autoincrement())
+  promo_code  PromoCode @relation(fields: [code_id], references: [id])
+  code_id     Int
+  user_id     String
+  order_amount Int?
+  discount_amount Int?
+  used_at     DateTime @default(now())
+}
+
+model SystemSettings {
+  id                    Int      @id @default(autoincrement())
+  key                   String   @unique
+  value                 String
+  description           String?
+  category              String   @default("general") // general, wheel, music, referrals, etc
+  is_public             Boolean  @default(false)
+  updated_at            DateTime @default(now())
+}
+
+model StaffRating {
+  id              Int      @id @default(autoincrement())
+  user            User     @relation(fields: [user_id], references: [id])
+  user_id         String
+  staff           Staff    @relation(fields: [staff_id], references: [id])
+  staff_id        Int
+  service_rating  Int      // 1-5 stars for service
+  personality_rating Int   // 1-5 smiles for personality
+  visit_date      DateTime
+  created_at      DateTime @default(now())
+}
+
+model InstagramStory {
+  id              Int      @id @default(autoincrement())
+  user            User     @relation(fields: [user_id], references: [id])
+  user_id         String
+  story_url       String
+  verification_status String @default("pending") // pending, approved, rejected
+  discount_claimed Boolean @default(false)
+  verified_by     String?  // staff id
+  verified_at     DateTime?
+  created_at      DateTime @default(now())
+}
+
+model MenuItem {
+  id            Int      @id @default(autoincrement())
+  category      String   // hookah, kitchen, cocktails, tea
+  name          String
+  description   String?
+  price         Int
+  image_url     String?
+  is_available  Boolean  @default(true)
+  likes_count   Int      @default(0)
+  order_count   Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+}
+
+model AdminLog {
+  id          Int      @id @default(autoincrement())
+  admin_id    String
+  admin_name  String
+  action      String
+  target_type String?  // user, promo, event, etc
+  target_id   String?
+  details     String?
+  ip_address  String?
+  created_at  DateTime @default(now())
+}
+
+model Notification {
+  id          Int      @id @default(autoincrement())
+  user_id     String?  // null for admin notifications
+  type        String   // user, staff, admin
+  title       String
+  message     String
+  data        String?  // JSON data
+  is_read     Boolean  @default(false)
+  expires_at  DateTime?
+  created_at  DateTime @default(now())
+}
+
+model WheelPrize {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  type        String   // discount, free_item, points
+  value       Int?     // percentage or points
+  probability Int      // 1-100
+  color       String   @default("#10B981")
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+}
+
