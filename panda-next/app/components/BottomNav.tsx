@@ -6,7 +6,7 @@ export default function BottomNav() {
   const pathname = usePathname()
 
   const navItems = [
-    { href: '/events', icon: '📅', label: 'Афіша' },
+    { href: '/', icon: '🏠', label: 'Головна' },
     { href: '/menu', icon: '🍽️', label: 'Меню' },
     { href: '/music', icon: '🎵', label: 'Музика' },
     { href: '/profile', icon: '👤', label: 'Профіль' }
@@ -36,30 +36,28 @@ export default function BottomNav() {
         </div>
       </div>
 
-      {/* Floating Action Dock */}
-      <div className="fixed bottom-20 left-0 right-0 lg:bottom-6 z-30 pointer-events-none">
-        <div className="flex justify-center items-end gap-3 px-4">
-          {/* Heart Button */}
-          <button className="pointer-events-auto w-14 h-14 rounded-2xl bg-panel border border-subtle text-accent text-xl shadow-lg hover:scale-105 transition-all duration-300 group">
-            ❤️
-            {/* Tooltip */}
-            <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 px-3 py-2 bg-panel border border-subtle rounded-xl text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-              Кальянщик
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-t-4 border-t-panel border-x-4 border-x-transparent"></div>
-            </div>
-          </button>
+      {/* Floating Action Buttons - Right Bottom */}
+      <div className="fixed bottom-24 right-4 lg:bottom-6 z-30 flex flex-col gap-3">
+        {/* Tips Button */}
+        <button className="w-14 h-14 rounded-2xl bg-panel border border-subtle text-accent text-xl shadow-lg hover:scale-105 transition-all duration-300 group">
+          ❤️
+          {/* Tooltip */}
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-panel border border-subtle rounded-xl text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            Подякувати кальянщику
+            <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-l-4 border-l-panel border-y-4 border-y-transparent"></div>
+          </div>
+        </button>
 
-          {/* Main Wheel Button - Elevated */}
-          <button className="pointer-events-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-bamboo to-bamboo-light text-black text-2xl shadow-2xl hover:scale-110 transition-all duration-300 pulse-bamboo group relative transform -translate-y-2">
-            <span className="group-hover:animate-spin transition-transform duration-500">🎡</span>
-            
-            {/* Tooltip */}
-            <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 px-3 py-2 bg-panel border border-subtle rounded-xl text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
-              Колесо фортуни
-              <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-t-4 border-t-panel border-x-4 border-x-transparent"></div>
-            </div>
-          </button>
-        </div>
+        {/* Main Wheel Button */}
+        <button className="w-16 h-16 rounded-2xl bg-gradient-to-br from-bamboo to-bamboo-light text-black text-2xl shadow-2xl hover:scale-105 transition-all duration-300 group">
+          <span className="group-hover:animate-spin transition-transform duration-500">🎡</span>
+          
+          {/* Tooltip */}
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-panel border border-subtle rounded-xl text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            Колесо фортуни
+            <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-l-4 border-l-panel border-y-4 border-y-transparent"></div>
+          </div>
+        </button>
       </div>
     </>
   )
