@@ -125,20 +125,17 @@ frontend:
         agent: "main"
         comment: "Создана расширенная админ панель с реальными данными из БД: статистика визитов, пользователей, доходов, high-risk юзеров. API эндпоинт /api/admin/stats возвращает актуальные метрики."
 
-  - task: "Updated Navigation and Layout"
+  - task: "System Settings Management API"
     implemented: true
     working: true
-    file: "/app/panda-next/app/layout.tsx"
+    file: "/app/panda-next/lib/settings.ts, /app/panda-next/app/api/admin/settings/route.ts"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
-        comment: "Обновлена навигация с добавлением музыки, интеграция с NextAuth, исправлены проблемы с серверными компонентами."
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: Navigation layout working perfectly. Burger menu functionality excellent - slides in from right with user info, menu items, settings, and language switcher. Desktop navigation with all links functional. Header sticky positioning working correctly."
+        comment: "Создана система глобальных настроек с SettingsManager классом. API поддерживает категоризацию настроек (general, wheel, music, referrals, bonuses, limits), CRUD операции, и автоматическую инициализацию дефолтных значений."
 
   - task: "Enhanced Bottom Navigation"
     implemented: true
