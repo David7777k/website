@@ -163,12 +163,20 @@ model Tip {
 }
 
 model Staff {
-  id         Int      @id @default(autoincrement())
-  name       String
-  instagram  String?
-  photo_url  String?
-  is_active  Boolean  @default(true)
-  tips       Tip[]
+  id                Int           @id @default(autoincrement())
+  name              String
+  instagram         String?
+  photo_url         String?
+  card_number       String?       // для прямых переводов
+  is_active         Boolean       @default(true)
+  average_service   Float?        @default(0)
+  average_personality Float?      @default(0)
+  tips_total        Int           @default(0)
+  created_at        DateTime      @default(now())
+  
+  // Relations
+  tips              Tip[]
+  ratings           StaffRating[]
 }
 
 model Faq {
