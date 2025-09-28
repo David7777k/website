@@ -4,6 +4,7 @@ import { Providers } from './providers'
 import AuthButton from './components/AuthButton'
 import MobileNav from './components/MobileNav'
 import BottomNav from './components/BottomNav'
+import BurgerMenu from './components/BurgerMenu'
 
 export const metadata = {
   title: 'PANDA Hookah',
@@ -38,20 +39,12 @@ export default function RootLayout({
                 <nav className="hidden lg:flex items-center gap-8">
                   <div className="flex items-center gap-6">
                     <a href="/" className="text-sm font-medium hover:text-bamboo transition-colors">Головна</a>
-                    <a href="/events" className="text-sm font-medium hover:text-bamboo transition-colors">Афіша</a>
                     <a href="/menu" className="text-sm font-medium hover:text-bamboo transition-colors">Меню</a>
                     <a href="/music" className="text-sm font-medium hover:text-bamboo transition-colors">Музика</a>
-                    <a href="/faq" className="text-sm font-medium hover:text-bamboo transition-colors">FAQ</a>
-                    <a href="/promos" className="text-sm font-medium hover:text-bamboo transition-colors">Акції</a>
+                    <a href="/events" className="text-sm font-medium hover:text-bamboo transition-colors">Афіша</a>
                   </div>
                   
                   <div className="flex items-center gap-4">
-                    {/* Language Selector */}
-                    <div className="flex items-center gap-1 p-1 bg-panel rounded-lg border border-subtle">
-                      <button className="px-3 py-1 text-xs font-medium bg-bamboo text-black rounded-md">UA</button>
-                      <button className="px-3 py-1 text-xs font-medium text-muted hover:text-white transition-colors rounded-md">RU</button>
-                    </div>
-                    
                     {/* Contact button */}
                     <a href="tel:+380123456789" className="btn btn-ghost text-xs">
                       📞 Контакти
@@ -59,21 +52,23 @@ export default function RootLayout({
                     
                     {/* Auth */}
                     <AuthButton />
+                    
+                    {/* Burger Menu */}
+                    <BurgerMenu />
                   </div>
                 </nav>
 
-                {/* Mobile menu button */}
-                <button className="lg:hidden p-2 rounded-xl bg-panel border border-subtle">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  </svg>
-                </button>
+                {/* Mobile Actions */}
+                <div className="lg:hidden flex items-center gap-2">
+                  <AuthButton />
+                  <BurgerMenu />
+                </div>
               </div>
             </div>
           </header>
 
-          {/* Mobile Navigation */}
-          <MobileNav />
+          {/* Mobile Navigation - Hidden as we moved to burger */}
+          <div className="hidden"><MobileNav /></div>
           
           {/* Main Content */}
           <main className="px-4 py-6 max-w-7xl mx-auto pb-32 lg:pb-8">
