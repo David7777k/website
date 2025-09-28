@@ -1,20 +1,70 @@
-import React from 'react'
+'use client'
 
-export const metadata = {
-  title: 'Адмін панель | PANDA Hookah',
-  description: 'Панель адміністратора'
+import React, { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+
+interface AdminStats {
+  todayVisits: number
+  weekVisits: number
+  monthRevenue: number
+  activeUsers: number
+  pendingMusicOrders: number
+  todayWheelSpins: number
+  activeCoupons: number
+  totalUsers: number
+  highRiskUsers: number
+}
+
+interface Activity {
+  id: string
+  type: string
+  message: string
+  user: string
+  time: string
+}
+
+interface ChartData {
+  date: string
+  visits: number
+  spins: number
+  revenue: number
 }
 
 export default function AdminPage() {
-  // Mock stats data
-  const stats = {
-    todayVisits: 23,
-    weekVisits: 167,
-    monthRevenue: 45600,
-    activeUsers: 1234,
-    pendingOrders: 5,
-    wheelSpins: 89,
-    activeBonuses: 156
+  const { data: session } = useSession()
+  const [stats, setStats] = useState<AdminStats>({
+    todayVisits: 0,
+    weekVisits: 0,
+    monthRevenue: 0,
+    activeUsers: 0,
+    pendingMusicOrders: 0,
+    todayWheelSpins: 0,
+    activeCoupons: 0,
+    totalUsers: 0,
+    highRiskUsers: 0
+  })
+  const [recentActivity, setRecentActivity] = useState<Activity[]>([])
+  const [chartData, setChartData] = useState<ChartData[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchStats()
+  }, [])
+
+  const fetchStats = async () => {
+    try {
+      const response = await fetch('/api/admin/stats')
+      if (response.ok) {
+        const data = await response.json()
+        setStats(data.stats)
+        setRecentActivity(data.recentActivity)
+        setChartData(data.chartData)
+      }
+    } catch (error) {
+      console.error('Error fetching stats:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const recentActivity = [
