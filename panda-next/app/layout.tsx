@@ -34,8 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <nav className="hidden lg:flex items-center gap-8">
                 <div className="flex items-center gap-6">
                   <a href="/" className="text-sm font-medium hover:text-bamboo transition-colors">Головна</a>
-                  <a href="/events" className="text-sm font-medium hover:text-bamboo transition-colors">Події</a>
+                  <a href="/events" className="text-sm font-medium hover:text-bamboo transition-colors">Афіша</a>
                   <a href="/menu" className="text-sm font-medium hover:text-bamboo transition-colors">Меню</a>
+                  <a href="/music" className="text-sm font-medium hover:text-bamboo transition-colors">Музика</a>
                   <a href="/faq" className="text-sm font-medium hover:text-bamboo transition-colors">FAQ</a>
                   <a href="/promos" className="text-sm font-medium hover:text-bamboo transition-colors">Акції</a>
                 </div>
@@ -71,11 +72,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MobileNav />
         
         {/* Main Content */}
-        <main className="px-4 py-6 max-w-7xl mx-auto pb-24 lg:pb-8">
+        <main className="px-4 py-6 max-w-7xl mx-auto pb-32 lg:pb-8">
           {children}
         </main>
 
-        {/* Bottom Navigation (Mobile) */}
+        {/* Bottom Navigation (Mobile) + Floating Actions */}
         <BottomNav />
       </body>
     </html>
