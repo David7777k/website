@@ -67,13 +67,6 @@ export default function AdminPage() {
     }
   }
 
-  const recentActivity = [
-    { id: 1, type: 'visit', message: 'Новий візит підтверджено', user: 'Олексій П.', time: '2 хв тому' },
-    { id: 2, type: 'wheel', message: 'Колесо фортуни прокручено', user: 'Марія К.', time: '5 хв тому' },
-    { id: 3, type: 'music', message: 'Замовлено трек', user: 'Андрій С.', time: '8 хв тому' },
-    { id: 4, type: 'bonus', message: 'Використано промокод', user: 'Вікторія Л.', time: '12 хв тому' }
-  ]
-
   const quickActions = [
     { title: 'Користувачі', icon: '👥', href: '/admin/users', count: stats.totalUsers, urgent: stats.highRiskUsers > 0 },
     { title: 'Risk-доска', icon: '🚨', href: '/admin/users/risk-board', count: stats.highRiskUsers, urgent: stats.highRiskUsers > 5 },
