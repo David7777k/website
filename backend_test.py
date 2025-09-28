@@ -379,6 +379,8 @@ class PandaAPITester:
         self.test_admin_settings_api()
         self.test_admin_users_api()
         self.test_admin_promos_api()
+        self.test_user_detail_api()
+        self.test_public_endpoints()
         self.test_database_schema_validation()
         self.test_api_error_handling()
         self.test_api_response_formats()
