@@ -137,20 +137,17 @@ frontend:
         agent: "main"
         comment: "Создана система глобальных настроек с SettingsManager классом. API поддерживает категоризацию настроек (general, wheel, music, referrals, bonuses, limits), CRUD операции, и автоматическую инициализацию дефолтных значений."
 
-  - task: "Enhanced Bottom Navigation"
+  - task: "Admin Settings Interface"
     implemented: true
     working: true
-    file: "/app/panda-next/app/components/BottomNav.tsx"
+    file: "/app/panda-next/app/admin/settings/page.tsx"
     stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
-        comment: "Создана новая мобильная навигация с активными ссылками и плавающими action buttons (колесо и чаевые)."
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: Bottom navigation working perfectly in mobile view. Found 4 navigation items (Home, Menu, Music, Profile). Floating action buttons (wheel 🎡 and tips ❤️) properly positioned bottom-right and fully visible. Mobile responsiveness excellent."
+        comment: "Создан интерфейс управления настройками с категориями, live-редактированием, change tracking, batch-сохранением. Поддерживает boolean и numeric типы настроек с автоматическим определением типа."
 
   - task: "Wheel and Tips Modal Functionality"
     implemented: true
