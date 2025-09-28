@@ -187,33 +187,36 @@ export default function AdminPage() {
             </div>
           </div>
         </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{stats.wheelSpins}</div>
-          <div className="text-sm text-muted">Колесо/тиждень</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{stats.activeBonuses}</div>
-          <div className="text-sm text-muted">Активні бонуси</div>
-        </div>
       </div>
 
       {/* Quick Actions */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-bold">Швидкі дії</h2>
+      <section className="space-y-6">
+        <h2 className="text-2xl font-bold text-white">⚡ Швидкі дії</h2>
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {quickActions.map((action, index) => (
-            <a key={index} href={action.href} className="card-interactive group">
+            <a 
+              key={index} 
+              href={action.href} 
+              className={`bg-gray-800 rounded-2xl p-6 border transition-all hover:scale-105 hover:shadow-xl group ${
+                action.urgent ? 'border-red-500 bg-red-500/10' : 'border-gray-700 hover:border-green-500'
+              }`}
+            >
               <div className="text-center space-y-3">
-                <div className="w-16 h-16 rounded-3xl bg-bamboo/20 mx-auto flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center text-3xl transition-transform group-hover:scale-110 ${
+                  action.urgent ? 'bg-red-600' : 'bg-green-600'
+                }`}>
                   {action.icon}
                 </div>
                 <div>
-                  <h3 className="font-semibold group-hover:text-bamboo transition-colors">
+                  <h3 className="font-semibold text-white group-hover:text-green-400 transition-colors">
                     {action.title}
                   </h3>
                   {action.count !== null && (
-                    <p className="text-sm text-bamboo font-medium">{action.count}</p>
+                    <p className={`text-sm font-medium ${action.urgent ? 'text-red-400' : 'text-green-400'}`}>
+                      {action.count}
+                      {action.urgent && action.count > 0 && <span className="ml-1">⚠️</span>}
+                    </p>
                   )}
                 </div>
               </div>
