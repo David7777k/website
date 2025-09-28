@@ -1,6 +1,5 @@
 "use client"
 import React, { useState, useEffect } from 'react'
-import { useSession } from 'next-auth/react'
 
 interface WheelModalProps {
   open: boolean
@@ -8,11 +7,13 @@ interface WheelModalProps {
 }
 
 export default function WheelModal({ open, onClose }: WheelModalProps) {
-  const { data: session } = useSession()
   const [spinning, setSpinning] = useState(false)
   const [canSpin, setCanSpin] = useState(true)
   const [nextSpinDate, setNextSpinDate] = useState<Date | null>(null)
   const [prize, setPrize] = useState<string | null>(null)
+
+  // Mock user session - replace with real auth later
+  const mockUser = { name: 'Demo User', authenticated: true }
 
   const prizes = [
     { text: "Знижка 5%\nна кальян", color: "#00A86B", probability: 30 },
@@ -23,7 +24,7 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
   ]
 
   const handleSpin = async () => {
-    if (!session) {
+    if (!mockUser.authenticated) {
       alert('Потрібно увійти в аккаунт для участі в грі!')
       return
     }
@@ -128,7 +129,7 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
           </div>
 
           {/* Status */}
-          {!session ? (
+          {!mockUser.authenticated ? (
             <div className="text-center p-4 bg-accent/20 rounded-2xl">
               <p className="text-accent font-semibold mb-3">Увійдіть для участі в грі</p>
               <button className="btn btn-primary">
