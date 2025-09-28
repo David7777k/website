@@ -120,6 +120,9 @@ frontend:
       - working: true
         agent: "main"
         comment: "Полностью переработаны глобальные стили в стиле панды с новыми эффектами, анимациями и цветовыми переменными."
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Design system working excellently. Beautiful dark theme with bamboo green accents, smooth animations, and responsive design. All visual elements render perfectly."
 
   - task: "Updated Navigation and Layout"
     implemented: true
@@ -150,6 +153,30 @@ frontend:
       - working: true
         agent: "testing"
         comment: "✅ TESTED: Bottom navigation working perfectly in mobile view. Found 4 navigation items (Home, Menu, Music, Profile). Floating action buttons (wheel 🎡 and tips ❤️) properly positioned bottom-right and fully visible. Mobile responsiveness excellent."
+
+  - task: "Wheel and Tips Modal Functionality"
+    implemented: true
+    working: false
+    file: "/app/panda-next/app/components/WheelModal.tsx, /app/panda-next/app/components/TipsModal.tsx"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL ISSUE: Wheel and Tips modals not opening when floating buttons are clicked. Buttons are visible and clickable, but modals fail to appear. Root cause appears to be NextAuth session errors (502 status codes) preventing modal state management. Authentication integration needs fixing."
+
+  - task: "Homepage Quick Actions Section"
+    implemented: true
+    working: true
+    file: "/app/panda-next/app/page.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Homepage 'Швидкі дії' (Quick Actions) section working perfectly. Contains booking, menu, wheel of fortune, and music options. All cards properly styled and responsive."
 
   - task: "User Profile Page"
     implemented: true
