@@ -40,27 +40,30 @@ export default function BottomNav() {
         </div>
       </div>
 
-      {/* Floating Action Buttons - Right Bottom */}
+      {/* Floating Action Buttons - Right Bottom (исправлено: только одна кнопка для чаевых) */}
       <div className="fixed bottom-24 right-4 lg:bottom-6 z-30 flex flex-col gap-3">
-        {/* Tips Button */}
+        {/* Tips Button - единственная кнопка для чаевых */}
         <button 
           onClick={() => setTipsModalOpen(true)}
-          className="w-14 h-14 rounded-2xl bg-panel border border-subtle text-accent text-xl shadow-lg hover:scale-105 transition-all duration-300 group"
+          className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-red-500 text-white text-xl shadow-lg hover:scale-105 transition-all duration-300 group"
         >
-          ❤️
+          💰
           {/* Tooltip */}
           <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-panel border border-subtle rounded-xl text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-            Подякувати кальянщику
+            Чайові майстру
             <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-l-4 border-l-panel border-y-4 border-y-transparent"></div>
           </div>
         </button>
 
-        {/* Main Wheel Button */}
+        {/* Main Wheel Button - увеличенная и красивая */}
         <button 
           onClick={() => setWheelModalOpen(true)}
-          className="w-16 h-16 rounded-2xl bg-gradient-to-br from-bamboo to-bamboo-light text-black text-2xl shadow-2xl hover:scale-105 transition-all duration-300 group"
+          className="w-18 h-18 rounded-3xl bg-gradient-to-br from-bamboo via-bamboo-light to-green-400 text-black text-3xl shadow-2xl hover:scale-110 transition-all duration-300 group relative animate-pulse-slow"
         >
-          <span className="group-hover:animate-spin transition-transform duration-500">🎡</span>
+          <span className="group-hover:animate-spin transition-transform duration-1000">🎰</span>
+          
+          {/* Glow effect */}
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-bamboo to-bamboo-light opacity-30 blur-xl animate-pulse"></div>
           
           {/* Tooltip */}
           <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-panel border border-subtle rounded-xl text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
