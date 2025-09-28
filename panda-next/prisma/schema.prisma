@@ -7,22 +7,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// NextAuth schema
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
 model User {
-  id                        Int       @id @default(autoincrement())
+  id                        String    @id @default(cuid())
+  name                      String?
+  email                     String?   @unique
+  emailVerified             DateTime?
+  image                     String?
   phone                     String?   @unique
   oauth_id                  String?   @unique
-  name                      String?
   birthdate                 DateTime?
+  role                      String    @default("guest") // guest, staff, admin
   created_at                DateTime  @default(now())
   first_visit_confirmed_at  DateTime?
+  
+  // Relations
+  accounts                  Account[]
+  sessions                  Session[]
   wheel_spins               WheelSpin[]
   coupons                   Coupon[]
   music_orders              MusicOrder[]
   referrals_sent            Referral[] @relation("referrer")
   referrals_received        Referral[] @relation("referee")
   tips                      Tip[]      @relation("tipper")
+  visits                    Visit[]
 }
 
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// App-specific models
 model Event {
   id         Int      @id @default(autoincrement())
   title      String
@@ -37,7 +83,7 @@ model Event {
 model WheelSpin {
   id              Int      @id @default(autoincrement())
   user            User     @relation(fields: [user_id], references: [id])
-  user_id         Int
+  user_id         String
   prize           String
   spun_at         DateTime @default(now())
   next_allowed_at DateTime
@@ -48,7 +94,7 @@ model WheelSpin {
 model Coupon {
   id         Int      @id @default(autoincrement())
   user       User     @relation(fields: [user_id], references: [id])
-  user_id    Int
+  user_id    String
   type       String
   value_pct  Int?
   kind       String?
@@ -61,7 +107,7 @@ model Coupon {
 model MusicOrder {
   id          Int      @id @default(autoincrement())
   user        User     @relation(fields: [user_id], references: [id])
-  user_id     Int
+  user_id     String
   title       String
   note        String?
   paid_amount Int
@@ -73,9 +119,9 @@ model MusicOrder {
 model Referral {
   id                    Int      @id @default(autoincrement())
   referrer              User     @relation("referrer", fields: [referrer_id], references: [id])
-  referrer_id           Int
+  referrer_id           String
   referee               User?    @relation("referee", fields: [referee_id], references: [id])
-  referee_id            Int?
+  referee_id            String?
   status                String   @default("pending")
   created_at            DateTime @default(now())
   confirmed_at          DateTime?
@@ -101,7 +147,7 @@ model Tip {
   staff      Staff    @relation(fields: [staff_id], references: [id])
   staff_id   Int
   user       User?    @relation("tipper", fields: [user_id], references: [id])
-  user_id    Int?
+  user_id    String?
   amount     Int
   message    String?
   created_at DateTime @default(now())
@@ -121,5 +167,19 @@ model Faq {
   question String
   answer   String
   order    Int    @default(0)
+}
+
+model Visit {
+  id            Int      @id @default(autoincrement())
+  user          User     @relation(fields: [user_id], references: [id])
+  user_id       String
+  visit_code    String   @unique
+  status        String   @default("pending") // pending, confirmed, expired
+  bill_amount   Int?
+  bill_number   String?
+  staff_name    String?
+  confirmed_at  DateTime?
+  expires_at    DateTime
+  created_at    DateTime @default(now())
 }
 
