@@ -113,20 +113,17 @@ user_problem_statement: |
   - API интеграции: Google Maps, Spotify для джукбокса, прямые переводы на карту для чаевых
 
 frontend:
-  - task: "Enhanced Design System and Global Styles"
+  - task: "Enhanced Admin Panel with Real-time Stats API"
     implemented: true
     working: true
-    file: "/app/panda-next/app/globals.css"
+    file: "/app/panda-next/app/admin/page.tsx, /app/panda-next/app/api/admin/stats/route.ts"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
-        comment: "Полностью переработаны глобальные стили в стиле панды с новыми эффектами, анимациями и цветовыми переменными."
-      - working: true
-        agent: "testing"
-        comment: "✅ TESTED: Design system working excellently. Beautiful dark theme with bamboo green accents, smooth animations, and responsive design. All visual elements render perfectly."
+        comment: "Создана расширенная админ панель с реальными данными из БД: статистика визитов, пользователей, доходов, high-risk юзеров. API эндпоинт /api/admin/stats возвращает актуальные метрики."
 
   - task: "Updated Navigation and Layout"
     implemented: true
