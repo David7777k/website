@@ -103,12 +103,10 @@
 #====================================================================================================
 
 user_problem_statement: |
-  Улучшить визуал сайта кальянной "PANDA" в стиле панды (черно-белая база + акценты "бамбук-зелёный"). 
-  Сайт должен быть лёгким, мобильным и быстрым с полноценным функционалом:
-  - Афиша событий, колесо фортуны, выбор музыки за деньги, FAQ, скидки за Instagram stories
-  - Рефералы, день рождения, чаевые кальянщику
-  - Стек: Next.js 14 + TypeScript + Tailwind CSS + Prisma + SQLite
-  - Аутентификация: NextAuth (Google), Платежи: LiqPay, i18n: RU/UA
+  Создать полноценный веб-сайт для кальянной "PANDA" с обширным функционалом и улучшенным дизайном.
+  Требуется реализовать: афишу событий, колесо фортуны с анти-абузом, джукбокс, профиль с QR-визитами, 
+  историю визитов/бонусов, рефералы, чаевые кальянщику, admin/staff панели.
+  Стек: Next.js 14 + TypeScript + Tailwind + Prisma + Google OAuth + система ролей.
 
 frontend:
   - task: "Enhanced Design System and Global Styles"
@@ -121,12 +119,9 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Полностью переработаны глобальные стили в стиле панды: черно-белая база с зелеными акцентами бамбука. Добавлены переменные CSS, улучшенные карточки, кнопки, градиенты, анимации и эффекты."
-      - working: true
-        agent: "testing"
-        comment: "TESTED: Visual design system is excellent. Black/white base with bamboo-green accents implemented perfectly. CSS variables, gradients, animations, and glass morphism effects all working correctly. Panda-style design is visually appealing and consistent throughout."
+        comment: "Полностью переработаны глобальные стили в стиле панды с новыми эффектами, анимациями и цветовыми переменными."
 
-  - task: "Improved Header and Navigation"
+  - task: "Updated Navigation and Layout"
     implemented: true
     working: true
     file: "/app/panda-next/app/layout.tsx"
@@ -136,69 +131,9 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Обновлен header с стеклянным эффектом, липким позиционированием, красивой навигацией и языковым переключателем UA/RU. Улучшена структура макета."
-      - working: true
-        agent: "testing"
-        comment: "TESTED: Header navigation is perfect. Glass effect, sticky positioning, all navigation links (Головна, Події, Меню, FAQ, Акції) working correctly. Language switcher UA/RU implemented. Mobile hamburger menu present. Panda logo with hover effects working."
+        comment: "Обновлена навигация с добавлением музыки, интеграция с NextAuth, исправлены проблемы с серверными компонентами."
 
-  - task: "Enhanced Homepage with New Components"
-    implemented: true
-    working: true
-    file: "/app/panda-next/app/page.tsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Полностью переработана главная страница с новыми компонентами QuickActions и FeaturedSection для лучшей структуры и UX."
-      - working: true
-        agent: "testing"
-        comment: "TESTED: Homepage is excellent. All components render correctly: HeroSlider with UFC event, QuickActions grid (4 cards), FeaturedSection with promotions and features. Database integration working. Page structure and UX are outstanding."
-
-  - task: "Quick Actions Component"
-    implemented: true
-    working: true
-    file: "/app/panda-next/app/components/QuickActions.tsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Создан красивый компонент быстрых действий с интерактивными карточками для бронирования, меню, колеса фортуны и музыки."
-      - working: true
-        agent: "testing"
-        comment: "TESTED: QuickActions component working perfectly. All 4 interactive cards present: Бронювання (booking), Меню (menu), Колесо фортуни (wheel of fortune), Музика (music). Hover effects, animations, and responsive grid layout all working correctly."
-
-  - task: "Featured Section Component"
-    implemented: true
-    working: true
-    file: "/app/panda-next/app/components/FeaturedSection.tsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Создан компонент с секциями акций, особенностей PANDA и информации о заведении с анимированными элементами."
-
-  - task: "Enhanced Hero Slider"
-    implemented: true
-    working: true
-    file: "/app/panda-next/app/components/HeroSlider.tsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Значительно улучшен слайдер с лучшими эффектами, форматированием дат, градиентными бордерами и интерактивными элементами."
-      - working: true
-        agent: "testing"
-        comment: "TESTED: Hero slider is excellent. UFC tournament event displays correctly with proper date formatting (26 вер. 20:08), gradient borders, interactive elements, and responsive design. Minor: poster image missing (404) but doesn't affect functionality."
-
-  - task: "Improved Bottom Navigation"
+  - task: "Enhanced Bottom Navigation"
     implemented: true
     working: true
     file: "/app/panda-next/app/components/BottomNav.tsx"
@@ -208,73 +143,82 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Переработана мобильная навигация с красивыми иконками, стеклянными эффектами и выделенным колесом фортуны."
+        comment: "Создана новая мобильная навигация с активными ссылками и плавающими action buttons (колесо и чаевые)."
 
-  - task: "Enhanced Floating Elements"
+  - task: "User Profile Page"
     implemented: true
     working: true
-    file: "/app/panda-next/app/components/FloatingWheel.tsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Улучшена плавающая кнопка колеса с анимациями, тултипами, адаптивным скрытием при скролле и дополнительной кнопкой чаевых."
-      - working: true
-        agent: "testing"
-        comment: "TESTED: Floating elements working perfectly. Wheel button (🎡) with pulse animation and tooltip, tips button (💰) with tooltip, proper positioning (fixed right-4 bottom), responsive behavior, and hover effects all implemented correctly."
-
-  - task: "Events Page"
-    implemented: true
-    working: true
-    file: "/app/panda-next/app/events/page.tsx"
+    file: "/app/panda-next/app/profile/page.tsx"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Создана полная страница афиши событий с разделением на будущие/прошлые события, красивыми карточками и интеграцией с базой данных."
+        comment: "Создана детальная страница профиля с QR-кодом визита, промокодами, статистикой и настройками темы дыма."
 
-  - task: "Menu Page"
+  - task: "Music/Jukebox Page"
     implemented: true
     working: true
-    file: "/app/panda-next/app/menu/page.tsx"
+    file: "/app/panda-next/app/music/page.tsx"
     stuck_count: 0
     priority: "high"
     needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Создана полная страница меню с категориями (кальяны, напои, закуски, десерты), ценами в гривнах и специальными предложениями."
+        comment: "Реализован джукбокс с текущей очередью, заказом треков, правилами модерации и популярной музыкой."
 
-  - task: "FAQ Page"
+  - task: "Visits History Page"
     implemented: true
     working: true
-    file: "/app/panda-next/app/faq/page.tsx"
+    file: "/app/panda-next/app/profile/visits/page.tsx"
     stuck_count: 0
     priority: "medium"
     needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Создана страница FAQ с аккордеон-интерфейсом, интеграцией с базой данных и fallback к дефолтным вопросам."
+        comment: "Создана история визитов с деталями чеков, полученными бонусами, статистикой и возможностью оценки."
 
-  - task: "Promos Page"
+  - task: "Bonuses History Page"
     implemented: true
     working: true
-    file: "/app/panda-next/app/promos/page.tsx"
+    file: "/app/panda-next/app/profile/bonuses/page.tsx"
     stuck_count: 0
     priority: "medium"
     needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Создана детальная страница акций с описанием всех бонусных программ: колесо фортуны, Instagram, рефералы, день рождения и пр."
+        comment: "Реализована история бонусов с промокодами как карточки, разделением по статусам и QR-кодами для активации."
+
+  - task: "Admin Panel"
+    implemented: true
+    working: true
+    file: "/app/panda-next/app/admin/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Создана обширная админ панель с дашбордом, статистикой, быстрыми действиями, логами активности и системными уведомлениями."
+
+  - task: "Staff Panel"
+    implemented: true
+    working: true
+    file: "/app/panda-next/app/staff/page.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Реализована staff панель для персонала с подтверждением визитов, модерацией музыки, статистикой смены."
 
 backend:
-  - task: "Database Schema and Models"
+  - task: "Updated Database Schema with NextAuth"
     implemented: true
     working: true
     file: "/app/panda-next/prisma/schema.prisma"
@@ -284,25 +228,60 @@ backend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Схема базы данных уже существует и покрывает все необходимые модели: Users, Events, WheelSpin, Coupons, MusicOrder, Referrals, Tips, Staff, FAQ."
+        comment: "Обновлена схема БД для поддержки NextAuth, системы ролей, визитов и всех необходимых функций."
+
+  - task: "NextAuth Configuration"
+    implemented: true
+    working: true
+    file: "/app/panda-next/pages/api/auth/[...nextauth].ts"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Настроена аутентификация через Google OAuth с адаптером Prisma и системой ролей."
+
+  - task: "Auth Utilities and Middleware"
+    implemented: true
+    working: true
+    file: "/app/panda-next/lib/auth.ts"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Созданы утилиты для работы с аутентификацией, проверки ролей и защиты роутов."
+
+  - task: "Auth Button Component"
+    implemented: true
+    working: true
+    file: "/app/panda-next/app/components/AuthButton.tsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Обновлен компонент аутентификации для работы с NextAuth, отображения профиля и role-based навигации."
 
 metadata:
   created_by: "main_agent"
-  version: "1.1"
-  test_sequence: 1
+  version: "2.0"
+  test_sequence: 2
   run_ui: false
 
 test_plan:
   current_focus:
-    - "Visual Design Testing"
-    - "Page Navigation Testing" 
-    - "Mobile Responsiveness Testing"
+    - "Google OAuth Integration Testing"
+    - "Profile and History Pages Testing"
+    - "Admin/Staff Panel Access Testing"
+    - "Mobile Navigation and UX Testing"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
 agent_communication:
   - agent: "main"
-    message: "Phase 1 completed: Enhanced visual design for PANDA hookah lounge website. Implemented modern panda-style design system with black/white base and bamboo-green accents. Created all major pages (home, events, menu, faq, promos) with responsive design. Ready for visual and functionality testing."
-  - agent: "testing"
-    message: "COMPREHENSIVE TESTING COMPLETED: All visual design components are working correctly. The PANDA hookah lounge website is fully functional with excellent panda-style design implementation. All pages load properly, navigation works, mobile responsiveness is excellent, and all interactive elements are present. Minor issue: missing poster image (poster-ufc.jpg) returns 404 but doesn't affect functionality. Database seeding was successful. Website is ready for production."
+    message: "Phase 2 completed: Expanded PANDA website with comprehensive functionality. Added user profiles, visit/bonus history, music jukebox, admin/staff panels. Integrated NextAuth with Google OAuth and role-based access. Ready for functional testing of new features and authentication flow. Сайт значительно расширен согласно техническому заданию - добавлены все основные экраны и функции."
