@@ -47,6 +47,13 @@ model User {
   role                      String    @default("guest") // guest, staff, admin
   created_at                DateTime  @default(now())
   first_visit_confirmed_at  DateTime?
+  last_login                DateTime?
+  is_blocked                Boolean   @default(false)
+  smoke_theme_enabled       Boolean   @default(false)
+  risk_score                Int       @default(0)
+  instagram_verified        Boolean   @default(false)
+  birth_bonus_claimed       Boolean   @default(false)
+  referral_code             String?   @unique
   
   // Relations
   accounts                  Account[]
@@ -58,6 +65,8 @@ model User {
   referrals_received        Referral[] @relation("referee")
   tips                      Tip[]      @relation("tipper")
   visits                    Visit[]
+  ratings                   StaffRating[]
+  instagram_stories         InstagramStory[]
 }
 
 model VerificationToken {
