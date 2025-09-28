@@ -318,11 +318,14 @@ backend:
     file: "/app/panda-next/prisma/schema.prisma"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Расширена схема БД новыми моделями: PromoCode (промокоды с источниками и лимитами), SystemSettings (глобальные настройки), StaffRating (оценки персонала), InstagramStory (верификация сторис), MenuItem (меню с лайками), AdminLog (логи действий админов), Notification (уведомления), WheelPrize (призы колеса). Добавлены новые поля в User (risk_score, smoke_theme_enabled, referral_code)."
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Database schema validation successful. All models properly defined with correct relationships. App initialization creates default data successfully. Schema supports all required functionality for admin panel, user management, promo codes, and system settings."
 
   - task: "Promo Code Management API"
     implemented: true
@@ -330,11 +333,14 @@ backend:
     file: "/app/panda-next/app/api/admin/promos/route.ts"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Создан API для управления промокодами с поддержкой: массовое создание промокодов, лимиты для staff (2 промокода/неделю), фильтрация по статусам (active, expired, disabled, used_up), логирование использования, QR-генерация для активации."
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Promo code API fully functional. Authentication properly enforced (401 for unauthorized). Supports GET with filtering (page, limit, search, status, source), POST for single/multiple promo creation. Staff weekly limits implemented. All endpoints return proper JSON responses."
 
   - task: "App Initialization System"
     implemented: true
@@ -342,11 +348,29 @@ backend:
     file: "/app/panda-next/lib/init.ts, /app/panda-next/app/api/init/route.ts"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Система инициализации приложения с созданием дефолтных данных: призы колеса фортуны, сотрудники с номерами карт для чаевых, элементы меню, глобальные настройки. Успешно выполнена инициализация БД."
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: App initialization working perfectly. GET /api/init returns proper info, POST /api/init successfully initializes app with default data. Database seeding completed successfully with staff, events, FAQs, demo users, and coupons."
+
+  - task: "Authentication System Bug Fix"
+    implemented: true
+    working: true
+    file: "/app/panda-next/lib/auth.ts"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "❌ CRITICAL BUG FOUND: Missing getUserFromRequest function in auth.ts causing 500 errors on wheel, music, and staff endpoints. Function was imported but not exported."
+      - working: true
+        agent: "testing"
+        comment: "✅ FIXED: Added missing getUserFromRequest function to auth.ts. All endpoints now properly return 401 for unauthorized requests instead of 500 errors. Authentication system fully functional."
 
 agent_communication:
   - agent: "main"
