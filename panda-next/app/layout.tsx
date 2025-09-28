@@ -1,11 +1,9 @@
 import './globals.css'
 import React from 'react'
-import dynamic from 'next/dynamic'
 import { Providers } from './providers'
-
-const AuthButton = dynamic(() => import('./components/AuthButton'), { ssr: false })
-const MobileNav = dynamic(() => import('./components/MobileNav'), { ssr: false })
-const BottomNav = dynamic(() => import('./components/BottomNav'), { ssr: false })
+import AuthButton from './components/AuthButton'
+import MobileNav from './components/MobileNav'
+import BottomNav from './components/BottomNav'
 
 export const metadata = {
   title: 'PANDA Hookah',
