@@ -203,6 +203,77 @@ class PandaAPITester:
         except Exception as e:
             self.log_test("Admin Promos API", False, f"Exception: {str(e)}")
     
+    def test_user_detail_api(self):
+        """Test /api/admin/users/[id] endpoint"""
+        print("\n=== Testing User Detail API ===")
+        
+        try:
+            # Test with a dummy user ID
+            test_user_id = "test-user-id"
+            
+            # Test GET without authentication
+            response = self.session.get(f"{self.base_url}/api/admin/users/{test_user_id}")
+            if response.status_code == 401:
+                self.log_test("User Detail GET - No Auth", True, "Correctly rejected unauthorized request")
+            else:
+                self.log_test("User Detail GET - No Auth", False, f"Expected 401, got {response.status_code}")
+                
+            # Test PUT without authentication
+            update_data = {
+                "name": "Updated Name",
+                "role": "guest",
+                "risk_score": 5
+            }
+            response = self.session.put(f"{self.base_url}/api/admin/users/{test_user_id}", json=update_data)
+            if response.status_code == 401:
+                self.log_test("User Detail PUT - No Auth", True, "Correctly rejected unauthorized update")
+            else:
+                self.log_test("User Detail PUT - No Auth", False, f"Expected 401, got {response.status_code}")
+                
+            # Test DELETE without authentication
+            response = self.session.delete(f"{self.base_url}/api/admin/users/{test_user_id}")
+            if response.status_code == 401:
+                self.log_test("User Detail DELETE - No Auth", True, "Correctly rejected unauthorized deletion")
+            else:
+                self.log_test("User Detail DELETE - No Auth", False, f"Expected 401, got {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("User Detail API", False, f"Exception: {str(e)}")
+    
+    def test_public_endpoints(self):
+        """Test public endpoints that don't require authentication"""
+        print("\n=== Testing Public Endpoints ===")
+        
+        try:
+            # Test wheel endpoint (requires auth but we can test the auth check)
+            response = self.session.post(f"{self.base_url}/api/wheel")
+            if response.status_code == 401:
+                self.log_test("Wheel Endpoint Auth", True, "Wheel endpoint properly requires authentication")
+            else:
+                self.log_test("Wheel Endpoint Auth", False, f"Expected 401, got {response.status_code}")
+                
+            # Test music endpoint (requires auth but we can test the auth check)
+            music_data = {
+                "title": "Test Song",
+                "note": "Test note",
+                "paid_amount": 50
+            }
+            response = self.session.post(f"{self.base_url}/api/music", json=music_data)
+            if response.status_code == 401:
+                self.log_test("Music Endpoint Auth", True, "Music endpoint properly requires authentication")
+            else:
+                self.log_test("Music Endpoint Auth", False, f"Expected 401, got {response.status_code}")
+                
+            # Test staff events endpoint
+            response = self.session.get(f"{self.base_url}/api/staff/events")
+            if response.status_code == 401:
+                self.log_test("Staff Events Auth", True, "Staff events endpoint properly requires authentication")
+            else:
+                self.log_test("Staff Events Auth", False, f"Expected 401, got {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("Public Endpoints", False, f"Exception: {str(e)}")
+    
     def test_database_schema_validation(self):
         """Test database schema by checking if the app can handle expected data structures"""
         print("\n=== Testing Database Schema Validation ===")
