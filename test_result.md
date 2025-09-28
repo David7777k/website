@@ -302,9 +302,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "NextAuth Integration and Modal Functionality"
-    - "Authentication Session Management"
-    - "Wheel and Tips Modal Opening Issues"
+    - "Enhanced Admin Panel with Real-time Stats API"
+    - "System Settings Management API"
+    - "Admin Settings Interface"
+    - "User Management System with Risk Board"
+    - "Promo Code Management API"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
