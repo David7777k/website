@@ -1,9 +1,13 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { usePathname } from 'next/navigation'
+import WheelModal from './WheelModal'
+import TipsModal from './TipsModal'
 
 export default function BottomNav() {
   const pathname = usePathname()
+  const [wheelModalOpen, setWheelModalOpen] = useState(false)
+  const [tipsModalOpen, setTipsModalOpen] = useState(false)
 
   const navItems = [
     { href: '/', icon: '🏠', label: 'Головна' },
@@ -39,7 +43,10 @@ export default function BottomNav() {
       {/* Floating Action Buttons - Right Bottom */}
       <div className="fixed bottom-24 right-4 lg:bottom-6 z-30 flex flex-col gap-3">
         {/* Tips Button */}
-        <button className="w-14 h-14 rounded-2xl bg-panel border border-subtle text-accent text-xl shadow-lg hover:scale-105 transition-all duration-300 group">
+        <button 
+          onClick={() => setTipsModalOpen(true)}
+          className="w-14 h-14 rounded-2xl bg-panel border border-subtle text-accent text-xl shadow-lg hover:scale-105 transition-all duration-300 group"
+        >
           ❤️
           {/* Tooltip */}
           <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-3 py-2 bg-panel border border-subtle rounded-xl text-white text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
@@ -49,7 +56,10 @@ export default function BottomNav() {
         </button>
 
         {/* Main Wheel Button */}
-        <button className="w-16 h-16 rounded-2xl bg-gradient-to-br from-bamboo to-bamboo-light text-black text-2xl shadow-2xl hover:scale-105 transition-all duration-300 group">
+        <button 
+          onClick={() => setWheelModalOpen(true)}
+          className="w-16 h-16 rounded-2xl bg-gradient-to-br from-bamboo to-bamboo-light text-black text-2xl shadow-2xl hover:scale-105 transition-all duration-300 group"
+        >
           <span className="group-hover:animate-spin transition-transform duration-500">🎡</span>
           
           {/* Tooltip */}
@@ -59,6 +69,10 @@ export default function BottomNav() {
           </div>
         </button>
       </div>
+
+      {/* Modals */}
+      <WheelModal open={wheelModalOpen} onClose={() => setWheelModalOpen(false)} />
+      <TipsModal open={tipsModalOpen} onClose={() => setTipsModalOpen(false)} />
     </>
   )
 }
