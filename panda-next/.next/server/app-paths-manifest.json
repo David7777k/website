@@ -1,7 +1,7 @@
 {
   "/api/init/route": "app/api/init/route.js",
-  "/api/admin/settings/route": "app/api/admin/settings/route.js",
   "/api/admin/stats/route": "app/api/admin/stats/route.js",
+  "/api/admin/settings/route": "app/api/admin/settings/route.js",
   "/api/admin/users/route": "app/api/admin/users/route.js",
   "/api/admin/promos/route": "app/api/admin/promos/route.js",
   "/api/admin/users/[id]/route": "app/api/admin/users/[id]/route.js",
