@@ -274,10 +274,9 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Google OAuth Integration Testing"
-    - "Profile and History Pages Testing"
-    - "Admin/Staff Panel Access Testing"
-    - "Mobile Navigation and UX Testing"
+    - "NextAuth Integration and Modal Functionality"
+    - "Authentication Session Management"
+    - "Wheel and Tips Modal Opening Issues"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
