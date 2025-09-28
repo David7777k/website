@@ -57,3 +57,25 @@ export function canAccessAdmin(role: string) {
 export function canAccessStaff(role: string) {
   return ['staff', 'admin'].includes(role)
 }
+
+// Helper function to get user from request (used by API routes)
+export async function getUserFromRequest(req: Request): Promise<User | null> {
+  try {
+    // For API routes, we need to get the session differently
+    // This is a simplified version - in production you'd want proper session handling
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.email) {
+      return null
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+    })
+
+    return user
+  } catch {
+    return null
+  }
+}
