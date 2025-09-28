@@ -1,5 +1,4 @@
 import React from 'react'
-import FloatingWheel from './components/FloatingWheel'
 import HeroSlider from './components/HeroSlider'
 import QuickActions from './components/QuickActions'
 import FeaturedSection from './components/FeaturedSection'
@@ -46,9 +45,6 @@ export default async function Home() {
 
       {/* Featured Sections */}
       <FeaturedSection />
-
-      {/* Floating Elements */}
-      <FloatingWheel />
     </div>
   )
 }
