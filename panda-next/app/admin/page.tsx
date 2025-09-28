@@ -75,14 +75,16 @@ export default function AdminPage() {
   ]
 
   const quickActions = [
-    { title: 'Користувачі', icon: '👥', href: '/admin/users', count: stats.activeUsers },
+    { title: 'Користувачі', icon: '👥', href: '/admin/users', count: stats.totalUsers, urgent: stats.highRiskUsers > 0 },
+    { title: 'Risk-доска', icon: '🚨', href: '/admin/users/risk-board', count: stats.highRiskUsers, urgent: stats.highRiskUsers > 5 },
     { title: 'Афіша подій', icon: '📅', href: '/admin/events', count: 3 },
     { title: 'Меню', icon: '🍽️', href: '/admin/menu', count: 42 },
-    { title: 'Музика', icon: '🎵', href: '/admin/music', count: stats.pendingOrders },
-    { title: 'Промокоди', icon: '🎟️', href: '/admin/promos', count: stats.activeBonuses },
+    { title: 'Музика', icon: '🎵', href: '/admin/music', count: stats.pendingMusicOrders, urgent: stats.pendingMusicOrders > 0 },
+    { title: 'Промокоди', icon: '🎟️', href: '/admin/promos', count: stats.activeCoupons },
     { title: 'Персонал', icon: '👷', href: '/admin/staff', count: 8 },
     { title: 'Аналітика', icon: '📊', href: '/admin/analytics', count: null },
-    { title: 'Налаштування', icon: '⚙️', href: '/admin/settings', count: null }
+    { title: 'Налаштування', icon: '⚙️', href: '/admin/settings', count: null },
+    { title: 'Логи', icon: '📝', href: '/admin/logs', count: null }
   ]
 
   const getActivityIcon = (type: string) => {
