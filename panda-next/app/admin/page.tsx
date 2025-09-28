@@ -127,26 +127,65 @@ export default function AdminPage() {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{stats.todayVisits}</div>
-          <div className="text-sm text-muted">Візити сьогодні</div>
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-green-600 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">✅</span>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.todayVisits}</p>
+              <p className="text-sm text-gray-400">Візити сьогодні</p>
+            </div>
+          </div>
         </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{stats.weekVisits}</div>
-          <div className="text-sm text-muted">Тиждень</div>
+        
+        <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">📈</span>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.weekVisits}</p>
+              <p className="text-sm text-gray-400">За тиждень</p>
+            </div>
+          </div>
         </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{stats.monthRevenue.toLocaleString()}₴</div>
-          <div className="text-sm text-muted">Дохід місяць</div>
+        
+        <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-yellow-600 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">💰</span>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.monthRevenue.toLocaleString()}₴</p>
+              <p className="text-sm text-gray-400">Дохід місяць</p>
+            </div>
+          </div>
         </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{stats.activeUsers}</div>
-          <div className="text-sm text-muted">Активні юзери</div>
+        
+        <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">👥</span>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.activeUsers}</p>
+              <p className="text-sm text-gray-400">Активні юзери</p>
+            </div>
+          </div>
         </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-accent">{stats.pendingOrders}</div>
-          <div className="text-sm text-muted">Очікує музика</div>
+        
+        <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 bg-red-600 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">🚨</span>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">{stats.highRiskUsers}</p>
+              <p className="text-sm text-gray-400">Високий ризик</p>
+            </div>
+          </div>
         </div>
         <div className="card text-center">
           <div className="text-2xl font-bold text-bamboo">{stats.wheelSpins}</div>
