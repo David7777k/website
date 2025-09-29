@@ -218,20 +218,24 @@ class PandaAPITester:
             else:
                 self.log_test("Tips Staff API", False, f"Status: {response.status_code}")
                 
-            # Test POST /api/tips/send (requires authentication)
+            # Test POST /api/tips/send (allows anonymous tips)
             tip_data = {
-                "staff_id": "staff-1",
+                "staff_id": 1,
                 "amount": 100,
                 "message": "Great service!",
-                "anonymous": False
+                "anonymous": True
             }
             response = self.session.post(f"{self.base_url}/api/tips/send", json=tip_data)
-            if response.status_code == 401:
-                self.log_test("Tips Send Auth", True, "Correctly requires authentication for sending tips")
+            if response.status_code == 201:
+                data = response.json()
+                if data.get('success') and 'tip' in data and 'transfer_info' in data:
+                    self.log_test("Tips Send Anonymous", True, "Anonymous tip recording working correctly")
+                else:
+                    self.log_test("Tips Send Anonymous", False, "Missing required fields in tip response")
             elif response.status_code == 404:
-                self.log_test("Tips Send Auth", True, "Staff validation working (404 for non-existent staff)")
+                self.log_test("Tips Send Anonymous", True, "Staff validation working (404 for non-existent staff)")
             else:
-                self.log_test("Tips Send Auth", False, f"Expected 401 or 404, got {response.status_code}")
+                self.log_test("Tips Send Anonymous", False, f"Expected 201 or 404, got {response.status_code}")
                 
             # Test invalid tip amount
             invalid_tip_data = {
