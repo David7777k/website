@@ -205,7 +205,7 @@ class PandaAPITester:
                         if all(field in staff_member for field in required_fields):
                             # Check card number formatting (should be masked)
                             card_number = staff_member.get('card_number', '')
-                            if '*' in card_number or len(card_number) == 0:
+                            if '*' in card_number or card_number is None:
                                 self.log_test("Tips Staff API", True, f"Staff list with {len(staff_list)} members, card numbers properly masked")
                             else:
                                 self.log_test("Tips Staff API", False, "Card numbers not properly masked for security")
