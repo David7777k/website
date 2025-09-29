@@ -25,19 +25,92 @@ interface MusicOrder {
 }
 
 export default function MusicPage() {
-  // Mock data
-  const currentQueue = [
-    { id: 1, title: "Shape of You", artist: "Ed Sheeran", orderedBy: "Анна К.", timeLeft: "02:45" },
-    { id: 2, title: "Blinding Lights", artist: "The Weeknd", orderedBy: "Максим П.", timeLeft: "05:20" },
-    { id: 3, title: "Watermelon Sugar", artist: "Harry Styles", orderedBy: "Вікторія С.", timeLeft: "08:35" }
+  const { data: session } = useSession()
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResults, setSearchResults] = useState<SpotifyTrack[]>([])
+  const [trendingTracks, setTrendingTracks] = useState<SpotifyTrack[]>([])
+  const [loading, setLoading] = useState(false)
+  const [selectedTrack, setSelectedTrack] = useState<SpotifyTrack | null>(null)
+  const [orderAmount, setOrderAmount] = useState(50)
+
+  // Mock current queue
+  const currentQueue: MusicOrder[] = [
+    { id: 1, title: "Shape of You", artist: "Ed Sheeran", orderedBy: "Анна К.", timeLeft: "02:45", status: 'playing' },
+    { id: 2, title: "Blinding Lights", artist: "The Weeknd", orderedBy: "Максим П.", timeLeft: "05:20", status: 'queued' },
+    { id: 3, title: "Watermelon Sugar", artist: "Harry Styles", orderedBy: "Вікторія С.", timeLeft: "08:35", status: 'queued' }
   ]
 
-  const recentTracks = [
-    { title: "Levitating", artist: "Dua Lipa" },
-    { title: "Good 4 U", artist: "Olivia Rodrigo" },
-    { title: "Stay", artist: "The Kid LAROI & Justin Bieber" },
-    { title: "Heat Waves", artist: "Glass Animals" }
-  ]
+  useEffect(() => {
+    fetchTrendingTracks()
+  }, [])
+
+  const fetchTrendingTracks = async () => {
+    try {
+      const response = await fetch('/api/music/trending')
+      if (response.ok) {
+        const data = await response.json()
+        setTrendingTracks(data.tracks)
+      }
+    } catch (error) {
+      console.error('Error fetching trending tracks:', error)
+    }
+  }
+
+  const searchTracks = async () => {
+    if (!searchQuery.trim() || searchQuery.length < 2) return
+
+    setLoading(true)
+    try {
+      const response = await fetch(`/api/music/search?q=${encodeURIComponent(searchQuery)}&limit=10`)
+      if (response.ok) {
+        const data = await response.json()
+        setSearchResults(data.tracks)
+      }
+    } catch (error) {
+      console.error('Error searching tracks:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const orderTrack = async (track: SpotifyTrack) => {
+    if (!session) {
+      alert('Потрібно увійти в систему для замовлення музики')
+      return
+    }
+
+    try {
+      const response = await fetch('/api/music/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          track_id: track.id,
+          title: track.title,
+          artist: track.artist,
+          amount: orderAmount,
+          spotify_url: track.spotify_url
+        })
+      })
+
+      if (response.ok) {
+        alert(`Трек "${track.title}" замовлено за ${orderAmount}₴!`)
+        setSelectedTrack(null)
+      } else {
+        alert('Помилка при замовленні треку')
+      }
+    } catch (error) {
+      console.error('Error ordering track:', error)
+      alert('Помилка при замовленні треку')
+    }
+  }
+
+  const formatDuration = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, '0')}`
+  }
 
   return (
     <div className="space-y-6">
