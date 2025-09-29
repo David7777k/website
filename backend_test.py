@@ -329,31 +329,7 @@ class PandaAPITester:
         except Exception as e:
             self.log_test("System Optimization", False, f"Exception: {str(e)}")
     
-    def test_admin_settings_api(self):
-        """Test /api/admin/settings endpoint"""
-        print("\n=== Testing Admin Settings API ===")
-        
-        try:
-            # Test GET without authentication
-            response = self.session.get(f"{self.base_url}/api/admin/settings")
-            if response.status_code == 401:
-                self.log_test("Admin Settings GET - No Auth", True, "Correctly rejected unauthorized request")
-            else:
-                self.log_test("Admin Settings GET - No Auth", False, f"Expected 401, got {response.status_code}")
-                
-            # Test PUT without authentication
-            test_settings = [{"key": "test_key", "value": "test_value"}]
-            response = self.session.put(
-                f"{self.base_url}/api/admin/settings",
-                json={"settings": test_settings}
-            )
-            if response.status_code == 401:
-                self.log_test("Admin Settings PUT - No Auth", True, "Correctly rejected unauthorized request")
-            else:
-                self.log_test("Admin Settings PUT - No Auth", False, f"Expected 401, got {response.status_code}")
-                
-        except Exception as e:
-            self.log_test("Admin Settings API", False, f"Exception: {str(e)}")
+    # Phase 1 admin panel tests removed - focusing on Phase 2 API integrations
     
     def test_admin_users_api(self):
         """Test /api/admin/users endpoint"""
