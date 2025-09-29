@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import AdminHeader from '../components/admin/AdminHeader';
 import MenuManager from '../components/admin/MenuManager';
@@ -11,18 +11,10 @@ const AdminDashboard = () => {
   const { user } = useAuth();
 
   const tabs = [
-<<<<<<< HEAD
-    { id: 'overview', label: 'Огляд', icon: BarChart3 },
-    { id: 'menu', label: 'Меню', icon: Package },
-    { id: 'users', label: 'Користувачі', icon: Users },
-    { id: 'settings', label: 'Налаштування', icon: Settings }
-=======
-    { id: 'overview', label: 'Обзор', icon: BarChart3 },
-    { id: 'menu', label: 'Меню', icon: Package },
-    { id: 'users', label: 'Пользователи', icon: Users },
-    { id: 'settings', label: 'Настройки', icon: Settings }
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-  ];
+    { id: 'overview', label: 'РћРіР»СЏРґ', icon: BarChart3 },
+    { id: 'menu', label: 'РњРµРЅСЋ', icon: Package },
+    { id: 'users', label: 'РљРѕСЂРёСЃС‚СѓРІР°С‡С–', icon: Users },
+    { id: 'settings', label: 'РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ', icon: Settings }  ];
 
   const renderContent = () => {
     switch (activeTab) {
@@ -31,9 +23,9 @@ const AdminDashboard = () => {
       case 'menu':
         return <MenuManager />;
       case 'users':
-        return <div className="tab-content">Управление пользователями (в разработке)</div>;
+        return <div className="tab-content">РЈРїСЂР°РІР»РµРЅРёРµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРјРё (РІ СЂР°Р·СЂР°Р±РѕС‚РєРµ)</div>;
       case 'settings':
-        return <div className="tab-content">Настройки (в разработке)</div>;
+        return <div className="tab-content">РќР°СЃС‚СЂРѕР№РєРё (РІ СЂР°Р·СЂР°Р±РѕС‚РєРµ)</div>;
       default:
         return <StatsOverview />;
     }
@@ -52,12 +44,7 @@ const AdminDashboard = () => {
               </div>
               <div className="user-details">
                 <h3>{user?.username}</h3>
-<<<<<<< HEAD
-                <span>Адміністратор</span>
-=======
-                <span>Администратор</span>
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-              </div>
+                <span>РђРґРјС–РЅС–СЃС‚СЂР°С‚РѕСЂ</span>              </div>
             </div>
             
             <nav className="sidebar-nav">

@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -77,16 +77,10 @@ code {
 
 
 @layer base {
-<<<<<<< HEAD
   *, *::before, *::after {
     box-sizing: border-box;
-  }
-=======
-  * {
-    @apply border-border;
-    }
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-  body {
+  }  body {
     @apply bg-background text-foreground;
     }
 }
+

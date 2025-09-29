@@ -1,16 +1,10 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Heart, Star, Flame, Sparkles } from 'lucide-react';
 import './MenuCard.css';
-<<<<<<< HEAD
 import { useTranslation } from 'react-i18next';
 
 const MenuCard = ({ item, delay = 0 }) => {
-  const { t } = useTranslation();
-=======
-
-const MenuCard = ({ item, delay = 0 }) => {
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const { t } = useTranslation();  const [imageLoaded, setImageLoaded] = useState(false);
   const [liked, setLiked] = useState(false);
 
   const getBadgeIcon = (badge) => {
@@ -29,20 +23,11 @@ const MenuCard = ({ item, delay = 0 }) => {
   const getBadgeText = (badge) => {
     switch (badge) {
       case 'hit':
-<<<<<<< HEAD
         return t('badge_hit');
       case 'new':
         return t('badge_new');
       case 'popular':
-        return t('badge_popular');
-=======
-        return 'Хит';
-      case 'new':
-        return 'Новинка';
-      case 'popular':
-        return 'Популярное';
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-      default:
+        return t('badge_popular');      default:
         return badge;
     }
   };
@@ -77,12 +62,7 @@ const MenuCard = ({ item, delay = 0 }) => {
         <button 
           className={`like-btn ${liked ? 'liked' : ''}`}
           onClick={() => setLiked(!liked)}
-<<<<<<< HEAD
-          aria-label={t('add_to_favorites')}
-=======
-          aria-label="Добавить в избранное"
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-        >
+          aria-label={t('add_to_favorites')}        >
           <Heart size={20} fill={liked ? "currentColor" : "none"} />
         </button>
       </div>
@@ -90,27 +70,18 @@ const MenuCard = ({ item, delay = 0 }) => {
       <div className="card-content">
         <div className="card-header">
           <h3 className="card-title">{item.name}</h3>
-          <div className="card-price">{item.price} ₴</div>
+          <div className="card-price">{item.price} в‚ґ</div>
         </div>
         
         <p className="card-description">{item.description}</p>
         
         <div className="card-actions">
           <button className="btn btn-primary card-btn">
-<<<<<<< HEAD
             {t('order')}
           </button>
           <div className="card-availability">
             <div className={`availability-dot ${item.available ? 'available' : 'unavailable'}`}></div>
-            <span>{item.available ? t('available') : t('unavailable')}</span>
-=======
-            Заказать
-          </button>
-          <div className="card-availability">
-            <div className={`availability-dot ${item.available ? 'available' : 'unavailable'}`}></div>
-            <span>{item.available ? 'Доступно' : 'Недоступно'}</span>
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-          </div>
+            <span>{item.available ? t('available') : t('unavailable')}</span>          </div>
         </div>
       </div>
     </div>

@@ -1,16 +1,10 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+﻿import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
 
-<<<<<<< HEAD
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8000';
 const API = `${BACKEND_URL.replace(/\/$/, '')}/api`;
-=======
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -26,18 +20,12 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check if user is logged in on app load
     const token = localStorage.getItem('adminToken');
-<<<<<<< HEAD
     const storedUser = JSON.parse(localStorage.getItem('user')) || null;
     if (token) {
       verifyToken(token);
     } else if (storedUser) {
       setUser(storedUser);
-      setLoading(false);
-=======
-    if (token) {
-      verifyToken(token);
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-    } else {
+      setLoading(false);    } else {
       setLoading(false);
     }
   }, []);
@@ -47,7 +35,6 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.get(`${API}/admin/verify`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-<<<<<<< HEAD
       // Backend may return different shapes: { username, role } or a user object.
       const data = response?.data || {};
       const resolvedUser = data.user || {
@@ -63,7 +50,7 @@ export const AuthProvider = ({ children }) => {
         // Ensure token stored
         localStorage.setItem('adminToken', token);
       } else {
-        // Unexpected response — clear token
+        // Unexpected response вЂ” clear token
         localStorage.removeItem('adminToken');
         setUser(null);
       }
@@ -71,13 +58,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem('adminToken');
       // keep stored guest if exists
       const storedUser = JSON.parse(localStorage.getItem('user')) || null;
-      if (storedUser && storedUser.role === 'guest') setUser(storedUser);
-=======
-      setUser(response.data);
-    } catch (error) {
-      localStorage.removeItem('adminToken');
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-    } finally {
+      if (storedUser && storedUser.role === 'guest') setUser(storedUser);    } finally {
       setLoading(false);
     }
   };
@@ -88,7 +69,6 @@ export const AuthProvider = ({ children }) => {
         username,
         password
       });
-<<<<<<< HEAD
       // Backend returns { access_token, user } according to server implementation
       const data = response?.data || {};
       const token = data.access_token || data.token || data.accessToken || null;
@@ -120,32 +100,19 @@ export const AuthProvider = ({ children }) => {
       }
       return {
         success: false,
-        error: error.response?.data?.detail || 'Помилка входу'
-=======
-      
-      const { token, user } = response.data;
-      localStorage.setItem('adminToken', token);
-      setUser(user);
-      return { success: true };
-    } catch (error) {
-      return { 
-        success: false, 
-        error: error.response?.data?.detail || 'Ошибка входа' 
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-      };
+        error: error.response?.data?.detail || 'РџРѕРјРёР»РєР° РІС…РѕРґСѓ'      };
     }
   };
 
   const logout = () => {
     localStorage.removeItem('adminToken');
-<<<<<<< HEAD
     localStorage.removeItem('user');
     setUser(null);
   };
 
   // Allow setting a guest user for testing without auth
   const setGuest = () => {
-    const guest = { id: 'guest', name: 'Гість', role: 'guest' };
+    const guest = { id: 'guest', name: 'Р“С–СЃС‚СЊ', role: 'guest' };
     localStorage.setItem('user', JSON.stringify(guest));
     setUser(guest);
   };
@@ -165,23 +132,13 @@ export const AuthProvider = ({ children }) => {
       return { success: false, error: err.message };
     }
   };
-
-=======
-    setUser(null);
-  };
-
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   const value = {
     user,
     login,
     logout,
-<<<<<<< HEAD
     setGuest,
     signInWithGoogle,
-    isAdmin,
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-    loading
+    isAdmin,    loading
   };
 
   return (

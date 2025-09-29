@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
 
 * {
   margin: 0;
@@ -8,11 +8,8 @@
 
 :root {
   --primary-bg: #0a0a0a;
-<<<<<<< HEAD
   /* header height used by fixed header and page padding */
   --header-height: 80px;
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   --secondary-bg: #1a1a1a;
   --card-bg: rgba(26, 26, 26, 0.95);
   --card-border: rgba(255, 255, 255, 0.1);
@@ -28,13 +25,9 @@
   --shadow-small: 0 4px 20px rgba(0, 0, 0, 0.3);
   --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.4);
   --shadow-large: 0 16px 60px rgba(0, 0, 0, 0.5);
-<<<<<<< HEAD
   /* unified radius variables */
   --radius: 16px;
   --border-radius: var(--radius);
-=======
-  --border-radius: 16px;
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   --border-radius-small: 8px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -47,7 +40,6 @@ body {
   overflow-x: hidden;
 }
 
-<<<<<<< HEAD
 /* Mobile-first container */
 .container {
   width: 100%;
@@ -55,20 +47,13 @@ body {
   margin: 0 auto;
   padding: 16px;
 }
-
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 .App {
   min-height: 100vh;
   background: radial-gradient(ellipse at top, rgba(102, 126, 234, 0.1) 0%, transparent 70%),
               radial-gradient(ellipse at bottom right, rgba(255, 107, 107, 0.1) 0%, transparent 70%),
               var(--primary-bg);
-<<<<<<< HEAD
   /* Make room for the fixed header so content doesn't get covered */
-  padding-top: var(--header-height);
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-}
+  padding-top: var(--header-height);}
 
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
@@ -115,11 +100,7 @@ h3 {
   align-items: center;
   justify-content: center;
   gap: 8px;
-<<<<<<< HEAD
   padding: 10px 16px;
-=======
-  padding: 12px 24px;
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
   border-radius: var(--border-radius-small);
   font-weight: 600;
   text-decoration: none;
@@ -211,15 +192,12 @@ h3 {
   .grid-4,
   .grid-3,
   .grid-2 { grid-template-columns: 1fr; }
-<<<<<<< HEAD
   .btn { width: 100%; padding: 12px 16px; }
 
   /* slightly smaller header on small screens to keep content above the fold */
   :root {
     --header-height: 64px;
   }
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
 }
 
 /* Utility Classes */

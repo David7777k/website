@@ -1,143 +1,70 @@
-<<<<<<< HEAD
-# Начало работы с Create React App
+﻿# РќР°С‡Р°Р»Рѕ СЂР°Р±РѕС‚С‹ СЃ Create React App
 
-Этот проект был создан с помощью Create React App (https://github.com/facebook/create-react-app).
+Р­С‚РѕС‚ РїСЂРѕРµРєС‚ Р±С‹Р» СЃРѕР·РґР°РЅ СЃ РїРѕРјРѕС‰СЊСЋ Create React App (https://github.com/facebook/create-react-app).
 
-## Доступные команды
+## Р”РѕСЃС‚СѓРїРЅС‹Рµ РєРѕРјР°РЅРґС‹
 
-В каталоге проекта вы можете выполнить:
-
-### `npm start`
-
-Запускает приложение в режиме разработки.  
-Откройте [http://localhost:3000](http://localhost:3000), чтобы просмотреть его в браузере.
-
-Страница будет перезагружаться при внесении изменений.  
-В консоли вы также можете увидеть ошибки линтинга.
-
-### `npm test`
-
-Запускает тестовый раннер в интерактивном режиме наблюдения.  
-Подробнее см. раздел о [запуске тестов](https://facebook.github.io/create-react-app/docs/running-tests).
-
-### `npm run build`
-
-Собирает приложение для продакшна в папку `build`.  
-Правильно упаковывает React в режиме продакшна и оптимизирует сборку для лучшей производительности.
-
-Сборка минифицирована, а имена файлов содержат хэши.  
-Ваше приложение готово к деплою!
-
-См. раздел о [развёртывании](https://facebook.github.io/create-react-app/docs/deployment) для дополнительной информации.
-
-### `npm run eject`
-
-**Внимание: это односторонняя операция. После `eject` нельзя вернуться назад!**
-
-Если вам не подходят варианты настроек сборки и инструментов, вы можете выполнить `eject`. Эта команда удалит единую зависимость сборки из проекта.
-
-Вместо этого все файлы конфигурации и транзитивные зависимости (webpack, Babel, ESLint и т. п.) будут скопированы в ваш проект, чтобы вы могли полностью контролировать их. После этого остальные команды, кроме `eject`, продолжат работать, но будут ссылаться на скопированные скрипты, которые вы сможете изменять самостоятельно.
-
-Вам не обязательно выполнять `eject`. Набор функций по умолчанию подходит для небольших и средних проектов, и не нужно чувствовать обязаловку пользоваться `eject`. Однако мы понимаем, что инструмент не был бы полезен, если бы его нельзя было настроить, когда вы будете готовы.
-
-## Узнать больше
-
-Вы можете узнать больше в документации Create React App: https://facebook.github.io/create-react-app/docs/getting-started
-
-Чтобы изучить React, посетите документацию React: https://reactjs.org/.
-
-### Разделение кода
-
-Этот раздел перенесён сюда: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Анализ размера бандла
-
-Этот раздел перенесён сюда: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Создание прогрессивного веб-приложения
-
-Этот раздел перенесён сюда: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Расширенная конфигурация
-
-Этот раздел перенесён сюда: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Развёртывание
-
-Этот раздел перенесён сюда: https://facebook.github.io/create-react-app/docs/deployment
-
-### Ошибка `npm run build` при минификации
-
-Этот раздел перенесён сюда: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-=======
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
+Р’ РєР°С‚Р°Р»РѕРіРµ РїСЂРѕРµРєС‚Р° РІС‹ РјРѕР¶РµС‚Рµ РІС‹РїРѕР»РЅРёС‚СЊ:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Р—Р°РїСѓСЃРєР°РµС‚ РїСЂРёР»РѕР¶РµРЅРёРµ РІ СЂРµР¶РёРјРµ СЂР°Р·СЂР°Р±РѕС‚РєРё.  
+РћС‚РєСЂРѕР№С‚Рµ [http://localhost:3000](http://localhost:3000), С‡С‚РѕР±С‹ РїСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РµРіРѕ РІ Р±СЂР°СѓР·РµСЂРµ.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+РЎС‚СЂР°РЅРёС†Р° Р±СѓРґРµС‚ РїРµСЂРµР·Р°РіСЂСѓР¶Р°С‚СЊСЃСЏ РїСЂРё РІРЅРµСЃРµРЅРёРё РёР·РјРµРЅРµРЅРёР№.  
+Р’ РєРѕРЅСЃРѕР»Рё РІС‹ С‚Р°РєР¶Рµ РјРѕР¶РµС‚Рµ СѓРІРёРґРµС‚СЊ РѕС€РёР±РєРё Р»РёРЅС‚РёРЅРіР°.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Р—Р°РїСѓСЃРєР°РµС‚ С‚РµСЃС‚РѕРІС‹Р№ СЂР°РЅРЅРµСЂ РІ РёРЅС‚РµСЂР°РєС‚РёРІРЅРѕРј СЂРµР¶РёРјРµ РЅР°Р±Р»СЋРґРµРЅРёСЏ.  
+РџРѕРґСЂРѕР±РЅРµРµ СЃРј. СЂР°Р·РґРµР» Рѕ [Р·Р°РїСѓСЃРєРµ С‚РµСЃС‚РѕРІ](https://facebook.github.io/create-react-app/docs/running-tests).
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+РЎРѕР±РёСЂР°РµС‚ РїСЂРёР»РѕР¶РµРЅРёРµ РґР»СЏ РїСЂРѕРґР°РєС€РЅР° РІ РїР°РїРєСѓ `build`.  
+РџСЂР°РІРёР»СЊРЅРѕ СѓРїР°РєРѕРІС‹РІР°РµС‚ React РІ СЂРµР¶РёРјРµ РїСЂРѕРґР°РєС€РЅР° Рё РѕРїС‚РёРјРёР·РёСЂСѓРµС‚ СЃР±РѕСЂРєСѓ РґР»СЏ Р»СѓС‡С€РµР№ РїСЂРѕРёР·РІРѕРґРёС‚РµР»СЊРЅРѕСЃС‚Рё.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+РЎР±РѕСЂРєР° РјРёРЅРёС„РёС†РёСЂРѕРІР°РЅР°, Р° РёРјРµРЅР° С„Р°Р№Р»РѕРІ СЃРѕРґРµСЂР¶Р°С‚ С…СЌС€Рё.  
+Р’Р°С€Рµ РїСЂРёР»РѕР¶РµРЅРёРµ РіРѕС‚РѕРІРѕ Рє РґРµРїР»РѕСЋ!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+РЎРј. СЂР°Р·РґРµР» Рѕ [СЂР°Р·РІС‘СЂС‚С‹РІР°РЅРёРё](https://facebook.github.io/create-react-app/docs/deployment) РґР»СЏ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё.
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Р’РЅРёРјР°РЅРёРµ: СЌС‚Рѕ РѕРґРЅРѕСЃС‚РѕСЂРѕРЅРЅСЏСЏ РѕРїРµСЂР°С†РёСЏ. РџРѕСЃР»Рµ `eject` РЅРµР»СЊР·СЏ РІРµСЂРЅСѓС‚СЊСЃСЏ РЅР°Р·Р°Рґ!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Р•СЃР»Рё РІР°Рј РЅРµ РїРѕРґС…РѕРґСЏС‚ РІР°СЂРёР°РЅС‚С‹ РЅР°СЃС‚СЂРѕРµРє СЃР±РѕСЂРєРё Рё РёРЅСЃС‚СЂСѓРјРµРЅС‚РѕРІ, РІС‹ РјРѕР¶РµС‚Рµ РІС‹РїРѕР»РЅРёС‚СЊ `eject`. Р­С‚Р° РєРѕРјР°РЅРґР° СѓРґР°Р»РёС‚ РµРґРёРЅСѓСЋ Р·Р°РІРёСЃРёРјРѕСЃС‚СЊ СЃР±РѕСЂРєРё РёР· РїСЂРѕРµРєС‚Р°.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Р’РјРµСЃС‚Рѕ СЌС‚РѕРіРѕ РІСЃРµ С„Р°Р№Р»С‹ РєРѕРЅС„РёРіСѓСЂР°С†РёРё Рё С‚СЂР°РЅР·РёС‚РёРІРЅС‹Рµ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё (webpack, Babel, ESLint Рё С‚. Рї.) Р±СѓРґСѓС‚ СЃРєРѕРїРёСЂРѕРІР°РЅС‹ РІ РІР°С€ РїСЂРѕРµРєС‚, С‡С‚РѕР±С‹ РІС‹ РјРѕРіР»Рё РїРѕР»РЅРѕСЃС‚СЊСЋ РєРѕРЅС‚СЂРѕР»РёСЂРѕРІР°С‚СЊ РёС…. РџРѕСЃР»Рµ СЌС‚РѕРіРѕ РѕСЃС‚Р°Р»СЊРЅС‹Рµ РєРѕРјР°РЅРґС‹, РєСЂРѕРјРµ `eject`, РїСЂРѕРґРѕР»Р¶Р°С‚ СЂР°Р±РѕС‚Р°С‚СЊ, РЅРѕ Р±СѓРґСѓС‚ СЃСЃС‹Р»Р°С‚СЊСЃСЏ РЅР° СЃРєРѕРїРёСЂРѕРІР°РЅРЅС‹Рµ СЃРєСЂРёРїС‚С‹, РєРѕС‚РѕСЂС‹Рµ РІС‹ СЃРјРѕР¶РµС‚Рµ РёР·РјРµРЅСЏС‚СЊ СЃР°РјРѕСЃС‚РѕСЏС‚РµР»СЊРЅРѕ.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Р’Р°Рј РЅРµ РѕР±СЏР·Р°С‚РµР»СЊРЅРѕ РІС‹РїРѕР»РЅСЏС‚СЊ `eject`. РќР°Р±РѕСЂ С„СѓРЅРєС†РёР№ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РїРѕРґС…РѕРґРёС‚ РґР»СЏ РЅРµР±РѕР»СЊС€РёС… Рё СЃСЂРµРґРЅРёС… РїСЂРѕРµРєС‚РѕРІ, Рё РЅРµ РЅСѓР¶РЅРѕ С‡СѓРІСЃС‚РІРѕРІР°С‚СЊ РѕР±СЏР·Р°Р»РѕРІРєСѓ РїРѕР»СЊР·РѕРІР°С‚СЊСЃСЏ `eject`. РћРґРЅР°РєРѕ РјС‹ РїРѕРЅРёРјР°РµРј, С‡С‚Рѕ РёРЅСЃС‚СЂСѓРјРµРЅС‚ РЅРµ Р±С‹Р» Р±С‹ РїРѕР»РµР·РµРЅ, РµСЃР»Рё Р±С‹ РµРіРѕ РЅРµР»СЊР·СЏ Р±С‹Р»Рѕ РЅР°СЃС‚СЂРѕРёС‚СЊ, РєРѕРіРґР° РІС‹ Р±СѓРґРµС‚Рµ РіРѕС‚РѕРІС‹.
 
-## Learn More
+## РЈР·РЅР°С‚СЊ Р±РѕР»СЊС€Рµ
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Р’С‹ РјРѕР¶РµС‚Рµ СѓР·РЅР°С‚СЊ Р±РѕР»СЊС€Рµ РІ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё Create React App: https://facebook.github.io/create-react-app/docs/getting-started
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Р§С‚РѕР±С‹ РёР·СѓС‡РёС‚СЊ React, РїРѕСЃРµС‚РёС‚Рµ РґРѕРєСѓРјРµРЅС‚Р°С†РёСЋ React: https://reactjs.org/.
 
-### Code Splitting
+### Р Р°Р·РґРµР»РµРЅРёРµ РєРѕРґР°
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Р­С‚РѕС‚ СЂР°Р·РґРµР» РїРµСЂРµРЅРµСЃС‘РЅ СЃСЋРґР°: https://facebook.github.io/create-react-app/docs/code-splitting
 
-### Analyzing the Bundle Size
+### РђРЅР°Р»РёР· СЂР°Р·РјРµСЂР° Р±Р°РЅРґР»Р°
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Р­С‚РѕС‚ СЂР°Р·РґРµР» РїРµСЂРµРЅРµСЃС‘РЅ СЃСЋРґР°: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
 
-### Making a Progressive Web App
+### РЎРѕР·РґР°РЅРёРµ РїСЂРѕРіСЂРµСЃСЃРёРІРЅРѕРіРѕ РІРµР±-РїСЂРёР»РѕР¶РµРЅРёСЏ
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Р­С‚РѕС‚ СЂР°Р·РґРµР» РїРµСЂРµРЅРµСЃС‘РЅ СЃСЋРґР°: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
+### Р Р°СЃС€РёСЂРµРЅРЅР°СЏ РєРѕРЅС„РёРіСѓСЂР°С†РёСЏ
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Р­С‚РѕС‚ СЂР°Р·РґРµР» РїРµСЂРµРЅРµСЃС‘РЅ СЃСЋРґР°: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
-### Deployment
+### Р Р°Р·РІС‘СЂС‚С‹РІР°РЅРёРµ
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Р­С‚РѕС‚ СЂР°Р·РґРµР» РїРµСЂРµРЅРµСЃС‘РЅ СЃСЋРґР°: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
+### РћС€РёР±РєР° `npm run build` РїСЂРё РјРёРЅРёС„РёРєР°С†РёРё
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
+Р­С‚РѕС‚ СЂР°Р·РґРµР» РїРµСЂРµРЅРµСЃС‘РЅ СЃСЋРґР°: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

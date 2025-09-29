@@ -1,4 +1,4 @@
-{
+﻿{
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
@@ -38,27 +38,16 @@
     "cra-template": "1.2.0",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
-<<<<<<< HEAD
     "i18next": "^25.5.2",
     "i18next-browser-languagedetector": "^8.2.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.507.0",
     "next-themes": "^0.4.6",
-    "puppeteer": "^24.22.3",
-=======
-    "input-otp": "^1.4.2",
-    "lucide-react": "^0.507.0",
-    "next-themes": "^0.4.6",
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-    "react": "^19.0.0",
+    "puppeteer": "^24.22.3",    "react": "^19.0.0",
     "react-day-picker": "8.10.1",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.2",
-<<<<<<< HEAD
-    "react-i18next": "^15.7.3",
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-    "react-resizable-panels": "^3.0.1",
+    "react-i18next": "^15.7.3",    "react-resizable-panels": "^3.0.1",
     "react-router-dom": "^7.5.1",
     "react-scripts": "5.0.1",
     "sonner": "^2.0.3",
@@ -87,12 +76,8 @@
   "devDependencies": {
     "@craco/craco": "^7.1.0",
     "@eslint/js": "9.23.0",
-<<<<<<< HEAD
     "ajv": "^8.17.1",
-    "ajv-keywords": "^5.1.0",
-=======
->>>>>>> 5c8c9a3fc7653b7c9a1ca2ab213073fd9c16ab34
-    "autoprefixer": "^10.4.20",
+    "ajv-keywords": "^5.1.0",    "autoprefixer": "^10.4.20",
     "eslint": "9.23.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
@@ -103,3 +88,4 @@
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
+
