@@ -1,0 +1,133 @@
+<analysis>
+The previous AI engineer initiated work on an extensive refactoring and feature addition for a Panda Hookah Lounge application, built with Next.js, Prisma/SQLite, and a FastAPI backend (though  is the primary focus). The initial phase involved understanding a massive set of product requirements covering core screens, engagement features, staff management, promotions, admin/staff panels, statistics, and UX/visuals. The engineer gathered necessary API keys (Google Maps, Spotify), de-prioritizing payment integrations as requested.
+
+The work progressed in two main stages: first, focusing on establishing a robust backend for admin functionalities and integrating external APIs (Spotify, Google Maps, QR, Tips). This phase included significant database schema extensions, creation of numerous API endpoints, and initial admin panel development, successfully passing backend tests. The second stage, following user feedback, shifted towards a deep system analysis, implementing a full account and roles system (email/password alongside Google OAuth), and then a radical design overhaul, which is currently in progress. The engineer has just created an admin account and implemented a new CSS design system, header, and main page, and is now integrating these into the main layout.
+</analysis>
+
+<product_requirements>
+The user's core request is to enhance an existing Panda hookah lounge application. The product aims to provide a comprehensive digital experience for customers and efficient management tools for staff and administrators. Key features include:
+
+**Main Screens:**
+*   **Events (Afisha):** Banner, event list, timers, CRUD via admin panel.
+*   **Menu:** Photo cards, prices, descriptions, public likes.
+*   **Music (Jukebox):** Paid song requests, staff moderation, limits, stop-list, Spotify API integration.
+*   **Profile:** QR for visits, promo codes, bonuses, referrals, Smoke Theme toggle.
+*   **Visit History:** Confirmed visits with dates/status.
+*   **Bonus History:** Active/used/expired coupons, promo codes, wheel prizes.
+
+**Engagement Features:**
+*   **Wheel of Fortune:** One spin/7 days, prizes, anti-abuse, 7-day coupons.
+*   **Instagram Story Discount:** Offline verification, link log.
+*   **Referrals:** Tokenized links, visit codes, bonuses for referrer and referee.
+*   **Birthday Bonus:** ±3 days, offline document check.
+*   **Smoke Theme (BETA):** Visual effect toggle.
+*   **QR-Visit to Review:** QR confirms visit -> rate hookah master (stars, emoji) -> Google review link -> activate Wheel of Fortune.
+
+**Staff Interaction (Hookah Masters):**
+*   **Liked Hookah Master:** Button -> modal (likes, Instagram, tips).
+*   **Hookah Master Ratings:** Service (stars), sociability (emoji) - no comments.
+*   **Tips:** Direct card transfer (number + copy button), stats for staff/admin.
+
+**Promos & Bonuses:**
+*   **Promo Code System:** Staff (limited creation), Admin (full CRUD, mass generation, stats), limitations (duration, limits, min sum), error handling.
+*   **Coupons:** From wheel, birthdays, referrals, promos; 7-day validity.
+*   **Promo Code Cards:** In profile, with title, source, expiry, status (active/expired/used), color-coded, QR for scanning, manual input alternative. All visible in Bonus History.
+
+**Admin & Staff Panels:**
+*   **Staff Panel (/staff):** Confirm visits, verify stories/birthdays, accept referrals, moderate music, edit FAQ, view ratings/tips, limited promo creation, change dish status, staff reminders.
+*   **Admin Panel (/admin):** Full CRUD for events, menu, FAQ, promos, wheel; user/role management, full analytics (visits, birthdays, promos, likes, hookah masters), logs, Excel/CSV export, system settings (limits, TTL, policies), built-in QR scanner, period reports, seasonal themes, Google Maps integration, admin notifications, anomaly alerts, spin code generation, discount parameter settings, Risk Board (suspicious users, bonus blocking), mass bonus issuance/cancellation.
+
+**Statistics:**
+*   Visits (graphs), birthdays, returning guests.
+*   Dishes (popularity, out-of-stock count).
+*   Hookah Masters (average ratings, tips).
+
+**Visual & UX:**
+*   Dark theme (#0B0B0B / #111), white text, Bamboo Green accents.
+*   Plump cards, soft shadows, 2xl rounded corners.
+*   Minimalism, quick toasts, no bulky pop-ups.
+*   Bottom-nav (Events, Menu, Music, Profile).
+*   Persistent bottom dock (like hookah master, wheel).
+*   Animations (wheel spin, smoke, hover).
+*   PWA mode.
+*   Theme switching (normal/Halloween, seasonal).
+*   Easter eggs (blinking panda).
+
+**Notifications:**
+*   Guests: coupon reminders, new spin, birthday bonus, referrals.
+*   Staff: new visits, stories, music.
+*   Admins: promotions, limits, errors.
+*   Anomalies: suspicious IPs, abuses.
+
+**Newly Added (explicitly mentioned in the user prompt):**
+*   Visit/Bonus History.
+*   Risk Board (suspicious users).
+*   Mass bonus issuance/cancellation.
+*   Promo code cards with source.
+*   QR scanning or manual input for promo codes.
+*   Direct card transfer for tips.
+
+The user also explicitly requested to remove all demo data, implement a full account and roles system, drastically change and improve the design to be beautiful and functional, ensure all listed features are present and working perfectly, clean up the codebase (remove unnecessary code, optimize), and then proceed with API integrations. Specifically, for design, they asked for a new account login/button logic, a non-buggy transparent mobile menu, a redesigned main page, beautiful personal cabinet, menu, and settings, fix language switching, and address ugly visuals.
+</product_requirements>
+
+<key_technical_concepts>
+-   **Full-Stack Architecture:** Next.js (React) frontend, FastAPI backend, MongoDB database.
+-   **Database ORM:** Prisma with SQLite (for development).
+-   **Authentication:** NextAuth.js (Google OAuth, Email/Password).
+-   **Styling:** Tailwind CSS.
+-   **External Integrations:** Spotify API, Google Maps API, QR Code generation.
+-   **Deployment Environment:** Kubernetes container, backend                          RUNNING   pid 40, uptime 0:00:02
+code-server                      RUNNING   pid 42, uptime 0:00:02
+frontend                         STOPPING  
+mongodb                          RUNNING   pid 47, uptime 0:00:02
+supervisor>  for service management.
+-   **Development Workflow:** Incremental feature addition, backend-first, extensive testing,  for communication.
+</key_technical_concepts>
+
+<code_architecture>
+The application's primary codebase resides in , overriding an older  and  structure.
+
+
+
+**Key Files and Changes:**
+
+*   : This file is critical as it defines the entire database structure. It was significantly expanded to include new models for , , , , , , , , , , , , and  to support the vast new features. Relationships between models were also established.
+*   : Created to store sensitive environment variables, including , , , .
+*   : The main admin dashboard page. It was initially a basic placeholder and has been significantly modified to fetch and display various administrative data, integrate new UI components for settings and user management, and provide quick actions, including removing older conflicting variables and updating styles.
+*   , , , , : Numerous new API routes were created within these directories to handle the backend logic for admin functionalities (settings, stats, users, promos), music integration (search, trending, order), map directions, QR code generation, and direct tips.
+*   , , , , , : These  files serve as utility modules encapsulating specific business logic or external API interactions, promoting code reusability and separation of concerns.
+*   : This page underwent a complete overhaul to integrate the new Spotify API functionality, allowing users to search for and order music. It was initially using mocked data due to issues with live Spotify API integration during development.
+*   : Modified to include  mapping, improving module import resolution within the project ().
+*   : Updated to include new dependencies such as , , , , and updated scripts for Prisma commands.
+*   , , , , , : A completely new authentication system was built, supporting email/password registration, login, Google OAuth, and middleware for route protection. The NextAuth configuration was updated to include the credentials provider.
+*   : This file was completely rewritten to implement a new, modern CSS design system based on Tailwind CSS, addressing the user's request for a drastic visual overhaul.
+*   : A new Header component was created to replace the old navigation, featuring a modern design and mobile menu functionality.
+*   : The main landing page was completely re-implemented with the new design system, incorporating modern UI elements.
+</code_architecture>
+
+<pending_tasks>
+-   Full implementation of main screens: Afisha (events with timers), Menu (photos, likes), Profile (real data, QR visit, promo codes, bonuses, referrals, Smoke Theme toggle), Visit History, Bonus History.
+-   Completion of engagement features: Wheel of Fortune (anti-abuse, full prize logic), Instagram stories, full Referrals system, Birthday bonuses, QR-visit to review/rating flow.
+-   Full implementation of staff interaction: Liked Hookah Master button, complete rating system, tip statistics and display.
+-   Advanced promo/bonus system: Full promo code lifecycle, coupon logic integration with various sources, promo card UI/UX.
+-   Completion of Staff/Admin Panels: Full CRUD operations for all entities, comprehensive analytics, logs, export, system settings, built-in QR scanner, reports, seasonal themes, admin notifications, anomaly alerts, Risk Board, mass bonus issuance/cancellation.
+-   Finalizing design across all pages, implementing animations, PWA, seasonal themes, easter eggs, and language switching fixes.
+-   Implementing notification system for guests, staff, and admins.
+-   Replacing Spotify mock data with live API integration and ensuring it works.
+</pending_tasks>
+
+<current_work>
+Immediately before this summary request, the previous AI engineer was in the process of a radical design overhaul as explicitly requested by the user. This followed a comprehensive deep analysis of the system that highlighted significant UI/UX deficiencies and missing core features.
+
+The work accomplished right before the interruption includes:
+1.  **Admin Account Creation:** An admin user ( with password ) was successfully created and assigned the admin role. This is crucial for managing the application and testing administrative functionalities.
+2.  **New CSS Design System:** The entire  file was replaced with a new Tailwind CSS-based design system, implementing a dark theme, plump cards, soft shadows, and 2xl rounded corners as specified in the product requirements. This sets the foundation for the new visual identity of the application.
+3.  **New Header Component:** A new React component, , was created. This component is designed to provide a modern navigation experience, including a fixed header and an improved mobile menu, addressing specific user complaints about the old header's transparency and buggy mobile behavior.
+4.  **Redesigned Main Page:** The  file (the main landing page) was completely rewritten to incorporate the new design principles, making it visually appealing and modern.
+
+The last action recorded was: Теперь обновлю layout, чтобы использовать новый Header:. This indicates that the engineer was in the process of integrating the newly created  component into the main application layout (). The current state of the application has the foundational design elements and an admin account in place, but the new design still needs to be fully integrated into the overall application structure, starting with the layout. The Spotify integration is currently using mock data, which needs to be resolved to use the actual API.
+</current_work>
+
+<optional_next_step>
+Complete the update of  to integrate the new  component.
+</optional_next_step>
