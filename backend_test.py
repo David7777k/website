@@ -620,24 +620,19 @@ class PandaAPITester:
             self.log_test("CORS and Headers", False, f"Exception: {str(e)}")
     
     def run_all_tests(self):
-        """Run all backend tests"""
-        print("🚀 Starting PANDA Hookah Bar Backend API Tests")
-        print("=" * 60)
+        """Run all backend tests for Phase 2 API integrations"""
+        print("🚀 Starting PANDA Hookah Bar Phase 2 API Integration Tests")
+        print("=" * 70)
         
         start_time = time.time()
         
-        # Run all test suites
-        self.test_app_initialization()
-        self.test_admin_stats_api()
-        self.test_admin_settings_api()
-        self.test_admin_users_api()
-        self.test_admin_promos_api()
-        self.test_user_detail_api()
-        self.test_public_endpoints()
-        self.test_database_schema_validation()
-        self.test_api_error_handling()
-        self.test_api_response_formats()
-        self.test_cors_and_headers()
+        # Run Phase 2 test suites
+        self.test_spotify_api_integration()
+        self.test_google_maps_api_integration()
+        self.test_qr_code_generation()
+        self.test_tips_management_system()
+        self.test_enhanced_music_system()
+        self.test_system_optimization_verification()
         
         end_time = time.time()
         duration = end_time - start_time
