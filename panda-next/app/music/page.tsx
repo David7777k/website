@@ -1,8 +1,27 @@
-import React from 'react'
+'use client'
 
-export const metadata = {
-  title: 'Музика | PANDA Hookah',  
-  description: 'Джукбокс - замов свій трек за гроші'
+import React, { useState, useEffect } from 'react'
+import { useSession } from 'next-auth/react'
+
+interface SpotifyTrack {
+  id: string
+  title: string
+  artist: string
+  album: string
+  duration: number
+  preview_url: string | null
+  image: string
+  spotify_url: string
+  popularity: number
+}
+
+interface MusicOrder {
+  id: number
+  title: string
+  artist: string
+  orderedBy: string
+  timeLeft: string
+  status: 'playing' | 'queued' | 'pending'
 }
 
 export default function MusicPage() {
