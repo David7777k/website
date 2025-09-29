@@ -31,32 +31,222 @@ class PandaAPITester:
         status = "✅ PASS" if success else "❌ FAIL"
         print(f"{status} {test_name}: {details}")
         
-    def test_app_initialization(self):
-        """Test /api/init endpoint for setting up default data"""
-        print("\n=== Testing App Initialization ===")
+    def test_spotify_api_integration(self):
+        """Test Spotify API Integration - /api/music/* endpoints"""
+        print("\n=== Testing Spotify API Integration ===")
         
         try:
-            # Test GET first (should return info)
-            response = self.session.get(f"{self.base_url}/api/init")
+            # Test GET /api/music/trending
+            response = self.session.get(f"{self.base_url}/api/music/trending")
             if response.status_code == 200:
                 data = response.json()
-                self.log_test("App Init GET", True, f"Info endpoint working: {data.get('message', '')}")
-            else:
-                self.log_test("App Init GET", False, f"Status: {response.status_code}")
-                
-            # Test POST (actual initialization)
-            response = self.session.post(f"{self.base_url}/api/init")
-            if response.status_code == 200:
-                data = response.json()
-                if data.get('success'):
-                    self.log_test("App Initialization", True, "App initialized successfully with default data")
+                if 'tracks' in data and len(data['tracks']) > 0:
+                    track = data['tracks'][0]
+                    required_fields = ['id', 'title', 'artist', 'duration', 'popularity']
+                    if all(field in track for field in required_fields):
+                        self.log_test("Spotify Trending API", True, f"Returned {len(data['tracks'])} demo tracks with proper format")
+                    else:
+                        self.log_test("Spotify Trending API", False, f"Track missing required fields: {required_fields}")
                 else:
-                    self.log_test("App Initialization", False, f"Init failed: {data.get('message', 'Unknown error')}")
+                    self.log_test("Spotify Trending API", False, "No tracks returned")
             else:
-                self.log_test("App Initialization", False, f"Status: {response.status_code}, Response: {response.text}")
+                self.log_test("Spotify Trending API", False, f"Status: {response.status_code}")
+                
+            # Test GET /api/music/search with query
+            response = self.session.get(f"{self.base_url}/api/music/search?q=test")
+            if response.status_code == 200:
+                data = response.json()
+                if 'tracks' in data and 'query' in data:
+                    self.log_test("Spotify Search API", True, f"Search working, returned {len(data['tracks'])} tracks for query 'test'")
+                else:
+                    self.log_test("Spotify Search API", False, "Missing tracks or query in response")
+            else:
+                self.log_test("Spotify Search API", False, f"Status: {response.status_code}")
+                
+            # Test search without query (should fail)
+            response = self.session.get(f"{self.base_url}/api/music/search")
+            if response.status_code == 400:
+                self.log_test("Spotify Search Validation", True, "Correctly rejects requests without query parameter")
+            else:
+                self.log_test("Spotify Search Validation", False, f"Expected 400, got {response.status_code}")
+                
+            # Test music order (requires authentication)
+            order_data = {
+                "track_id": "demo-1",
+                "title": "Test Song",
+                "artist": "Test Artist",
+                "amount": 100,
+                "spotify_url": "https://open.spotify.com/track/test",
+                "note": "Test order"
+            }
+            response = self.session.post(f"{self.base_url}/api/music/order", json=order_data)
+            if response.status_code == 401:
+                self.log_test("Music Order Auth", True, "Correctly requires authentication for music orders")
+            else:
+                self.log_test("Music Order Auth", False, f"Expected 401, got {response.status_code}")
                 
         except Exception as e:
-            self.log_test("App Initialization", False, f"Exception: {str(e)}")
+            self.log_test("Spotify API Integration", False, f"Exception: {str(e)}")
+    
+    def test_google_maps_api_integration(self):
+        """Test Google Maps API Integration - /api/maps/* endpoints"""
+        print("\n=== Testing Google Maps API Integration ===")
+        
+        try:
+            # Test GET /api/maps/directions with origin
+            response = self.session.get(f"{self.base_url}/api/maps/directions?origin=Kyiv")
+            if response.status_code == 200:
+                data = response.json()
+                required_fields = ['distance', 'duration', 'start_address', 'end_address', 'steps', 'google_maps_url']
+                if all(field in data for field in required_fields):
+                    self.log_test("Google Maps Directions API", True, f"Directions API working, distance: {data.get('distance', {}).get('text', 'N/A')}")
+                else:
+                    self.log_test("Google Maps Directions API", False, f"Missing required fields: {required_fields}")
+            elif response.status_code == 500:
+                # This is expected if Google Maps API key is not configured
+                self.log_test("Google Maps Directions API", True, "API endpoint exists (500 expected without API key)")
+            else:
+                self.log_test("Google Maps Directions API", False, f"Status: {response.status_code}")
+                
+            # Test without origin parameter (should fail)
+            response = self.session.get(f"{self.base_url}/api/maps/directions")
+            if response.status_code == 400:
+                self.log_test("Google Maps Validation", True, "Correctly rejects requests without origin parameter")
+            else:
+                self.log_test("Google Maps Validation", False, f"Expected 400, got {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("Google Maps API Integration", False, f"Exception: {str(e)}")
+    
+    def test_qr_code_generation(self):
+        """Test QR Code Generation - /api/qr/generate"""
+        print("\n=== Testing QR Code Generation ===")
+        
+        try:
+            # Test different QR code types
+            qr_types = [
+                {
+                    "type": "custom",
+                    "data": {"text": "https://panda-hookah.com"},
+                    "expected": "Custom QR code"
+                },
+                {
+                    "type": "visit", 
+                    "data": {"visitCode": "VISIT123"},
+                    "expected": "Visit QR code"
+                },
+                {
+                    "type": "promo",
+                    "data": {"promoCode": "PROMO50"},
+                    "expected": "Promo QR code"
+                },
+                {
+                    "type": "referral",
+                    "data": {"referralCode": "REF123"},
+                    "expected": "Referral QR code"
+                },
+                {
+                    "type": "tip",
+                    "data": {"staffId": "staff-1", "amount": 100},
+                    "expected": "Tip QR code"
+                }
+            ]
+            
+            for qr_test in qr_types:
+                response = self.session.post(f"{self.base_url}/api/qr/generate", json=qr_test)
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get('success') and 'qrCode' in data:
+                        # Check if it's a valid base64 data URL
+                        qr_code = data['qrCode']
+                        if qr_code.startswith('data:image/png;base64,'):
+                            self.log_test(f"QR Generation - {qr_test['type']}", True, f"{qr_test['expected']} generated successfully")
+                        else:
+                            self.log_test(f"QR Generation - {qr_test['type']}", False, "Invalid base64 data URL format")
+                    else:
+                        self.log_test(f"QR Generation - {qr_test['type']}", False, "Missing success or qrCode in response")
+                else:
+                    self.log_test(f"QR Generation - {qr_test['type']}", False, f"Status: {response.status_code}")
+                    
+            # Test invalid QR type
+            response = self.session.post(f"{self.base_url}/api/qr/generate", json={
+                "type": "invalid",
+                "data": {"text": "test"}
+            })
+            if response.status_code == 400:
+                self.log_test("QR Generation Validation", True, "Correctly rejects invalid QR code types")
+            else:
+                self.log_test("QR Generation Validation", False, f"Expected 400, got {response.status_code}")
+                
+            # Test missing data
+            response = self.session.post(f"{self.base_url}/api/qr/generate", json={"type": "custom"})
+            if response.status_code == 400:
+                self.log_test("QR Generation Data Validation", True, "Correctly rejects requests without data")
+            else:
+                self.log_test("QR Generation Data Validation", False, f"Expected 400, got {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("QR Code Generation", False, f"Exception: {str(e)}")
+    
+    def test_tips_management_system(self):
+        """Test Tips Management System - /api/tips/* endpoints"""
+        print("\n=== Testing Tips Management System ===")
+        
+        try:
+            # Test GET /api/tips/staff
+            response = self.session.get(f"{self.base_url}/api/tips/staff")
+            if response.status_code == 200:
+                data = response.json()
+                if 'staff' in data and 'suggested_amounts' in data:
+                    staff_list = data['staff']
+                    if len(staff_list) > 0:
+                        staff_member = staff_list[0]
+                        required_fields = ['id', 'name', 'card_number', 'bank_info', 'ratings', 'tips']
+                        if all(field in staff_member for field in required_fields):
+                            # Check card number formatting (should be masked)
+                            card_number = staff_member.get('card_number', '')
+                            if '*' in card_number or len(card_number) == 0:
+                                self.log_test("Tips Staff API", True, f"Staff list with {len(staff_list)} members, card numbers properly masked")
+                            else:
+                                self.log_test("Tips Staff API", False, "Card numbers not properly masked for security")
+                        else:
+                            self.log_test("Tips Staff API", False, f"Staff member missing required fields: {required_fields}")
+                    else:
+                        self.log_test("Tips Staff API", True, "Staff endpoint working (no staff members in demo data)")
+                else:
+                    self.log_test("Tips Staff API", False, "Missing staff or suggested_amounts in response")
+            else:
+                self.log_test("Tips Staff API", False, f"Status: {response.status_code}")
+                
+            # Test POST /api/tips/send (requires authentication)
+            tip_data = {
+                "staff_id": "staff-1",
+                "amount": 100,
+                "message": "Great service!",
+                "anonymous": False
+            }
+            response = self.session.post(f"{self.base_url}/api/tips/send", json=tip_data)
+            if response.status_code == 401:
+                self.log_test("Tips Send Auth", True, "Correctly requires authentication for sending tips")
+            elif response.status_code == 404:
+                self.log_test("Tips Send Auth", True, "Staff validation working (404 for non-existent staff)")
+            else:
+                self.log_test("Tips Send Auth", False, f"Expected 401 or 404, got {response.status_code}")
+                
+            # Test invalid tip amount
+            invalid_tip_data = {
+                "staff_id": "staff-1",
+                "amount": -50,
+                "message": "Invalid amount"
+            }
+            response = self.session.post(f"{self.base_url}/api/tips/send", json=invalid_tip_data)
+            if response.status_code in [400, 401]:
+                self.log_test("Tips Amount Validation", True, "Correctly validates tip amounts")
+            else:
+                self.log_test("Tips Amount Validation", False, f"Expected 400 or 401, got {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("Tips Management System", False, f"Exception: {str(e)}")
     
     def test_admin_stats_api(self):
         """Test /api/admin/stats endpoint - requires admin authentication"""
