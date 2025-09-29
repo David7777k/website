@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
 PANDA Hookah Bar - Backend API Testing Suite
-Tests the comprehensive admin panel functionality for PHASE 1
+Tests Phase 2 API integrations: Spotify, Google Maps, QR Codes, Tips System
 """
 
 import requests
 import json
 import time
+import base64
 from datetime import datetime, timedelta
 from typing import Dict, Any, Optional
 
