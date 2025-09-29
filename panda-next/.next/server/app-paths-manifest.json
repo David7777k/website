@@ -1,11 +1,5 @@
 {
-  "/api/music/trending/route": "app/api/music/trending/route.js",
-  "/api/music/search/route": "app/api/music/search/route.js",
-  "/api/music/order/route": "app/api/music/order/route.js",
-  "/api/maps/directions/route": "app/api/maps/directions/route.js",
-  "/api/qr/generate/route": "app/api/qr/generate/route.js",
-  "/api/tips/staff/route": "app/api/tips/staff/route.js",
-  "/api/tips/send/route": "app/api/tips/send/route.js",
   "/page": "app/page.js",
-  "/profile/page": "app/profile/page.js"
+  "/profile/page": "app/profile/page.js",
+  "/events/page": "app/events/page.js"
 }
