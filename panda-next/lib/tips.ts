@@ -24,12 +24,18 @@ export interface TipRecord {
 export class TipsManager {
   // Format card number for display (mask middle digits)
   static formatCardNumber(cardNumber: string): string {
-    if (!cardNumber || cardNumber.length < 16) {
+    if (!cardNumber) {
       return cardNumber
     }
     
-    // Format: 1234 56** **** 7890
-    return cardNumber.replace(/(\d{4})(\d{4})(\d{4})(\d{4})/, '$1 $2** **** $4')
+    // Remove spaces and format
+    const cleanNumber = cardNumber.replace(/\s/g, '')
+    if (cleanNumber.length < 16) {
+      return cardNumber
+    }
+    
+    // Format: 5375 41** **** 7890
+    return cleanNumber.replace(/(\d{4})(\d{2})\d{6}(\d{4})/, '$1 $2** **** $3')
   }
 
   // Validate card number (basic Luhn algorithm)
