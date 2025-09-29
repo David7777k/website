@@ -3,5 +3,6 @@
   "/page": "app/page.js",
   "/events/page": "app/events/page.js",
   "/menu/page": "app/menu/page.js",
-  "/music/page": "app/music/page.js"
+  "/music/page": "app/music/page.js",
+  "/auth/login/page": "app/auth/login/page.js"
 }
