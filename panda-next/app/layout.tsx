@@ -1,10 +1,8 @@
 import './globals.css'
 import React from 'react'
 import { Providers } from './providers'
-import AuthButton from './components/AuthButton'
-import MobileNav from './components/MobileNav'
+import Header from './components/Header'
 import BottomNav from './components/BottomNav'
-import BurgerMenu from './components/BurgerMenu'
 
 export const metadata = {
   title: 'PANDA Hookah',
