@@ -4,6 +4,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/music/trending/route.js"
+    ],
+    "/api/qr/generate/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/qr/generate/route.js"
     ]
   }
 }
