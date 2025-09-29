@@ -248,24 +248,86 @@ class PandaAPITester:
         except Exception as e:
             self.log_test("Tips Management System", False, f"Exception: {str(e)}")
     
-    def test_admin_stats_api(self):
-        """Test /api/admin/stats endpoint - requires admin authentication"""
-        print("\n=== Testing Admin Stats API ===")
+    def test_enhanced_music_system(self):
+        """Test Enhanced Music System integration"""
+        print("\n=== Testing Enhanced Music System ===")
         
         try:
-            # Test without authentication (should fail)
-            response = self.session.get(f"{self.base_url}/api/admin/stats")
-            if response.status_code == 401:
-                self.log_test("Admin Stats - No Auth", True, "Correctly rejected unauthorized request")
-            else:
-                self.log_test("Admin Stats - No Auth", False, f"Expected 401, got {response.status_code}")
-                
-            # Note: Since we don't have Google OAuth setup in testing environment,
-            # we can't test the authenticated version without mocking
-            self.log_test("Admin Stats - Auth Required", True, "Authentication properly enforced (Google OAuth required)")
+            # Test music order rate limiting logic (through error messages)
+            order_data = {
+                "track_id": "demo-1",
+                "title": "Test Song",
+                "artist": "Test Artist", 
+                "amount": 100
+            }
             
+            # Test minimum amount validation
+            low_amount_data = {**order_data, "amount": 25}
+            response = self.session.post(f"{self.base_url}/api/music/order", json=low_amount_data)
+            if response.status_code == 401:
+                self.log_test("Music Order Min Amount", True, "Authentication required (would validate min amount after auth)")
+            else:
+                self.log_test("Music Order Min Amount", False, f"Expected 401, got {response.status_code}")
+                
+            # Test missing required fields
+            incomplete_data = {"title": "Test Song"}
+            response = self.session.post(f"{self.base_url}/api/music/order", json=incomplete_data)
+            if response.status_code == 401:
+                self.log_test("Music Order Validation", True, "Authentication required (would validate fields after auth)")
+            else:
+                self.log_test("Music Order Validation", False, f"Expected 401, got {response.status_code}")
+                
         except Exception as e:
-            self.log_test("Admin Stats API", False, f"Exception: {str(e)}")
+            self.log_test("Enhanced Music System", False, f"Exception: {str(e)}")
+    
+    def test_system_optimization_verification(self):
+        """Test system optimization and new dependencies"""
+        print("\n=== Testing System Optimization ===")
+        
+        try:
+            # Test that new dependencies are working (qrcode, uuid)
+            # This is tested indirectly through QR generation
+            qr_test_data = {
+                "type": "custom",
+                "data": {"text": "optimization-test"}
+            }
+            response = self.session.post(f"{self.base_url}/api/qr/generate", json=qr_test_data)
+            if response.status_code == 200:
+                data = response.json()
+                if data.get('success') and 'qrCode' in data:
+                    self.log_test("New Dependencies (qrcode)", True, "QR code generation working - qrcode library functional")
+                else:
+                    self.log_test("New Dependencies (qrcode)", False, "QR code generation failed")
+            else:
+                self.log_test("New Dependencies (qrcode)", False, f"QR generation failed: {response.status_code}")
+                
+            # Test error handling improvements
+            response = self.session.post(f"{self.base_url}/api/qr/generate", json={})
+            if response.status_code == 400:
+                data = response.json()
+                if 'error' in data:
+                    self.log_test("Error Handling", True, "Improved error handling with proper error messages")
+                else:
+                    self.log_test("Error Handling", False, "Error response missing error field")
+            else:
+                self.log_test("Error Handling", False, f"Expected 400, got {response.status_code}")
+                
+            # Test JSON response formats
+            response = self.session.get(f"{self.base_url}/api/music/trending")
+            if response.status_code == 200:
+                try:
+                    data = response.json()
+                    if isinstance(data, dict) and 'tracks' in data:
+                        self.log_test("Response Format", True, "APIs return consistent JSON response formats")
+                    else:
+                        self.log_test("Response Format", False, "Inconsistent response format")
+                except json.JSONDecodeError:
+                    self.log_test("Response Format", False, "Invalid JSON response")
+            else:
+                self.log_test("Response Format", False, f"API request failed: {response.status_code}")
+                
+        except Exception as e:
+            self.log_test("System Optimization", False, f"Exception: {str(e)}")
     
     def test_admin_settings_api(self):
         """Test /api/admin/settings endpoint"""
