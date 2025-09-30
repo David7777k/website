@@ -6,30 +6,41 @@
   box-sizing: border-box;
 }
 
+/* LEGACY VARIABLES - Mapped to new lounge-theme.css system for compatibility */
 :root {
-  --primary-bg: #0a0a0a;
-  /* header height used by fixed header and page padding */
-  --header-height: 80px;
-  --secondary-bg: #1a1a1a;
-  --card-bg: rgba(26, 26, 26, 0.95);
-  --card-border: rgba(255, 255, 255, 0.1);
-  --accent-color: #ff6b6b;
-  --accent-secondary: #4ecdc4;
-  --accent-tertiary: #ffe66d;
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0a0;
-  --text-muted: #666666;
-  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-accent: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-  --gradient-card: linear-gradient(145deg, rgba(26, 26, 26, 0.9) 0%, rgba(46, 46, 46, 0.9) 100%);
-  --shadow-small: 0 4px 20px rgba(0, 0, 0, 0.3);
-  --shadow-medium: 0 8px 40px rgba(0, 0, 0, 0.4);
-  --shadow-large: 0 16px 60px rgba(0, 0, 0, 0.5);
-  /* unified radius variables */
-  --radius: 16px;
-  --border-radius: var(--radius);
-  --border-radius-small: 8px;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Old variables mapped to new theme for backward compatibility */
+  --primary-bg: var(--background); /* #0B0B0B */
+  --secondary-bg: var(--background-secondary); /* #111111 */
+  --card-bg: var(--background-card); /* #141414 */
+  --card-border: var(--border); /* #333333 */
+  
+  /* Updated accent colors to match new theme */
+  --accent-color: var(--bamboo-green); /* #00CC00 - Primary accent */
+  --accent-secondary: var(--bamboo-green-400); /* #57C957 - Secondary accent */
+  --accent-tertiary: var(--warning); /* #FF9500 - Tertiary accent */
+  
+  /* Text colors mapped to new system */
+  --text-primary: var(--text-primary); /* #FAFAFA */
+  --text-secondary: var(--text-secondary); /* #B3B3B3 */
+  --text-muted: var(--text-muted); /* #808080 */
+  
+  /* Updated gradients with new colors */
+  --gradient-primary: linear-gradient(135deg, var(--bamboo-green) 0%, var(--bamboo-green-700) 100%);
+  --gradient-accent: linear-gradient(135deg, var(--bamboo-green) 0%, var(--bamboo-green-600) 100%);
+  --gradient-card: var(--gradient-card); /* From lounge-theme.css */
+  
+  /* Updated shadows */
+  --shadow-small: var(--shadow-sm);
+  --shadow-medium: var(--shadow-md);
+  --shadow-large: var(--shadow-lg);
+  
+  /* Border radius from new system */
+  --radius: var(--radius-xl); /* 16px */
+  --border-radius: var(--radius-xl);
+  --border-radius-small: var(--radius-sm); /* 8px */
+  
+  /* Transitions */
+  --transition: var(--transition-normal);
 }
 
 body {
@@ -49,11 +60,9 @@ body {
 }
 .App {
   min-height: 100vh;
-  background: radial-gradient(ellipse at top, rgba(102, 126, 234, 0.1) 0%, transparent 70%),
-              radial-gradient(ellipse at bottom right, rgba(255, 107, 107, 0.1) 0%, transparent 70%),
-              var(--primary-bg);
-  /* Make room for the fixed header so content doesn't get covered */
-  padding-top: var(--header-height);}
+  background: var(--background);
+  /* Updated to use new lounge theme background */
+}
 
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
