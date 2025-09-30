@@ -6,8 +6,9 @@ import { prisma } from '@/lib/prisma'
 // GET /api/admin/users/[id] - получить детали пользователя
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const params = await context.params
   try {
     const session = await getServerSession(authOptions)
     
@@ -117,8 +118,9 @@ export async function GET(
 // PUT /api/admin/users/[id] - обновить пользователя
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const params = await context.params
   try {
     const session = await getServerSession(authOptions)
     
@@ -178,8 +180,9 @@ export async function PUT(
 // DELETE /api/admin/users/[id] - удалить пользователя
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
+  const params = await context.params
   try {
     const session = await getServerSession(authOptions)
     
