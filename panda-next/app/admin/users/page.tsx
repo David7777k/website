@@ -151,7 +151,7 @@ export default function AdminUsersPage() {
               className="w-full bg-gray-700 border border-gray-600 rounded-lg px-3 py-2 text-white"
             >
               <option value="">Всі рівні</option>
-              <option value="low">Низький (< 5)</option>
+              <option value="low">Низький (&lt; 5)</option>
               <option value="medium">Середній (5-9)</option>
               <option value="high">Високий (≥ 10)</option>
             </select>
