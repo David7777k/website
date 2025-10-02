@@ -23,7 +23,7 @@ async function main() {
   console.log('✅ Created admin user:', admin.email)
 
   // Create demo users
-  const demoPassword = await hash('demo123', 10)
+  const demoPassword = await bcrypt.hash('demo123', 10)
   const demoUser = await prisma.user.upsert({
     where: { email: 'demo@panda.com' },
     update: {},
@@ -31,7 +31,7 @@ async function main() {
       email: 'demo@panda.com',
       name: 'Demo User',
       password: demoPassword,
-      role: 'USER',
+      role: 'guest',
       phone: '+380509876543',
       emailVerified: new Date(),
     },
@@ -39,20 +39,20 @@ async function main() {
   console.log('✅ Created demo user:', demoUser.email)
 
   // Create staff user
-  const staffPassword = await hash('staff123', 10)
-  const staff = await prisma.user.upsert({
+  const staffPassword = await bcrypt.hash('staff123', 10)
+  const staffUser = await prisma.user.upsert({
     where: { email: 'staff@panda.com' },
     update: {},
     create: {
       email: 'staff@panda.com',
       name: 'Staff Member',
       password: staffPassword,
-      role: 'STAFF',
+      role: 'staff',
       phone: '+380501111111',
       emailVerified: new Date(),
     },
   })
-  console.log('✅ Created staff user:', staff.email)
+  console.log('✅ Created staff user:', staffUser.email)
 
   // Create events
   const event1 = await prisma.event.upsert({
