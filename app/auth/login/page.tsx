@@ -138,7 +138,7 @@ function LoginForm() {
         <div className="text-center mt-6">
           <p className="text-gray-400 text-sm">
             Немає аккаунту?{' '}
-            <Link href="/auth/register" className="text-green-400 hover:text-green-300 font-medium">
+            <Link href="/auth/register" className="text-lime-400 hover:text-lime-300 font-medium">
               Зареєструватися
             </Link>
           </p>
@@ -149,6 +149,14 @@ function LoginForm() {
           <Link href="/" className="text-gray-500 hover:text-gray-400 text-sm">
             ← Повернутися на головну
           </Link>
+        </div>
+
+        {/* Google OAuth Info */}
+        <div className="mt-6 p-4 bg-blue-500/5 border border-blue-500/20 rounded-lg">
+          <p className="text-blue-400 text-xs text-center">
+            💡 Якщо виникає помилка 400 при вході через Google, переконайтеся що в Google Console додано: <br/>
+            <code className="text-lime-400">http://localhost:3000/api/auth/callback/google</code>
+          </p>
         </div>
       </div>
     </div>
