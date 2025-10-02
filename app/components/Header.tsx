@@ -70,8 +70,9 @@ export default function Header() {
     { href: '/menu', label: 'Меню', icon: '🍽️' },
     { href: '/music', label: 'Музика', icon: '🎵' },
     { href: '/events', label: 'Афіша', icon: '📅' },
+    { href: '/bookings', label: 'Бронювання', icon: '📅' },
+    { href: '/scan', label: 'Сканер', icon: '📱' },
     { href: '/referrals', label: 'Реферали', icon: '👥' },
-    { href: '/analytics', label: 'Аналітика', icon: '📊' },
   ]
 
   const toggleLanguage = () => {
