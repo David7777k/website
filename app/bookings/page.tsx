@@ -57,7 +57,7 @@ export default function BookingsPage() {
         </div>
 
         {/* Progress Steps */}
-        <div className="flex justify-center gap-4 mb-8">
+        <div className="flex justify-center gap-3 mb-8">
           {[
             { id: 'datetime', icon: '📅', label: 'Дата і час' },
             { id: 'details', icon: '✍️', label: 'Деталі' },
@@ -67,14 +67,14 @@ export default function BookingsPage() {
               key={s.id}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl ${
                 step === s.id
-                  ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white'
+                  ? 'bg-lime-500 text-black font-semibold'
                   : idx < ['datetime', 'details', 'confirm'].indexOf(step)
-                  ? 'bg-green-500/20 text-green-400 border border-green-500/50'
-                  : 'bg-gray-800 text-gray-500 border border-gray-700'
+                  ? 'bg-lime-500/20 text-lime-400 border border-lime-500/30'
+                  : 'bg-gray-900 text-gray-500 border border-gray-800'
               }`}
             >
-              <span className="text-xl">{s.icon}</span>
-              <span className="text-sm font-semibold hidden md:inline">{s.label}</span>
+              <span className="text-lg">{s.icon}</span>
+              <span className="text-sm font-medium hidden md:inline">{s.label}</span>
             </div>
           ))}
         </div>
