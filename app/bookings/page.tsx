@@ -129,10 +129,10 @@ export default function BookingsPage() {
                       disabled={!slot.available}
                       className={`p-4 rounded-xl font-semibold transition-all ${
                         selectedTime === slot.time
-                          ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg'
+                          ? 'bg-lime-500 text-black'
                           : slot.available
-                          ? 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                          : 'bg-gray-800/30 text-gray-600 cursor-not-allowed'
+                          ? 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700'
+                          : 'bg-gray-800/50 text-gray-600 cursor-not-allowed border border-gray-800'
                       }`}
                     >
                       {slot.time}
