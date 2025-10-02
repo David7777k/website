@@ -46,17 +46,17 @@ export default function ScanPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+    <div className="min-h-screen bg-black">
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-block p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl mb-4 shadow-2xl">
-            <span className="text-6xl">📱</span>
+          <div className="inline-block p-4 bg-gradient-to-br from-lime-500 to-green-600 rounded-2xl mb-4 border-2 border-lime-500/30">
+            <span className="text-5xl">📱</span>
           </div>
-          <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600 mb-2">
+          <h1 className="text-3xl font-bold text-white mb-2">
             Сканер QR-кодів
           </h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400">
             Скануйте QR-коди для підтвердження візитів, активації промокодів та більше
           </p>
         </div>
