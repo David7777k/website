@@ -1,314 +1,303 @@
-# 🌐 Website Project
+# 🐼 PANDA Lounge - Полнофункциональная система управления кальянной
 
-<div align="center">
+Современное веб-приложение для управления кальянной с админ-панелью, системой бронирования, промокодами, джукбоксом и многим другим.
 
-![Project Status](https://img.shields.io/badge/status-active-brightgreen)
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Python](https://img.shields.io/badge/Python-3.11+-blue?logo=python)
-![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react)
-![Next.js](https://img.shields.io/badge/Next.js-15.5-000000?logo=nextdotjs)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?logo=typescript)
+## 🚀 Технологии
 
-*Современный мультисервисный веб-проект с микросервисной архитектурой*
+- **Frontend**: Next.js 15.5, React 18, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Database**: Prisma ORM + SQLite (можно переключить на PostgreSQL)
+- **Authentication**: NextAuth.js (Google OAuth + OTP)
+- **UI**: Framer Motion для анимаций
+- **QR Codes**: qrcode library
 
-</div>
+## ✨ Основной функционал
 
-## 📋 Обзор проекта
+### 🎯 Для пользователей
+- 🔐 **Авторизация**: Google OAuth или OTP через телефон
+- 🎡 **Колесо фортуны**: Ежедневные розыгрыши призов
+- 🎵 **Джукбокс**: Заказ музыки с модерацией персонала
+- 🍃 **Меню**: Интерактивное меню кальянов, блюд и напитков
+- 🎟️ **Промокоды**: Система скидок и акций
+- 📱 **QR-визиты**: Подтверждение посещений через QR
+- ⭐ **Рейтинг персонала**: Оценка обслуживания
+- 💰 **Чаевые**: Прямые переводы на карты сотрудников
+- 👥 **Реферальная программа**: Приглашай друзей и получай бонусы
+- 🎂 **Бонус на день рождения**: Специальные предложения
+- 📊 **Личный кабинет**: История визитов, купоны, статистика
 
-Этот репозиторий представляет собой полнофункциональную экосистему веб-приложений, объединяющую в себе:
+### 👨‍💼 Для персонала
+- 📱 **Staff панель**: Подтверждение визитов, модерация музыки
+- 📊 **Статистика смены**: Визиты, чаевые, рейтинги
+- 🎁 **Создание промокодов**: Лимит 2 промокода в неделю
+- 🔔 **Уведомления**: Real-time алерты о событиях
 
-- **🚀 Backend API** — высокопроизводительный FastAPI сервер на Python
-- **⚛️ Frontend SPA** — современное React приложение с i18n поддержкой
-- **🔥 Panda-Next** — продвинутое Next.js приложение с Prisma ORM
+### 🛡️ Для администраторов
+- 📊 **Dashboard**: Полная статистика и аналитика
+- 👥 **Управление пользователями**: С риск-доской для подозрительных активностей
+- 🎟️ **Управление промокодами**: Полный CRUD с QR-генерацией
+- 🎡 **Настройка колеса фортуны**: Призы и вероятности
+- 🎵 **Управление музыкой**: Модерация треков
+- 🍃 **Управление меню**: Добавление/редактирование позиций
+- 📅 **Управление событиями**: Афиша мероприятий
+- ⚙️ **Системные настройки**: Глобальные параметры
+- 📝 **Логи действий**: Полный audit trail
+- 📈 **Расширенная аналитика**: Визиты, доходы, популярность блюд
 
-## 🏗️ Архитектура проекта
+## 📦 Установка и запуск
 
-```
-website/
-├── 🔧 backend/              # FastAPI + Python backend
-│   ├── server.py           # Основной сервер
-│   ├── models.py           # Модели данных
-│   └── requirements.txt    # Python зависимости
-├── ⚛️ frontend/            # React SPA
-│   ├── src/                # Исходный код
-│   ├── components.json     # UI компоненты
-│   └── package.json        # Node.js зависимости
-├── 🔥 panda-next/          # Next.js приложение
-│   ├── app/                # App Router
-│   ├── prisma/             # База данных
-│   └── middleware.ts       # Middleware
-└── 📝 docs/                # Документация
-```
+### Требования
+- Node.js 18+ 
+- npm или yarn
 
-## ⚡ Быстрый старт
-
-### 🐳 Docker (Рекомендуется)
+### Быстрый старт
 
 ```bash
-# Клонируйте репозиторий
-git clone https://github.com/David7777k/website.git
-cd website
-
-# Запустите весь стек одной командой
-docker-compose up -d
-```
-
-### 🪟 Windows PowerShell
-
-Для пользователей Windows предусмотрен автоматический скрипт запуска:
-
-```powershell
-# Запустите автоматический скрипт
-./start.ps1
-```
-
-### 🛠️ Ручная установка
-
-#### Backend Setup
-```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate  # Windows: .\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-uvicorn server:app --reload --port 8000
-```
-
-#### Frontend Setup
-```bash
-cd frontend
-npm install --legacy-peer-deps
-npm start
-```
-
-#### Panda-Next Setup
-```bash
-cd panda-next
+# 1. Установка зависимостей
 npm install
+
+# 2. Настройка окружения
+cp .env.example .env
+# Отредактируйте .env файл с вашими ключами
+
+# 3. Настройка базы данных
 npx prisma generate
 npx prisma migrate dev --name init
+
+# 4. Заполнение тестовыми данными
 npm run prisma:seed
+
+# 5. Запуск в режиме разработки
 npm run dev
 ```
 
-## 🌟 Ключевые возможности
+Приложение будет доступно по адресу: http://localhost:3000
 
-### 🔐 Аутентификация и безопасность
-- **NextAuth.js** с Google OAuth и OTP
-- **JWT токены** для API авторизации
-- **Bcrypt** хеширование паролей
-- **CORS** настройки для безопасности
+### Скрипты
 
-### 🗄️ База данных
-- **Prisma ORM** с TypeScript поддержкой
-- **SQLite** для разработки (готов к миграции на PostgreSQL)
-- **Автоматические миграции** и seed данные
-- **Database Studio** для администрирования
-
-### 🎨 UI/UX
-- **Radix UI** компоненты
-- **Tailwind CSS** для стилизации
-- **Framer Motion** анимации
-- **Shadcn/ui** дизайн-система
-- **Responsive дизайн** для всех устройств
-
-### 🌍 Интернационализация
-- **i18next** для React приложения
-- Поддержка **русского** и **украинского** языков
-- **Автоматическое определение** языка браузера
-
-### 🧪 Тестирование и качество
-- **Vitest** для unit тестов
-- **ESLint** с расширенными правилами
-- **TypeScript** строгая типизация
-- **Puppeteer** для E2E тестирования
-
-## 📚 API Документация
-
-### Backend API (FastAPI)
-- **Swagger UI**: `http://localhost:8000/docs`
-- **ReDoc**: `http://localhost:8000/redoc`
-
-### Next.js API Routes
-- **Authentication**: `/api/auth/*`
-- **Wheel Spin**: `/api/wheel/spin`
-- **Music Orders**: `/api/music/order`
-
-## 🔧 Доступные команды
-
-### Backend
 ```bash
-# Запуск сервера разработки
-uvicorn server:app --reload
-
-# Форматирование кода
-black .
-
-# Линтинг
-flake8
-
-# Тестирование
-pytest
+npm run dev          # Запуск в режиме разработки
+npm run build        # Сборка для продакшна
+npm run start        # Запуск продакшн сервера
+npm run lint         # Проверка кода
+npm run prisma:studio # Открыть Prisma Studio (GUI для БД)
+npm run prisma:seed  # Заполнить БД тестовыми данными
 ```
 
-### Frontend
-```bash
-# Разработка
-npm start
+## 🔑 API Ключи
 
-# Сборка
+Для полного функционала потребуются следующие API ключи:
+
+### Google OAuth (обязательно для входа)
+1. Перейдите на https://console.cloud.google.com/
+2. Создайте новый проект
+3. Включите Google+ API
+4. Создайте OAuth 2.0 credentials
+5. Добавьте authorized redirect URI: `http://localhost:3000/api/auth/callback/google`
+6. Скопируйте Client ID и Client Secret в `.env`
+
+### Google Maps API (опционально, для карт)
+1. В том же Google Cloud Console
+2. Включите Maps JavaScript API
+3. Создайте API ключ
+4. Добавьте в `.env` как `GOOGLE_MAPS_API_KEY`
+
+### Spotify API (опционально, для джукбокса)
+1. Перейдите на https://developer.spotify.com/dashboard
+2. Создайте приложение
+3. Скопируйте Client ID и Client Secret
+4. Добавьте в `.env`
+
+## 📁 Структура проекта
+
+```
+panda-next/
+├── app/                    # Next.js App Router
+│   ├── admin/             # Админ-панель
+│   ├── analytics/         # Аналитика
+│   ├── api/               # API routes
+│   ├── auth/              # Страницы авторизации
+│   ├── components/        # React компоненты
+│   ├── events/            # Афиша событий
+│   ├── faq/               # FAQ
+│   ├── legal/             # Юридические документы
+│   ├── menu/              # Меню
+│   ├── music/             # Джукбокс
+│   ├── profile/           # Профиль пользователя
+│   ├── promos/            # Промокоды
+│   ├── referrals/         # Реферальная программа
+│   ├── staff/             # Панель персонала
+│   └── visit-confirmation/ # Подтверждение визитов
+├── lib/                   # Утилиты и хелперы
+├── prisma/                # Prisma схема и миграции
+│   ├── schema.prisma      # Модели БД
+│   └── seed.ts            # Seed данные
+├── public/                # Статические файлы
+├── scripts/               # Скрипты
+└── pages/                 # Pages Router (для NextAuth)
+    └── api/auth/          # NextAuth endpoints
+```
+
+## 🗄️ База данных
+
+Приложение использует Prisma ORM с SQLite по умолчанию (для разработки).
+
+### Модели
+- **User** - Пользователи
+- **Event** - События и мероприятия
+- **WheelSpin** - История вращений колеса
+- **Coupon** - Купоны и промокоды
+- **MusicOrder** - Заказы музыки
+- **Referral** - Реферальная программа
+- **Tip** - Чаевые
+- **Staff** - Персонал
+- **Visit** - Визиты
+- **PromoCode** - Промокоды
+- **SystemSettings** - Настройки системы
+- **StaffRating** - Рейтинги персонала
+- **MenuItem** - Позиции меню
+- **AdminLog** - Логи действий админов
+- **Notification** - Уведомления
+- **WheelPrize** - Призы колеса фортуны
+
+### Переключение на PostgreSQL
+
+Для продакшна рекомендуется PostgreSQL:
+
+1. Измените в `prisma/schema.prisma`:
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+```
+
+2. Обновите DATABASE_URL в `.env`:
+```
+DATABASE_URL="postgresql://user:password@localhost:5432/panda_lounge"
+```
+
+3. Запустите миграции:
+```bash
+npx prisma migrate dev
+```
+
+## 🎨 Кастомизация
+
+### Темы и стили
+- Все стили в `app/globals.css` и `tailwind.config.js`
+- Используется темная тема по умолчанию
+- Адаптивный дизайн для всех устройств
+
+### Настройки приложения
+- Глобальные настройки в админ-панели → Настройки
+- Лимиты, TTL кодов, тексты политик
+- Вероятности призов колеса фортуны
+
+## 🚀 Деплой
+
+### Vercel (рекомендуется)
+1. Push код на GitHub
+2. Импортируйте проект в Vercel
+3. Настройте environment variables из `.env`
+4. Подключите PostgreSQL базу данных
+5. Deploy!
+
+### Docker
+```bash
+# Сборка образа
+docker build -t panda-lounge .
+
+# Запуск контейнера
+docker run -p 3000:3000 --env-file .env panda-lounge
+```
+
+### VPS (Ubuntu/Debian)
+```bash
+# Установка Node.js и PM2
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo npm install -g pm2
+
+# Клонирование и настройка
+git clone https://github.com/yourusername/panda-lounge.git
+cd panda-lounge
+npm install
+npx prisma generate
+npx prisma migrate deploy
 npm run build
 
-# Тестирование
-npm test
-
-# Линтинг
-npx eslint src/
+# Запуск через PM2
+pm2 start npm --name "panda-lounge" -- start
+pm2 save
+pm2 startup
 ```
 
-### Panda-Next
-```bash
-# Разработка
-npm run dev
+## 🔐 Безопасность
 
-# Сборка
-npm run build
+- ✅ NextAuth.js для аутентификации
+- ✅ CSRF защита
+- ✅ Rate limiting на API
+- ✅ Валидация всех входных данных
+- ✅ Защита от SQL инъекций (через Prisma)
+- ✅ Хеширование паролей (bcrypt)
+- ✅ Secure cookies
+- ✅ CORS настройки
+- ⚠️ Для продакшна обязательно измените `NEXTAUTH_SECRET`!
+- ⚠️ Используйте HTTPS в продакшне
 
-# База данных
-npm run prisma:studio
-npm run prisma:generate
-npm run prisma:migrate
+## 📱 Тестовые данные
 
-# Тестирование
-npm test
+После `npm run prisma:seed` будут созданы:
 
-# Линтинг
-npm run lint
-```
+### Администратор
+- Email: admin@panda.lounge
+- Google OAuth (используйте свой Google аккаунт)
 
-## 🐳 Docker контейнеризация
+### Персонал
+- 7 сотрудников с карточками для чаевых
 
-```yaml
-# docker-compose.yml
-version: '3.8'
-services:
-  backend:
-    build: ./backend
-    ports:
-      - "8000:8000"
-  
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-  
-  panda-next:
-    build: ./panda-next
-    ports:
-      - "3001:3000"
-```
+### Демо данные
+- События
+- FAQ
+- Призы для колеса фортуны
+- Позиции меню
+- Промокоды
 
-## 🚀 Развертывание
+## 🐛 Известные проблемы
 
-### Production готовность
-- ✅ Environment переменные
-- ✅ SSL/TLS сертификаты
-- ✅ Database миграции
-- ✅ Статические файлы
-- ✅ Логирование
-- ✅ Мониторинг
+- Spotify интеграция работает в demo-режиме без реальных ключей
+- Google Maps требует настройку биллинга в Google Cloud
+- OTP отправка требует интеграции с SMS-провайдером
 
-### Популярные платформы
-- **Vercel** (Next.js приложение)
-- **Railway** (Backend API)
-- **Netlify** (React SPA)
-- **Docker** (полный стек)
+## 📝 TODO / Roadmap
 
-## 🤝 Участие в разработке
+- [ ] Интеграция с реальным SMS провайдером для OTP
+- [ ] Push-уведомления
+- [ ] Email рассылки
+- [ ] Telegram бот для уведомлений
+- [ ] Мобильное приложение (React Native)
+- [ ] Онлайн-оплата (LiqPay, Fondy)
+- [ ] Система бронирования столов
+- [ ] CRM для менеджеров
+- [ ] Расширенная аналитика с графиками
 
-### Workflow
-1. Fork репозитория
-2. Создайте feature ветку: `git checkout -b feature/amazing-feature`
-3. Commit изменения: `git commit -m 'Add amazing feature'`
-4. Push в ветку: `git push origin feature/amazing-feature`
-5. Откройте Pull Request
+## 🤝 Поддержка
 
-### Code Style
-- Используйте **ESLint** и **Prettier**
-- Следуйте **TypeScript** строгим правилам
-- Пишите **тесты** для новых функций
-- Документируйте **API endpoints**
-
-## 📈 Производительность
-
-### Оптимизации
-- **Tree shaking** и code splitting
-- **Image optimization** с Next.js
-- **API response caching**
-- **Database query optimization**
-- **Bundle size monitoring**
-
-### Метрики
-- ⚡ **Lighthouse Score**: 95+
-- 🚀 **First Contentful Paint**: <1.5s
-- 📱 **Mobile Performance**: Optimized
-- ♿ **Accessibility**: WCAG 2.1 AA
-
-## 🔒 Безопасность
-
-- 🛡️ **SQL Injection** защита через Prisma
-- 🔐 **XSS** защита через CSP headers
-- 🚫 **CSRF** токены
-- 🔑 **Environment secrets** management
-- 📊 **Security audit** с npm audit
-
-## 📊 Мониторинг и аналитика
-
-- 📈 **Application Performance Monitoring**
-- 🐛 **Error tracking** с Sentry
-- 📊 **User analytics**
-- 🔍 **Database monitoring**
-- 📨 **Health checks**
-
-## 🎯 Roadmap
-
-- [ ] **GraphQL API** интеграция
-- [ ] **Microservices** архитектура
-- [ ] **Redis** кеширование
-- [ ] **Kubernetes** развертывание
-- [ ] **CI/CD** pipeline с GitHub Actions
-- [ ] **Mobile app** с React Native
+Если возникли вопросы или проблемы:
+1. Проверьте, что все зависимости установлены
+2. Убедитесь, что .env файл правильно настроен
+3. Проверьте логи в консоли
+4. Создайте issue на GitHub
 
 ## 📄 Лицензия
 
-Этот проект лицензирован под MIT License - см. [LICENSE](LICENSE) файл для деталей.
+MIT License - используйте свободно для своих проектов!
 
-## 👥 Команда
+## 👨‍💻 Разработка
 
-<table>
-<tr>
-<td align="center">
-<a href="https://github.com/David7777k">
-<img src="https://github.com/David7777k.png" width="100px;" alt="David"/><br />
-<sub><b>David</b></sub>
-</a><br />
-💻 Fullstack Developer
-</td>
-</tr>
-</table>
-
-## 🆘 Поддержка
-
-Если у вас есть вопросы или проблемы:
-
-1. 📖 Проверьте [документацию](./docs)
-2. 🔍 Поищите в [Issues](https://github.com/David7777k/website/issues)
-3. 💬 Создайте новый [Issue](https://github.com/David7777k/website/issues/new)
+Создано с ❤️ для современных кальянных и лаунж-баров.
 
 ---
 
-<div align="center">
-
-**⭐ Поставьте звезду, если проект был полезен!**
-
-</div>
-
+**🎉 Готово к использованию! Удачи в развитии вашего бизнеса!**
