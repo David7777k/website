@@ -260,33 +260,6 @@ export default function ProfilePage() {
           ) : (
             <p className="text-gray-400 text-center py-8">У вас пока нет визитов</p>
           )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Achievements */}
-              <div>
-                <h4 className="text-lg font-bold text-white mb-4">🏆 Досягнення</h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {[
-                    { icon: '🎯', title: 'Перший візит', desc: 'Отримано' },
-                    { icon: '🔥', title: '10 візитів', desc: 'Отримано' },
-                    { icon: '⭐', title: 'VIP статус', desc: 'Отримано' },
-                    { icon: '👑', title: 'Постійний гість', desc: '15/20' },
-                  ].map((achievement) => (
-                    <div
-                      key={achievement.title}
-                      className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-xl p-4 text-center"
-                    >
-                      <div className="text-4xl mb-2">{achievement.icon}</div>
-                      <div className="text-white font-semibold text-sm">{achievement.title}</div>
-                      <div className="text-gray-400 text-xs">{achievement.desc}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
