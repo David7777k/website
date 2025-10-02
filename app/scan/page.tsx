@@ -62,18 +62,18 @@ export default function ScanPage() {
         </div>
 
         {/* Scanner Card */}
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 shadow-2xl border border-gray-700 mb-6">
+        <div className="bg-gray-900 rounded-2xl p-8 border border-gray-800 mb-6">
           {!isScanning && !scanResult && (
             <div className="text-center space-y-6">
               <div className="relative">
-                <div className="w-48 h-48 mx-auto bg-gradient-to-br from-green-500/20 to-emerald-600/20 rounded-3xl flex items-center justify-center border-4 border-dashed border-green-500/50">
-                  <span className="text-8xl">🔍</span>
+                <div className="w-48 h-48 mx-auto bg-gray-800 rounded-2xl flex items-center justify-center border-2 border-dashed border-lime-500/50">
+                  <span className="text-7xl">🔍</span>
                 </div>
               </div>
               
               <button
                 onClick={() => setIsScanning(true)}
-                className="px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-2xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-lg"
+                className="px-8 py-4 bg-lime-500 hover:bg-lime-600 text-black font-semibold rounded-xl transition-all"
               >
                 📸 Почати сканування
               </button>
