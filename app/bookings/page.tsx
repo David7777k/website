@@ -80,7 +80,7 @@ export default function BookingsPage() {
         </div>
 
         {/* Main Card */}
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700">
+        <div className="bg-gray-900 rounded-2xl p-6 md:p-8 border border-gray-800">
           {/* Step 1: Date & Time */}
           {step === 'datetime' && (
             <div className="space-y-6">
