@@ -1,28 +1,79 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function ProfilePage() {
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const router = useRouter()
-  const [activeTab, setActiveTab] = useState<'overview' | 'qr' | 'stats'>('overview')
+  const [qrGenerated, setQrGenerated] = useState(false)
+  const [copied, setCopied] = useState<'promo' | 'referral' | null>(null)
+  const [loading, setLoading] = useState(false)
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.push('/auth/login')
+    }
+  }, [status, router])
 
   // Mock user data
   const user = {
-    name: session?.user?.name || "Олексій Петренко",
-    phone: "+380123456789",
-    email: session?.user?.email || "alex@example.com",
+    name: session?.user?.name || "Panda",
+    email: session?.user?.email || "david32m3lko@gmail.com",
     avatar: session?.user?.image || null,
-    visitCount: 12,
-    totalSpent: 4580,
-    bonusPoints: 250,
-    activePromoCodes: 3,
-    nextWheelSpin: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
-    vipStatus: true,
-    referralCode: "ALEX2024",
+    status: "Гість",
+    visitCount: 0,
+    bonusPoints: 0,
+    referralCount: 0,
+    referralCode: "A157098C0D1CE2F8F0548",
+    referralLink: `https://panda.com/ref/${session?.user?.id || 'A157098C0D1CE2F8F0548'}`,
+  }
+
+  const activePromos = [
+    {
+      id: 1,
+      title: "5% скидка на меню",
+      code: "WHEEL89C87C78",
+      type: "Колесо фортуни",
+      validUntil: "10.10.2025",
+      discount: "5.00%"
+    }
+  ]
+
+  const recentVisits = [
+    { date: "03.10.2025", status: "Ожидает" },
+    { date: "03.10.2025", status: "Ожидает" },
+    { date: "03.10.2025", status: "Ожидает" },
+  ]
+
+  const handleCopy = async (text: string, type: 'promo' | 'referral') => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopied(type)
+      setTimeout(() => setCopied(null), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
+  }
+
+  const handleGenerateQR = async () => {
+    setLoading(true)
+    // Simulate API call
+    setTimeout(() => {
+      setQrGenerated(true)
+      setLoading(false)
+    }, 1000)
+  }
+
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-lime-500"></div>
+      </div>
+    )
   }
 
   const quickActions = [
