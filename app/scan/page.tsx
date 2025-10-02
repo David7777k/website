@@ -126,34 +126,34 @@ export default function ScanPage() {
         </div>
 
         {/* Info Cards */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-6">
-            <div className="text-4xl mb-3">🎫</div>
-            <h3 className="text-xl font-bold text-blue-400 mb-2">Візити</h3>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+            <div className="text-3xl mb-2">🎫</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Візити</h3>
             <p className="text-gray-400 text-sm">
               Скануйте QR-код на столику для підтвердження візиту та отримання бонусів
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/30 rounded-2xl p-6">
-            <div className="text-4xl mb-3">🎁</div>
-            <h3 className="text-xl font-bold text-purple-400 mb-2">Промокоди</h3>
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+            <div className="text-3xl mb-2">🎁</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Промокоди</h3>
             <p className="text-gray-400 text-sm">
               Активуйте промокоди зі знижками та спеціальними пропозиціями
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/30 rounded-2xl p-6">
-            <div className="text-4xl mb-3">💰</div>
-            <h3 className="text-xl font-bold text-green-400 mb-2">Чайові</h3>
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+            <div className="text-3xl mb-2">💰</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Чайові</h3>
             <p className="text-gray-400 text-sm">
               Скануйте QR-код співробітника для швидких чайових
             </p>
           </div>
 
-          <div className="bg-gradient-to-br from-orange-500/10 to-orange-600/10 border border-orange-500/30 rounded-2xl p-6">
-            <div className="text-4xl mb-3">🎡</div>
-            <h3 className="text-xl font-bold text-orange-400 mb-2">Колесо фортуни</h3>
+          <div className="bg-gray-900 border border-gray-800 rounded-xl p-5">
+            <div className="text-3xl mb-2">🎡</div>
+            <h3 className="text-lg font-semibold text-white mb-1">Колесо фортуни</h3>
             <p className="text-gray-400 text-sm">
               Отримайте доступ до ексклюзивних розіграшів
             </p>
