@@ -63,7 +63,7 @@ export default function HomePage() {
       icon: '📞',
       title: 'Забронювати',
       subtitle: 'Столик на сьогодні',
-      href: 'tel:+380937045713',
+      href: '/bookings',
       color: 'bg-gradient-to-br from-green-500 to-green-600',
       pulse: true
     },
@@ -91,10 +91,17 @@ export default function HomePage() {
     },
     {
       icon: '📱',
-      title: 'Підтвердити візит',
-      subtitle: 'Скануй QR столика',
-      href: '/visit-confirmation',
+      title: 'Сканер QR',
+      subtitle: 'Скануй для бонусів',
+      href: '/scan',
       color: 'bg-gradient-to-br from-teal-500 to-cyan-600'
+    },
+    {
+      icon: '🎨',
+      title: 'Генератор QR',
+      subtitle: 'Створи свій QR',
+      href: '/qr-generator',
+      color: 'bg-gradient-to-br from-pink-500 to-red-500'
     },
     {
       icon: '👥',
