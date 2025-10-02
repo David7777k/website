@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
+import NotificationBell from './NotificationBell'
+import NotificationPanel from './NotificationPanel'
+import { useNotifications } from './NotificationSystem'
 
 interface Language {
   code: 'uk' | 'ru'
