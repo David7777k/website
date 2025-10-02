@@ -161,25 +161,25 @@ export default function ScanPage() {
         </div>
 
         {/* Tips */}
-        <div className="mt-8 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-2xl p-6">
-          <h3 className="text-lg font-bold text-yellow-400 mb-3 flex items-center gap-2">
+        <div className="mt-6 bg-gray-900 border border-gray-800 rounded-xl p-5">
+          <h3 className="text-base font-semibold text-white mb-3 flex items-center gap-2">
             💡 Поради для сканування
           </h3>
           <ul className="space-y-2 text-gray-400 text-sm">
             <li className="flex items-start gap-2">
-              <span className="text-yellow-500">•</span>
+              <span className="text-lime-500">•</span>
               Тримайте камеру стабільно на відстані 10-15 см від QR-коду
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-yellow-500">•</span>
+              <span className="text-lime-500">•</span>
               Переконайтеся, що є достатнє освітлення
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-yellow-500">•</span>
+              <span className="text-lime-500">•</span>
               QR-код має повністю поміститись в кадрі
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-yellow-500">•</span>
+              <span className="text-lime-500">•</span>
               Якщо сканування не працює, спробуйте очистити камеру
             </li>
           </ul>
