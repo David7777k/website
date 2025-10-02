@@ -98,11 +98,11 @@ export default function ScanPage() {
           {scanResult && (
             <div className="text-center space-y-4">
               <div className="text-6xl mb-4">✅</div>
-              <h3 className="text-2xl font-bold text-green-400 mb-2">
+              <h3 className="text-2xl font-bold text-lime-400 mb-2">
                 QR-код відсканований!
               </h3>
-              <div className="bg-gray-800/50 rounded-xl p-4 border border-gray-700">
-                <p className="text-gray-300 font-mono break-all">
+              <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                <p className="text-gray-300 font-mono break-all text-sm">
                   {scanResult}
                 </p>
               </div>
@@ -111,7 +111,7 @@ export default function ScanPage() {
                   setScanResult(null)
                   setError(null)
                 }}
-                className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold rounded-xl hover:shadow-xl transition-all"
+                className="px-6 py-3 bg-lime-500 hover:bg-lime-600 text-black font-semibold rounded-xl transition-all"
               >
                 🔄 Сканувати ще раз
               </button>
@@ -119,7 +119,7 @@ export default function ScanPage() {
           )}
 
           {error && (
-            <div className="bg-red-500/10 border border-red-500/50 rounded-xl p-4 text-red-400 text-center">
+            <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-center">
               ⚠️ {error}
             </div>
           )}
