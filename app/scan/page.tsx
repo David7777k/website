@@ -88,7 +88,7 @@ export default function ScanPage() {
               />
               <button
                 onClick={() => setIsScanning(false)}
-                className="w-full px-6 py-3 bg-red-500/20 text-red-400 border border-red-500/50 rounded-xl hover:bg-red-500/30 transition-all"
+                className="w-full px-6 py-3 bg-gray-800 text-gray-300 border border-gray-700 rounded-xl hover:bg-gray-700 transition-all"
               >
                 ❌ Скасувати
               </button>
