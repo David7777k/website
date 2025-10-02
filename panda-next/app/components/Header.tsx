@@ -21,6 +21,7 @@ const languages: Language[] = [
 
 export default function Header() {
   const { data: session, status } = useSession()
+  const { unreadCount } = useNotifications()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentLang, setCurrentLang] = useState<'uk' | 'ru'>('uk')
 
