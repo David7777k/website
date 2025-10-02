@@ -154,7 +154,7 @@ export default function Header() {
                     {/* Notifications */}
                     <NotificationBell
                       onClick={() => setShowNotifications(true)}
-                      unreadCount={useNotifications().unreadCount}
+                      unreadCount={unreadCount}
                     />
                     
                     <Link href="/profile" className="flex items-center gap-2 text-sm text-gray-300 hover:text-green-400 transition-colors">
