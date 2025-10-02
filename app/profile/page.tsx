@@ -76,279 +76,190 @@ export default function ProfilePage() {
     )
   }
 
-  const quickActions = [
-    { icon: '🎫', label: 'Мої візити', href: '/profile/visits', color: 'from-blue-500 to-blue-600' },
-    { icon: '🎁', label: 'Бонуси', href: '/profile/bonuses', color: 'from-purple-500 to-purple-600' },
-    { icon: '⚙️', label: 'Налаштування', href: '/profile/settings', color: 'from-gray-500 to-gray-600' },
-    { icon: '👥', label: 'Реферали', href: '/referrals', color: 'from-green-500 to-green-600' },
-  ]
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black">
-      <div className="max-w-6xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-black">
+      <div className="max-w-7xl mx-auto px-4 py-6 md:py-8">
         {/* Profile Header */}
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700 mb-6">
-          <div className="flex flex-col md:flex-row items-center gap-6">
+        <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 rounded-2xl p-6 mb-6 border border-gray-800">
+          <div className="flex items-center gap-4">
             {/* Avatar */}
-            <div className="relative">
-              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-6xl shadow-2xl border-4 border-gray-700">
-                {user.avatar ? (
-                  <img src={user.avatar} alt={user.name} className="rounded-full" />
-                ) : (
-                  '🐼'
-                )}
-              </div>
-              {user.vipStatus && (
-                <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                  ⭐ VIP
-                </div>
+            <div className="w-16 h-16 bg-gradient-to-br from-lime-500 to-green-600 rounded-2xl flex items-center justify-center text-3xl border-2 border-lime-500/30">
+              {user.avatar ? (
+                <img src={user.avatar} alt={user.name} className="rounded-2xl w-full h-full object-cover" />
+              ) : (
+                '👤'
               )}
             </div>
 
             {/* User Info */}
-            <div className="flex-1 text-center md:text-left">
-              <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600 mb-2">
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-white mb-1">
                 {user.name}
               </h1>
-              <div className="space-y-1 text-gray-400">
-                <p className="flex items-center justify-center md:justify-start gap-2">
-                  <span>📧</span> {user.email}
-                </p>
-                <p className="flex items-center justify-center md:justify-start gap-2">
-                  <span>📱</span> {user.phone}
-                </p>
-              </div>
+              <p className="text-gray-400 text-sm">{user.email}</p>
             </div>
 
-            {/* QR Code */}
-            <div className="bg-white p-4 rounded-2xl shadow-xl">
-              <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
-                <span className="text-4xl">📱</span>
-              </div>
-              <p className="text-center text-xs text-gray-600 mt-2 font-semibold">Мій QR-код</p>
+            {/* Status Badge */}
+            <div className="bg-lime-500/20 border border-lime-500/50 rounded-full px-4 py-1.5">
+              <span className="text-lime-400 font-semibold text-sm">{user.status}</span>
             </div>
+
+            {/* Settings Icon */}
+            <Link href="/profile/settings" className="text-gray-400 hover:text-white transition-colors">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </Link>
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/50 rounded-2xl p-6 text-center">
-            <div className="text-4xl mb-2">🎫</div>
-            <div className="text-3xl font-black text-blue-400 mb-1">{user.visitCount}</div>
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="bg-gray-900 rounded-xl p-4 text-center border border-gray-800">
+            <div className="text-3xl font-bold text-lime-400 mb-1">{user.visitCount}</div>
             <div className="text-sm text-gray-400">Візитів</div>
           </div>
-
-          <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/50 rounded-2xl p-6 text-center">
-            <div className="text-4xl mb-2">💰</div>
-            <div className="text-3xl font-black text-green-400 mb-1">{user.totalSpent}₴</div>
-            <div className="text-sm text-gray-400">Витрачено</div>
+          <div className="bg-gray-900 rounded-xl p-4 text-center border border-gray-800">
+            <div className="text-3xl font-bold text-lime-400 mb-1">{user.bonusPoints}</div>
+            <div className="text-sm text-gray-400">Бонусов</div>
           </div>
-
-          <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/50 rounded-2xl p-6 text-center">
-            <div className="text-4xl mb-2">🎁</div>
-            <div className="text-3xl font-black text-purple-400 mb-1">{user.activePromoCodes}</div>
-            <div className="text-sm text-gray-400">Бонусів</div>
-          </div>
-
-          <div className="bg-gradient-to-br from-orange-500/20 to-orange-600/20 border border-orange-500/50 rounded-2xl p-6 text-center">
-            <div className="text-4xl mb-2">⭐</div>
-            <div className="text-3xl font-black text-orange-400 mb-1">{user.bonusPoints}</div>
-            <div className="text-sm text-gray-400">Балів</div>
+          <div className="bg-gray-900 rounded-xl p-4 text-center border border-gray-800">
+            <div className="text-3xl font-bold text-lime-400 mb-1">{user.referralCount}</div>
+            <div className="text-sm text-gray-400">Рефералов</div>
           </div>
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          {quickActions.map((action) => (
-            <Link
-              key={action.href}
-              href={action.href}
-              className={`bg-gradient-to-br ${action.color} rounded-2xl p-6 text-center text-white hover:shadow-2xl hover:scale-105 transition-all duration-300`}
-            >
-              <div className="text-4xl mb-2">{action.icon}</div>
-              <div className="font-bold">{action.label}</div>
+        {/* QR Code Section */}
+        <div className="bg-gray-900 rounded-2xl p-6 mb-6 border border-gray-800">
+          <div className="flex items-center gap-2 mb-4">
+            <svg className="w-6 h-6 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" />
+            </svg>
+            <h2 className="text-lg font-semibold text-white">QR-код визита</h2>
+          </div>
+
+          <div className="bg-white rounded-xl p-6 mb-4">
+            {!qrGenerated ? (
+              <div className="flex flex-col items-center justify-center h-48">
+                <p className="text-gray-400 text-center mb-4">QR код появится после создания</p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-48">
+                <div className="w-32 h-32 bg-gray-900 rounded-lg flex items-center justify-center">
+                  <span className="text-white text-xs">QR CODE</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={handleGenerateQR}
+            disabled={loading}
+            className="w-full bg-lime-500 hover:bg-lime-600 text-black font-semibold py-3 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Створення...' : 'Создать QR-код визита'}
+          </button>
+        </div>
+
+        {/* Active Promotions */}
+        <div className="bg-gray-900 rounded-2xl p-6 mb-6 border border-gray-800">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-white">Активные промокоды</h2>
+            <Link href="/promos" className="text-lime-400 hover:text-lime-300 text-sm">
+              История →
             </Link>
-          ))}
-        </div>
-
-        {/* Main Content Tabs */}
-        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700">
-          {/* Tabs */}
-          <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
-            {[
-              { id: 'overview', icon: '📊', label: 'Огляд' },
-              { id: 'qr', icon: '📱', label: 'QR-коди' },
-              { id: 'stats', icon: '📈', label: 'Статистика' },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                className={`px-6 py-3 rounded-xl font-semibold whitespace-nowrap transition-all ${
-                  activeTab === tab.id
-                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg'
-                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
-                }`}
-              >
-                {tab.icon} {tab.label}
-              </button>
-            ))}
           </div>
 
-          {/* Tab Content */}
-          {activeTab === 'overview' && (
-            <div className="space-y-6">
-              {/* Wheel Status */}
-              <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-2xl p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="text-5xl">🎡</div>
+          {activePromos.length > 0 ? (
+            <div className="space-y-4">
+              {activePromos.map((promo) => (
+                <div key={promo.id} className="bg-gradient-to-r from-lime-500/10 to-green-500/10 border border-lime-500/30 rounded-xl p-4">
+                  <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h3 className="text-xl font-bold text-yellow-400">Колесо фортуни</h3>
-                      <p className="text-gray-400 text-sm">
-                        Наступне обертання через 2 дні
-                      </p>
+                      <h3 className="text-white font-semibold mb-1">{promo.title}</h3>
+                      <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <span>🎡 {promo.type}</span>
+                        <span>•</span>
+                        <span>Действует до {promo.validUntil}</span>
+                      </div>
                     </div>
+                    <div className="text-lime-400 font-bold text-xl">{promo.discount}</div>
                   </div>
-                  <button className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold rounded-xl hover:shadow-xl transition-all">
-                    Крутити зараз
-                  </button>
-                </div>
-              </div>
-
-              {/* Referral Program */}
-              <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-green-400 mb-4">👥 Реферальна програма</h3>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="flex-1 bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 font-mono text-white">
-                    {user.referralCode}
-                  </div>
-                  <button className="px-6 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-all">
-                    📋 Копіювати
-                  </button>
-                </div>
-                <p className="text-gray-400 text-sm">
-                  Запрошуйте друзів та отримуйте 50₴ за кожного нового гостя!
-                </p>
-              </div>
-
-              {/* Recent Activity */}
-              <div>
-                <h3 className="text-xl font-bold text-white mb-4">📅 Останні візити</h3>
-                <div className="space-y-3">
-                  {[
-                    { date: '15 жовт. 2024', amount: '450₴', bonus: '+15 балів' },
-                    { date: '08 жовт. 2024', amount: '380₴', bonus: '+12 балів' },
-                    { date: '01 жовт. 2024', amount: '520₴', bonus: '+18 балів' },
-                  ].map((visit, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center justify-between p-4 bg-gray-900/50 border border-gray-700 rounded-xl hover:bg-gray-900 transition-all"
+                  
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 bg-gray-800 rounded-lg px-4 py-2 font-mono text-white text-sm">
+                      {promo.code}
+                    </div>
+                    <button
+                      onClick={() => handleCopy(promo.code, 'promo')}
+                      className="bg-lime-500 hover:bg-lime-600 text-black font-semibold px-6 py-2 rounded-lg transition-all flex items-center gap-2"
                     >
-                      <div>
-                        <div className="text-white font-semibold">{visit.date}</div>
-                        <div className="text-gray-400 text-sm">{visit.amount}</div>
-                      </div>
-                      <div className="text-green-400 font-semibold">{visit.bonus}</div>
-                    </div>
-                  ))}
-                </div>
-                <Link
-                  href="/profile/visits"
-                  className="block text-center mt-4 text-blue-400 hover:text-blue-300 transition-all"
-                >
-                  Переглянути всі візити →
-                </Link>
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'qr' && (
-            <div className="space-y-6">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-white mb-4">Мої QR-коди</h3>
-                <p className="text-gray-400 mb-6">
-                  Використовуйте QR-коди для швидкого доступу до функцій
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {[
-                  { title: 'Візит', icon: '🎫', desc: 'Підтвердження відвідування', color: 'from-blue-500 to-blue-600' },
-                  { title: 'Реферал', icon: '👥', desc: 'Запрошення друзів', color: 'from-green-500 to-green-600' },
-                  { title: 'Профіль', icon: '👤', desc: 'Мій профіль', color: 'from-purple-500 to-purple-600' },
-                  { title: 'Бонуси', icon: '🎁', desc: 'Мої бонуси', color: 'from-orange-500 to-orange-600' },
-                ].map((qr) => (
-                  <div
-                    key={qr.title}
-                    className={`bg-gradient-to-br ${qr.color}/20 border border-gray-700 rounded-2xl p-6 text-center`}
-                  >
-                    <div className="text-5xl mb-3">{qr.icon}</div>
-                    <h4 className="text-xl font-bold text-white mb-2">{qr.title}</h4>
-                    <p className="text-gray-400 text-sm mb-4">{qr.desc}</p>
-                    <div className="bg-white p-4 rounded-xl inline-block mb-4">
-                      <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
-                        QR
-                      </div>
-                    </div>
-                    <div className="flex gap-2 justify-center">
-                      <button className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all text-sm">
-                        💾 Зберегти
-                      </button>
-                      <button className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all text-sm">
-                        📤 Поділитись
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {activeTab === 'stats' && (
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-white mb-4">📈 Статистика</h3>
-
-              {/* Charts Placeholder */}
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-900/50 border border-gray-700 rounded-2xl p-6">
-                  <h4 className="text-lg font-bold text-white mb-4">Візити по місяцях</h4>
-                  <div className="h-48 flex items-end justify-around gap-2">
-                    {[40, 65, 45, 80, 55, 70].map((height, idx) => (
-                      <div key={idx} className="flex-1 bg-gradient-to-t from-green-500 to-emerald-600 rounded-t-lg" style={{ height: `${height}%` }}></div>
-                    ))}
-                  </div>
-                  <div className="flex justify-around mt-2 text-xs text-gray-400">
-                    <span>Тра</span>
-                    <span>Чер</span>
-                    <span>Лип</span>
-                    <span>Сер</span>
-                    <span>Вер</span>
-                    <span>Жов</span>
+                      {copied === 'promo' ? (
+                        <>✓ QR</>
+                      ) : (
+                        <>📋 QR</>
+                      )}
+                    </button>
                   </div>
                 </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-400 text-center py-8">У вас пока нет активных промокодов</p>
+          )}
+        </div>
 
-                <div className="bg-gray-900/50 border border-gray-700 rounded-2xl p-6">
-                  <h4 className="text-lg font-bold text-white mb-4">Улюблені категорії</h4>
-                  <div className="space-y-3">
-                    {[
-                      { name: 'Кальяни', percentage: 65, color: 'bg-blue-500' },
-                      { name: 'Напої', percentage: 45, color: 'bg-purple-500' },
-                      { name: 'Страви', percentage: 35, color: 'bg-green-500' },
-                      { name: 'Коктейлі', percentage: 25, color: 'bg-orange-500' },
-                    ].map((cat) => (
-                      <div key={cat.name}>
-                        <div className="flex justify-between text-sm text-gray-400 mb-1">
-                          <span>{cat.name}</span>
-                          <span>{cat.percentage}%</span>
-                        </div>
-                        <div className="w-full bg-gray-800 rounded-full h-2">
-                          <div
-                            className={`${cat.color} h-2 rounded-full transition-all duration-500`}
-                            style={{ width: `${cat.percentage}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
+        {/* Referral Section */}
+        <div className="bg-gray-900 rounded-2xl p-6 mb-6 border border-gray-800">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-2xl">👥</span>
+            <h2 className="text-lg font-semibold text-white">Пригласи друга</h2>
+          </div>
+
+          <p className="text-gray-400 text-sm mb-4">
+            Получите 100 бонусов за каждого приглашенного друга
+          </p>
+
+          <div className="flex items-center gap-2">
+            <div className="flex-1 bg-gray-800 rounded-lg px-4 py-3 text-white text-sm overflow-x-auto">
+              <code className="whitespace-nowrap">{user.referralLink}</code>
+            </div>
+            <button
+              onClick={() => handleCopy(user.referralLink, 'referral')}
+              className="bg-lime-500 hover:bg-lime-600 text-black font-semibold px-6 py-3 rounded-lg transition-all whitespace-nowrap"
+            >
+              {copied === 'referral' ? '✓ Скопировано' : 'Копировать'}
+            </button>
+          </div>
+        </div>
+
+        {/* Recent Visits */}
+        <div className="bg-gray-900 rounded-2xl p-6 border border-gray-800">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-white">Последние визиты</h2>
+            <Link href="/profile/visits" className="text-lime-400 hover:text-lime-300 text-sm">
+              Все визиты →
+            </Link>
+          </div>
+
+          {recentVisits.length > 0 ? (
+            <div className="space-y-3">
+              {recentVisits.map((visit, idx) => (
+                <div key={idx} className="flex items-center justify-between bg-gray-800/50 rounded-lg p-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-gray-700 rounded-lg flex items-center justify-center">
+                      <span className="text-xl">🍃</span>
+                    </div>
+                    <span className="text-white font-medium">{visit.date}</span>
+                  </div>
+                  <span className="text-gray-400 text-sm">{visit.status}</span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-400 text-center py-8">У вас пока нет визитов</p>
+          )}
                   </div>
                 </div>
               </div>
