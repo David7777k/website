@@ -59,11 +59,15 @@ export default function Header() {
     }
   }, [isMobileMenuOpen])
 
+  const [showNotifications, setShowNotifications] = useState(false)
+
   const navItems = [
     { href: '/', label: 'Головна', icon: '🏠' },
     { href: '/menu', label: 'Меню', icon: '🍽️' },
     { href: '/music', label: 'Музика', icon: '🎵' },
     { href: '/events', label: 'Афіша', icon: '📅' },
+    { href: '/referrals', label: 'Реферали', icon: '👥' },
+    { href: '/analytics', label: 'Аналітика', icon: '📊' },
   ]
 
   const toggleLanguage = () => {
