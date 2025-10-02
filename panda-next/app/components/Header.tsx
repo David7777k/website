@@ -406,6 +406,12 @@ export default function Header() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Notification Panel */}
+      <NotificationPanel
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
+      />
     </>
   )
 }
