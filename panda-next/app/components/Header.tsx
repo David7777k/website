@@ -150,6 +150,12 @@ export default function Header() {
                   <div className="w-8 h-8 animate-spin rounded-full border-2 border-green-500 border-t-transparent"></div>
                 ) : session ? (
                   <div className="flex items-center gap-3">
+                    {/* Notifications */}
+                    <NotificationBell
+                      onClick={() => setShowNotifications(true)}
+                      unreadCount={useNotifications().unreadCount}
+                    />
+                    
                     <Link href="/profile" className="flex items-center gap-2 text-sm text-gray-300 hover:text-green-400 transition-colors">
                       <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white text-sm font-semibold">
                         {session.user?.name?.[0]?.toUpperCase() || '?'}
