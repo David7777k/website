@@ -1,232 +1,332 @@
-import React from 'react'
+'use client'
 
-export const metadata = {
-  title: 'Профіль | PANDA Hookah',
-  description: 'Профіль користувача PANDA'
-}
+import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export default function ProfilePage() {
-  // Mock user data - will be replaced with real auth
+  const { data: session } = useSession()
+  const router = useRouter()
+  const [activeTab, setActiveTab] = useState<'overview' | 'qr' | 'stats'>('overview')
+
+  // Mock user data
   const user = {
-    name: "Олексій Петренко",
+    name: session?.user?.name || "Олексій Петренко",
     phone: "+380123456789",
-    email: "alex@example.com",
+    email: session?.user?.email || "alex@example.com",
+    avatar: session?.user?.image || null,
     visitCount: 12,
+    totalSpent: 4580,
+    bonusPoints: 250,
     activePromoCodes: 3,
-    nextWheelSpin: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days from now
-    smokingTheme: false
+    nextWheelSpin: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
+    vipStatus: true,
+    referralCode: "ALEX2024",
   }
 
-  const promoCodes = [
-    {
-      id: 1,
-      title: "−15% Halloween 🎃",
-      source: "Колесо фортуни",
-      discount: "15%",
-      expiresAt: "2024-10-31",
-      status: "active",
-      code: "HALLOWEEN15"
-    },
-    {
-      id: 2,
-      title: "Безкоштовний чай 🍵",
-      source: "День народження",
-      discount: "Чай в подарунок",
-      expiresAt: "2024-10-20",
-      status: "active",
-      code: "BIRTHDAY_TEA"
-    },
-    {
-      id: 3,
-      title: "−10% Реферал 👥",
-      source: "Запрошення друга",
-      discount: "10%",
-      expiresAt: "2024-09-25",
-      status: "expired",
-      code: "REF_BONUS10"
-    }
+  const quickActions = [
+    { icon: '🎫', label: 'Мої візити', href: '/profile/visits', color: 'from-blue-500 to-blue-600' },
+    { icon: '🎁', label: 'Бонуси', href: '/profile/bonuses', color: 'from-purple-500 to-purple-600' },
+    { icon: '⚙️', label: 'Налаштування', href: '/profile/settings', color: 'from-gray-500 to-gray-600' },
+    { icon: '👥', label: 'Реферали', href: '/referrals', color: 'from-green-500 to-green-600' },
   ]
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'text-bamboo bg-bamboo/20'
-      case 'expired': return 'text-muted bg-muted/20'
-      case 'used': return 'text-accent bg-accent/20'
-      default: return 'text-muted bg-muted/20'
-    }
-  }
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case 'active': return 'Активний'
-      case 'expired': return 'Истік'
-      case 'used': return 'Використаний'
-      default: return 'Невідомо'
-    }
-  }
-
   return (
-    <div className="space-y-6">
-      {/* Page Header */}
-      <div className="text-center space-y-4">
-        <div className="w-24 h-24 rounded-full bg-gradient-to-br from-bamboo to-bamboo-light mx-auto flex items-center justify-center text-4xl text-black">
-          🐼
-        </div>
-        <div>
-          <h1 className="text-3xl font-bold gradient-text-bamboo">Профіль</h1>
-          <p className="text-text-secondary">{user.name}</p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Profile Header */}
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700 mb-6">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            {/* Avatar */}
+            <div className="relative">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-6xl shadow-2xl border-4 border-gray-700">
+                {user.avatar ? (
+                  <img src={user.avatar} alt={user.name} className="rounded-full" />
+                ) : (
+                  '🐼'
+                )}
+              </div>
+              {user.vipStatus && (
+                <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                  ⭐ VIP
+                </div>
+              )}
+            </div>
 
-      {/* User Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{user.visitCount}</div>
-          <div className="text-sm text-muted">Візитів</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">{user.activePromoCodes}</div>
-          <div className="text-sm text-muted">Активні бонуси</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-accent">🎡</div>
-          <div className="text-sm text-muted">Колесо готове</div>
-        </div>
-        <div className="card text-center">
-          <div className="text-2xl font-bold text-bamboo">⭐</div>
-          <div className="text-sm text-muted">VIP статус</div>
-        </div>
-      </div>
+            {/* User Info */}
+            <div className="flex-1 text-center md:text-left">
+              <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600 mb-2">
+                {user.name}
+              </h1>
+              <div className="space-y-1 text-gray-400">
+                <p className="flex items-center justify-center md:justify-start gap-2">
+                  <span>📧</span> {user.email}
+                </p>
+                <p className="flex items-center justify-center md:justify-start gap-2">
+                  <span>📱</span> {user.phone}
+                </p>
+              </div>
+            </div>
 
-      {/* QR Visit Code */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          <span>📱</span> QR Візит
-        </h2>
-        <div className="card text-center space-y-4">
-          <div className="w-32 h-32 bg-white rounded-2xl mx-auto flex items-center justify-center">
-            <div className="text-center text-black">
-              <div className="text-4xl mb-2">📱</div>
-              <div className="text-sm font-bold">QR CODE</div>
+            {/* QR Code */}
+            <div className="bg-white p-4 rounded-2xl shadow-xl">
+              <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                <span className="text-4xl">📱</span>
+              </div>
+              <p className="text-center text-xs text-gray-600 mt-2 font-semibold">Мій QR-код</p>
             </div>
           </div>
-          <div>
-            <h3 className="font-semibold mb-2">Код для підтвердження візиту</h3>
-            <p className="text-text-secondary text-sm mb-4">
-              Покажіть цей QR-код барменові для підтвердження візиту та отримання бонусів
-            </p>
-            <button className="btn btn-primary">
-              Згенерувати новий код
-            </button>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/50 rounded-2xl p-6 text-center">
+            <div className="text-4xl mb-2">🎫</div>
+            <div className="text-3xl font-black text-blue-400 mb-1">{user.visitCount}</div>
+            <div className="text-sm text-gray-400">Візитів</div>
+          </div>
+
+          <div className="bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/50 rounded-2xl p-6 text-center">
+            <div className="text-4xl mb-2">💰</div>
+            <div className="text-3xl font-black text-green-400 mb-1">{user.totalSpent}₴</div>
+            <div className="text-sm text-gray-400">Витрачено</div>
+          </div>
+
+          <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/50 rounded-2xl p-6 text-center">
+            <div className="text-4xl mb-2">🎁</div>
+            <div className="text-3xl font-black text-purple-400 mb-1">{user.activePromoCodes}</div>
+            <div className="text-sm text-gray-400">Бонусів</div>
+          </div>
+
+          <div className="bg-gradient-to-br from-orange-500/20 to-orange-600/20 border border-orange-500/50 rounded-2xl p-6 text-center">
+            <div className="text-4xl mb-2">⭐</div>
+            <div className="text-3xl font-black text-orange-400 mb-1">{user.bonusPoints}</div>
+            <div className="text-sm text-gray-400">Балів</div>
           </div>
         </div>
-      </section>
 
-      {/* Active Promo Codes */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold flex items-center gap-2">
-            <span>🎟️</span> Мої промокоди
-          </h2>
-          <a href="/profile/bonuses" className="text-sm text-bamboo hover:underline">
-            Всі бонуси
-          </a>
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          {quickActions.map((action) => (
+            <Link
+              key={action.href}
+              href={action.href}
+              className={`bg-gradient-to-br ${action.color} rounded-2xl p-6 text-center text-white hover:shadow-2xl hover:scale-105 transition-all duration-300`}
+            >
+              <div className="text-4xl mb-2">{action.icon}</div>
+              <div className="font-bold">{action.label}</div>
+            </Link>
+          ))}
         </div>
 
-        <div className="space-y-3">
-          {promoCodes.map((promo) => (
-            <div key={promo.id} className="card-interactive group cursor-pointer">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-lg font-bold">{promo.title}</h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(promo.status)}`}>
-                      {getStatusText(promo.status)}
-                    </span>
+        {/* Main Content Tabs */}
+        <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-6 md:p-8 shadow-2xl border border-gray-700">
+          {/* Tabs */}
+          <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+            {[
+              { id: 'overview', icon: '📊', label: 'Огляд' },
+              { id: 'qr', icon: '📱', label: 'QR-коди' },
+              { id: 'stats', icon: '📈', label: 'Статистика' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                className={`px-6 py-3 rounded-xl font-semibold whitespace-nowrap transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-lg'
+                    : 'bg-gray-800 text-gray-400 hover:bg-gray-700'
+                }`}
+              >
+                {tab.icon} {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === 'overview' && (
+            <div className="space-y-6">
+              {/* Wheel Status */}
+              <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-2xl p-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className="text-5xl">🎡</div>
+                    <div>
+                      <h3 className="text-xl font-bold text-yellow-400">Колесо фортуни</h3>
+                      <p className="text-gray-400 text-sm">
+                        Наступне обертання через 2 дні
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-text-secondary mb-1">
-                    Джерело: {promo.source}
-                  </p>
-                  <p className="text-xs text-muted">
-                    Діє до: {new Date(promo.expiresAt).toLocaleDateString('uk-UA')}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-bamboo mb-2">
-                    {promo.discount}
-                  </div>
-                  <button className="text-xs text-muted hover:text-bamboo transition-colors">
-                    Показати QR
+                  <button className="px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold rounded-xl hover:shadow-xl transition-all">
+                    Крутити зараз
                   </button>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* Settings */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold flex items-center gap-2">
-          <span>⚙️</span> Налаштування
-        </h2>
-        
-        <div className="space-y-3">
-          {/* Smoking Theme Toggle */}
-          <div className="card">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="font-semibold flex items-center gap-2">
-                  <span>💨</span> Тема дыму (BETA)
-                </h3>
-                <p className="text-sm text-text-secondary">Візуальні ефекти дыму на сайті</p>
+              {/* Referral Program */}
+              <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-green-400 mb-4">👥 Реферальна програма</h3>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="flex-1 bg-gray-900/50 border border-gray-700 rounded-xl px-4 py-3 font-mono text-white">
+                    {user.referralCode}
+                  </div>
+                  <button className="px-6 py-3 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 transition-all">
+                    📋 Копіювати
+                  </button>
+                </div>
+                <p className="text-gray-400 text-sm">
+                  Запрошуйте друзів та отримуйте 50₴ за кожного нового гостя!
+                </p>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  className="sr-only peer"
-                  defaultChecked={user.smokingTheme}
-                />
-                <div className="w-11 h-6 bg-panel peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-bamboo"></div>
-              </label>
-            </div>
-          </div>
 
-          {/* Profile Info */}
-          <div className="card">
-            <div className="flex items-center justify-between">
+              {/* Recent Activity */}
               <div>
-                <h3 className="font-semibold flex items-center gap-2">
-                  <span>👤</span> Інформація профілю
-                </h3>
-                <p className="text-sm text-text-secondary">Редагувати особисті дані</p>
+                <h3 className="text-xl font-bold text-white mb-4">📅 Останні візити</h3>
+                <div className="space-y-3">
+                  {[
+                    { date: '15 жовт. 2024', amount: '450₴', bonus: '+15 балів' },
+                    { date: '08 жовт. 2024', amount: '380₴', bonus: '+12 балів' },
+                    { date: '01 жовт. 2024', amount: '520₴', bonus: '+18 балів' },
+                  ].map((visit, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between p-4 bg-gray-900/50 border border-gray-700 rounded-xl hover:bg-gray-900 transition-all"
+                    >
+                      <div>
+                        <div className="text-white font-semibold">{visit.date}</div>
+                        <div className="text-gray-400 text-sm">{visit.amount}</div>
+                      </div>
+                      <div className="text-green-400 font-semibold">{visit.bonus}</div>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  href="/profile/visits"
+                  className="block text-center mt-4 text-blue-400 hover:text-blue-300 transition-all"
+                >
+                  Переглянути всі візити →
+                </Link>
               </div>
-              <button className="btn btn-secondary">
-                Редагувати
-              </button>
             </div>
-          </div>
+          )}
+
+          {activeTab === 'qr' && (
+            <div className="space-y-6">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-white mb-4">Мої QR-коди</h3>
+                <p className="text-gray-400 mb-6">
+                  Використовуйте QR-коди для швидкого доступу до функцій
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  { title: 'Візит', icon: '🎫', desc: 'Підтвердження відвідування', color: 'from-blue-500 to-blue-600' },
+                  { title: 'Реферал', icon: '👥', desc: 'Запрошення друзів', color: 'from-green-500 to-green-600' },
+                  { title: 'Профіль', icon: '👤', desc: 'Мій профіль', color: 'from-purple-500 to-purple-600' },
+                  { title: 'Бонуси', icon: '🎁', desc: 'Мої бонуси', color: 'from-orange-500 to-orange-600' },
+                ].map((qr) => (
+                  <div
+                    key={qr.title}
+                    className={`bg-gradient-to-br ${qr.color}/20 border border-gray-700 rounded-2xl p-6 text-center`}
+                  >
+                    <div className="text-5xl mb-3">{qr.icon}</div>
+                    <h4 className="text-xl font-bold text-white mb-2">{qr.title}</h4>
+                    <p className="text-gray-400 text-sm mb-4">{qr.desc}</p>
+                    <div className="bg-white p-4 rounded-xl inline-block mb-4">
+                      <div className="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+                        QR
+                      </div>
+                    </div>
+                    <div className="flex gap-2 justify-center">
+                      <button className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all text-sm">
+                        💾 Зберегти
+                      </button>
+                      <button className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-all text-sm">
+                        📤 Поділитись
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'stats' && (
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-white mb-4">📈 Статистика</h3>
+
+              {/* Charts Placeholder */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-gray-900/50 border border-gray-700 rounded-2xl p-6">
+                  <h4 className="text-lg font-bold text-white mb-4">Візити по місяцях</h4>
+                  <div className="h-48 flex items-end justify-around gap-2">
+                    {[40, 65, 45, 80, 55, 70].map((height, idx) => (
+                      <div key={idx} className="flex-1 bg-gradient-to-t from-green-500 to-emerald-600 rounded-t-lg" style={{ height: `${height}%` }}></div>
+                    ))}
+                  </div>
+                  <div className="flex justify-around mt-2 text-xs text-gray-400">
+                    <span>Тра</span>
+                    <span>Чер</span>
+                    <span>Лип</span>
+                    <span>Сер</span>
+                    <span>Вер</span>
+                    <span>Жов</span>
+                  </div>
+                </div>
+
+                <div className="bg-gray-900/50 border border-gray-700 rounded-2xl p-6">
+                  <h4 className="text-lg font-bold text-white mb-4">Улюблені категорії</h4>
+                  <div className="space-y-3">
+                    {[
+                      { name: 'Кальяни', percentage: 65, color: 'bg-blue-500' },
+                      { name: 'Напої', percentage: 45, color: 'bg-purple-500' },
+                      { name: 'Страви', percentage: 35, color: 'bg-green-500' },
+                      { name: 'Коктейлі', percentage: 25, color: 'bg-orange-500' },
+                    ].map((cat) => (
+                      <div key={cat.name}>
+                        <div className="flex justify-between text-sm text-gray-400 mb-1">
+                          <span>{cat.name}</span>
+                          <span>{cat.percentage}%</span>
+                        </div>
+                        <div className="w-full bg-gray-800 rounded-full h-2">
+                          <div
+                            className={`${cat.color} h-2 rounded-full transition-all duration-500`}
+                            style={{ width: `${cat.percentage}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Achievements */}
+              <div>
+                <h4 className="text-lg font-bold text-white mb-4">🏆 Досягнення</h4>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { icon: '🎯', title: 'Перший візит', desc: 'Отримано' },
+                    { icon: '🔥', title: '10 візитів', desc: 'Отримано' },
+                    { icon: '⭐', title: 'VIP статус', desc: 'Отримано' },
+                    { icon: '👑', title: 'Постійний гість', desc: '15/20' },
+                  ].map((achievement) => (
+                    <div
+                      key={achievement.title}
+                      className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-xl p-4 text-center"
+                    >
+                      <div className="text-4xl mb-2">{achievement.icon}</div>
+                      <div className="text-white font-semibold text-sm">{achievement.title}</div>
+                      <div className="text-gray-400 text-xs">{achievement.desc}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      </section>
-
-      {/* Quick Actions */}
-      <section className="grid md:grid-cols-2 gap-4">
-        <a href="/profile/visits" className="card-interactive text-center">
-          <div className="w-16 h-16 rounded-3xl bg-bamboo/20 mx-auto mb-4 flex items-center justify-center text-2xl text-bamboo">
-            📊
-          </div>
-          <h3 className="font-semibold mb-2">Історія візитів</h3>
-          <p className="text-text-secondary text-sm">Всі підтверджені візити з датами</p>
-        </a>
-
-        <a href="/profile/bonuses" className="card-interactive text-center">
-          <div className="w-16 h-16 rounded-3xl bg-accent/20 mx-auto mb-4 flex items-center justify-center text-2xl text-accent">
-            🎁
-          </div>
-          <h3 className="font-semibold mb-2">Історія бонусів</h3>
-          <p className="text-text-secondary text-sm">Купони, промокоди, призи</p>
-        </a>
-      </section>
+      </div>
     </div>
   )
 }
