@@ -45,14 +45,14 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
-      <div className="bg-gray-800 rounded-2xl p-8 w-full max-w-md border border-gray-700">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      <div className="bg-gray-900 rounded-2xl p-8 w-full max-w-md border border-gray-800">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-green-600 rounded-2xl mx-auto mb-4 flex items-center justify-center text-2xl">
+          <div className="w-16 h-16 bg-gradient-to-br from-lime-500 to-green-600 rounded-2xl mx-auto mb-4 flex items-center justify-center text-2xl border-2 border-lime-500/30">
             🐼
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">Вхід в PANDA</h1>
+          <h1 className="text-2xl font-bold text-white mb-2">Вхід в PANDA Lounge</h1>
           <p className="text-gray-400">Увійдіть в свій аккаунт</p>
         </div>
 
@@ -60,7 +60,7 @@ function LoginForm() {
         {(error || authError) && (
           <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 mb-6">
             <p className="text-red-400 text-sm">
-              {error || (authError === 'unauthorized' ? 'Недостатньо прав доступу' : 'Помилка входу')}
+              {error || (authError === 'OAuthCallback' ? 'Помилка OAuth. Перевірте налаштування Google Console.' : authError === 'unauthorized' ? 'Недостатньо прав доступу' : 'Помилка входу')}
             </p>
           </div>
         )}
