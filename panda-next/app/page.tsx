@@ -90,6 +90,20 @@ export default function HomePage() {
       color: 'bg-gradient-to-br from-purple-500 to-pink-500'
     },
     {
+      icon: '📱',
+      title: 'Підтвердити візит',
+      subtitle: 'Скануй QR столика',
+      href: '/visit-confirmation',
+      color: 'bg-gradient-to-br from-teal-500 to-cyan-600'
+    },
+    {
+      icon: '👥',
+      title: 'Реферали',
+      subtitle: 'Запрошуй друзів',
+      href: '/referrals',
+      color: 'bg-gradient-to-br from-pink-500 to-rose-600'
+    },
+    {
       icon: '👤',
       title: 'Профіль',
       subtitle: 'Бонуси & QR',
@@ -102,6 +116,13 @@ export default function HomePage() {
       subtitle: 'Події & акції',
       href: '/events',
       color: 'bg-gradient-to-br from-indigo-500 to-purple-600'
+    },
+    {
+      icon: '📊',
+      title: 'Аналітика',
+      subtitle: 'Статистика',
+      href: '/analytics',
+      color: 'bg-gradient-to-br from-orange-500 to-red-600'
     }
   ]
 
