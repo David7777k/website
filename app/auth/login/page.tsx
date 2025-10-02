@@ -114,9 +114,9 @@ function LoginForm() {
 
         {/* Divider */}
         <div className="flex items-center gap-4 my-6">
-          <div className="flex-1 h-px bg-gray-700"></div>
-          <span className="text-gray-400 text-sm">або</span>
-          <div className="flex-1 h-px bg-gray-700"></div>
+          <div className="flex-1 h-px bg-gray-800"></div>
+          <span className="text-gray-500 text-sm">або</span>
+          <div className="flex-1 h-px bg-gray-800"></div>
         </div>
 
         {/* Google Login */}
