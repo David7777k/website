@@ -170,10 +170,10 @@ export default function BookingsPage() {
               <button
                 onClick={() => setStep('details')}
                 disabled={!selectedTime}
-                className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
+                className={`w-full py-4 rounded-xl font-semibold transition-all ${
                   selectedTime
-                    ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white hover:shadow-2xl hover:scale-105'
-                    : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                    ? 'bg-lime-500 hover:bg-lime-600 text-black'
+                    : 'bg-gray-800 text-gray-600 cursor-not-allowed border border-gray-800'
                 }`}
               >
                 Далі →
