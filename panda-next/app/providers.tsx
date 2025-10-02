@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { SessionProvider } from 'next-auth/react'
+import { NotificationProvider } from './components/NotificationSystem'
 
 export function Providers({ 
   children, 
@@ -11,7 +12,9 @@ export function Providers({
 }) {
   return (
     <SessionProvider session={session}>
-      {children}
+      <NotificationProvider>
+        {children}
+      </NotificationProvider>
     </SessionProvider>
   )
 }
