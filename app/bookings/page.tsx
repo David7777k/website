@@ -104,11 +104,11 @@ export default function BookingsPage() {
                         onClick={() => setSelectedDate(date)}
                         className={`p-3 rounded-xl text-center transition-all ${
                           isSelected
-                            ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white shadow-lg scale-105'
-                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                            ? 'bg-lime-500 text-black font-semibold'
+                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700'
                         }`}
                       >
-                        <div className="text-xs text-gray-400">{date.toLocaleDateString('uk', { weekday: 'short' })}</div>
+                        <div className={`text-xs ${isSelected ? 'text-black/70' : 'text-gray-500'}`}>{date.toLocaleDateString('uk', { weekday: 'short' })}</div>
                         <div className="text-lg font-bold">{date.getDate()}</div>
                       </button>
                     )
