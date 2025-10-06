@@ -68,6 +68,8 @@ model User {
   visits                    Visit[]
   ratings                   StaffRating[]
   instagram_stories         InstagramStory[]
+  qr_validations_owned      QRValidationEvent[] @relation("qr_owner")
+  qr_validations_performed  QRValidationEvent[] @relation("qr_validator")
 }
 
 model VerificationToken {
