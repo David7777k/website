@@ -1,141 +1,244 @@
-"use client"
-import React, { useState, useRef } from 'react'
+'use client'
 
-interface QRScannerProps {
-  onScan: (data: string) => void
-  onClose: () => void
-  title?: string
+import { useState } from 'react'
+import { ScanLine, CheckCircle, XCircle, User, Calendar, Award } from 'lucide-react'
+
+interface ValidationResult {
+  valid: boolean
+  error?: string
+  message?: string
+  payload?: any
+  user?: {
+    id: string
+    name: string
+    email: string
+    phone?: string
+    role: string
+    totalVisits: number
+    lastVisit?: string
+  }
+  event_id?: string
 }
 
-export default function QRScanner({ onScan, onClose, title = "Сканувати QR-код" }: QRScannerProps) {
-  const [manualCode, setManualCode] = useState('')
-  const [scanning, setScanning] = useState(false)
-  const [error, setError] = useState('')
-  const fileInputRef = useRef<HTMLInputElement>(null)
+export default function QRScanner() {
+  const [token, setToken] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState<ValidationResult | null>(null)
 
-  const handleManualSubmit = () => {
-    if (manualCode.trim()) {
-      onScan(manualCode.trim())
-      setManualCode('')
-    } else {
-      setError('Будь ласка, введіть код')
+  const validateQR = async () => {
+    if (!token.trim()) {
+      setResult({
+        valid: false,
+        error: 'Введіть QR код'
+      })
+      return
+    }
+
+    setLoading(true)
+    setResult(null)
+
+    try {
+      const response = await fetch('/api/qr/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token.trim() })
+      })
+
+      const data = await response.json()
+      setResult(data)
+
+      // Clear input on success
+      if (data.valid) {
+        setTimeout(() => setToken(''), 2000)
+      }
+    } catch (err: any) {
+      setResult({
+        valid: false,
+        error: err.message || 'Помилка валідації'
+      })
+    } finally {
+      setLoading(false)
     }
   }
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-
-    setScanning(true)
-    setError('')
-
-    // In production, use a QR code scanner library like jsQR
-    // For now, we'll simulate scanning
-    setTimeout(() => {
-      const mockCode = `QR_${Date.now()}`
-      onScan(mockCode)
-      setScanning(false)
-    }, 1500)
-  }
-
-  const startCameraScanning = () => {
-    setError('Камера сканування буде додана найближчим часом')
-    // TODO: Implement camera scanning with getUserMedia and jsQR
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      validateQR()
+    }
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-lg z-50 flex items-center justify-center p-4">
-      <div className="bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-3xl max-w-md w-full shadow-2xl">
-        <div className="p-6 space-y-6">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-white">{title}</h2>
-            <button
-              onClick={onClose}
-              className="p-2 rounded-xl bg-[var(--bg-card)] hover:bg-[var(--bg-hover)] transition-colors"
-            >
-              ✕
-            </button>
-          </div>
+    <div className="space-y-6">
+      {/* Input */}
+      <div className="glass-card p-6 space-y-4">
+        <div className="flex items-center gap-3 mb-4">
+          <ScanLine className="w-6 h-6 text-accent" />
+          <h3 className="text-xl font-bold">Сканування QR-коду</h3>
+        </div>
 
-          {/* Scanner Options */}
-          <div className="space-y-4">
-            {/* Camera Scan Button */}
-            <button
-              onClick={startCameraScanning}
-              disabled={scanning}
-              className="w-full p-6 rounded-2xl bg-gradient-to-br from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800 transition-all transform hover:scale-105 disabled:opacity-50"
-            >
-              <div className="text-4xl mb-2">📷</div>
-              <div className="font-semibold">Сканувати камерою</div>
-              <div className="text-sm opacity-80">Наведіть камеру на QR-код</div>
-            </button>
+        <div className="space-y-3">
+          <label className="block text-sm text-text-muted">
+            QR-код або токен:
+          </label>
+          <input
+            type="text"
+            value={token}
+            onChange={(e) => setToken(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Введіть або скануйте QR код..."
+            className="w-full px-4 py-3 bg-surface border border-gray-700 rounded-xl focus:border-accent focus:ring-2 focus:ring-accent/20 transition-all font-mono text-sm"
+            autoFocus
+          />
+          <button
+            onClick={validateQR}
+            disabled={loading || !token.trim()}
+            className="btn-primary w-full"
+          >
+            {loading ? (
+              <>
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                Перевірка...
+              </>
+            ) : (
+              <>
+                <ScanLine className="w-5 h-5" />
+                Валідувати
+              </>
+            )}
+          </button>
+        </div>
+      </div>
 
-            {/* Upload QR Image */}
-            <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileUpload}
-                className="hidden"
-              />
-              <button
-                onClick={() => fileInputRef.current?.click()}
-                disabled={scanning}
-                className="w-full p-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-primary)] hover:border-[var(--border-accent)] transition-all disabled:opacity-50"
-              >
-                <div className="flex items-center justify-center gap-3">
-                  <span className="text-2xl">📁</span>
-                  <div className="text-left">
-                    <div className="font-semibold text-white">Завантажити зображення</div>
-                    <div className="text-sm text-[var(--text-secondary)]">
-                      {scanning ? 'Сканування...' : 'Виберіть QR-код з галереї'}
+      {/* Result */}
+      {result && (
+        <div
+          className={`glass-card p-6 border-2 ${
+            result.valid
+              ? 'border-green-500 bg-green-500/10'
+              : 'border-red-500 bg-red-500/10'
+          }`}
+        >
+          {result.valid ? (
+            // Success
+            <div className="space-y-6">
+              <div className="text-center">
+                <CheckCircle className="w-16 h-16 mx-auto mb-3 text-green-500" />
+                <h3 className="text-2xl font-bold text-green-500 mb-2">
+                  {result.message}
+                </h3>
+                <p className="text-sm text-text-muted">
+                  QR-код успішно валідовано
+                </p>
+              </div>
+
+              {/* User Info */}
+              {result.user && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3 p-4 bg-surface/50 rounded-xl">
+                    <User className="w-10 h-10 text-accent" />
+                    <div className="flex-1">
+                      <p className="font-bold text-lg">{result.user.name}</p>
+                      <p className="text-sm text-text-muted">{result.user.email}</p>
+                      {result.user.phone && (
+                        <p className="text-sm text-text-muted">{result.user.phone}</p>
+                      )}
+                    </div>
+                    <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+                      result.user.role === 'admin'
+                        ? 'bg-red-500/20 text-red-500'
+                        : result.user.role === 'staff'
+                        ? 'bg-blue-500/20 text-blue-500'
+                        : 'bg-accent/20 text-accent'
+                    }`}>
+                      {result.user.role.toUpperCase()}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-4 bg-surface/50 rounded-xl text-center">
+                      <Award className="w-6 h-6 mx-auto mb-2 text-accent" />
+                      <p className="text-2xl font-bold">{result.user.totalVisits}</p>
+                      <p className="text-xs text-text-muted">Візитів</p>
+                    </div>
+                    <div className="p-4 bg-surface/50 rounded-xl text-center">
+                      <Calendar className="w-6 h-6 mx-auto mb-2 text-accent" />
+                      <p className="text-sm font-bold">
+                        {result.user.lastVisit
+                          ? new Date(result.user.lastVisit).toLocaleDateString('uk-UA')
+                          : 'Перший візит'}
+                      </p>
+                      <p className="text-xs text-text-muted">Останній візит</p>
                     </div>
                   </div>
                 </div>
-              </button>
-            </div>
+              )}
 
-            {/* Manual Code Entry */}
-            <div className="border-t border-[var(--border-primary)] pt-4">
-              <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
-                Або введіть код вручну:
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={manualCode}
-                  onChange={(e) => {
-                    setManualCode(e.target.value)
-                    setError('')
-                  }}
-                  onKeyPress={(e) => e.key === 'Enter' && handleManualSubmit()}
-                  placeholder="Введіть код..."
-                  className="flex-1 px-4 py-3 bg-[var(--bg-card)] border border-[var(--border-primary)] rounded-xl text-white placeholder-[var(--text-muted)] focus:outline-none focus:border-green-500"
-                />
-                <button
-                  onClick={handleManualSubmit}
-                  className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors"
-                >
-                  ✓
-                </button>
+              {/* Payload Details */}
+              {result.payload && (
+                <div className="p-4 bg-surface/30 rounded-xl space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-text-muted">Тип:</span>
+                    <span className="font-medium">{result.payload.type}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-text-muted">Призначення:</span>
+                    <span className="font-medium">{result.payload.sub}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-text-muted">Event ID:</span>
+                    <span className="font-mono text-xs">{result.event_id}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            // Error
+            <div className="text-center space-y-4">
+              <XCircle className="w-16 h-16 mx-auto text-red-500" />
+              <div>
+                <h3 className="text-xl font-bold text-red-500 mb-2">
+                  Валідація не пройдена
+                </h3>
+                <p className="text-text-muted">
+                  {result.message || result.error || 'Невідома помилка'}
+                </p>
               </div>
-            </div>
-          </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="p-4 rounded-xl bg-red-500/20 border border-red-500/50">
-              <p className="text-red-400 text-sm">{error}</p>
+              {/* Error codes explanation */}
+              {result.error && (
+                <div className="p-4 bg-surface/30 rounded-xl text-sm text-left space-y-2">
+                  <p className="font-bold text-red-500">Код помилки: {result.error}</p>
+                  {result.error === 'EXPIRED' && (
+                    <p className="text-text-muted">
+                      QR-код більше не дійсний. Попросіть користувача згенерувати новий.
+                    </p>
+                  )}
+                  {result.error === 'ALREADY_USED' && (
+                    <p className="text-text-muted">
+                      Цей QR-код вже було використано раніше.
+                    </p>
+                  )}
+                  {result.error === 'INVALID_SIGNATURE' && (
+                    <p className="text-text-muted">
+                      QR-код підроблено або пошкоджено. Це може бути спроба шахрайства.
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
           )}
-
-          {/* Info */}
-          <div className="text-center text-xs text-[var(--text-muted)]">
-            QR-код має містити дійсний ідентифікатор візиту або промокоду
-          </div>
         </div>
+      )}
+
+      {/* Instructions */}
+      <div className="glass-card p-4 text-sm text-text-muted space-y-2">
+        <p className="font-semibold text-accent">📱 Як використовувати:</p>
+        <ol className="list-decimal list-inside space-y-1 ml-2">
+          <li>Попросіть гостя показати QR-код з профілю</li>
+          <li>Скануйте камерою або введіть код вручну</li>
+          <li>Натисніть "Валідувати"</li>
+          <li>Система автоматично запише візит</li>
+        </ol>
       </div>
     </div>
   )
