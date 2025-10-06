@@ -1,0 +1,7 @@
+{
+  "name": "panda-frontend-wrapper",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "cd .. && npm run dev"
+  }
+}
