@@ -1,0 +1,360 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   PANDA Lounge Design System v2.0
+   Premium Minimalism × Bamboo Green DNA
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --base: #0F172A;
+    --surface: #0B1220;
+    --surface-light: #111827;
+    
+    /* Text */
+    --text: #E5E7EB;
+    --text-muted: #94A3B8;
+    --text-dim: #64748B;
+    
+    /* Accent (Bamboo Green) */
+    --accent: #10B981;
+    --accent-hover: #34D399;
+    --accent-dark: #059669;
+    
+    /* Border */
+    --border: #1F2937;
+    --border-light: rgba(255, 255, 255, 0.08);
+    
+    /* Glass Effect */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--base);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(16, 185, 129, 0.3);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(16, 185, 129, 0.5);
+  }
+}
+
+/* ============================================
+   Component Styles
+   ============================================ */
+
+@layer components {
+  /* Glass Morphism Card */
+  .glass-card {
+    @apply bg-surface/90 backdrop-blur-md border border-gray-800 rounded-2xl shadow-card;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .glass-card:hover {
+    @apply shadow-glow border-accent/30;
+  }
+
+  /* Premium Button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-5 py-3 rounded-2xl font-semibold text-sm;
+    @apply bg-accent text-base shadow-glow;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:bg-accent-hover hover:shadow-glow-strong;
+    @apply active:scale-[0.98];
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-5 py-3 rounded-2xl font-semibold text-sm;
+    @apply bg-surface/80 text-text backdrop-blur-md border border-gray-800;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:bg-surface hover:border-accent/50;
+    @apply active:scale-[0.98];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2;
+    @apply px-4 py-2 rounded-xl font-medium text-sm;
+    @apply text-text-muted bg-transparent;
+    @apply transition-all duration-200 ease-out;
+    @apply hover:text-accent hover:bg-surface/50;
+    @apply active:scale-[0.98];
+  }
+
+  /* Input Field */
+  .input-primary {
+    @apply w-full px-4 py-3 rounded-2xl;
+    @apply bg-surface/80 backdrop-blur-md border border-gray-800;
+    @apply text-text placeholder:text-text-dim;
+    @apply transition-all duration-200 ease-out;
+    @apply focus:outline-none focus:border-accent focus:shadow-glow;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1.5;
+    @apply px-2.5 py-1 rounded-xl text-sm font-medium;
+    @apply bg-base/60 border border-gray-800;
+  }
+
+  .badge-accent {
+    @apply badge bg-accent/10 border-accent/30 text-accent;
+  }
+
+  .badge-warn {
+    @apply badge bg-warn/10 border-warn/30 text-warn;
+  }
+
+  .badge-success {
+    @apply badge bg-success/10 border-success/30 text-success;
+  }
+
+  /* Glass Highlight Effect */
+  .glass-highlight {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    transition: left 0.5s ease;
+  }
+
+  .glass-highlight:hover::before {
+    left: 100%;
+  }
+
+  /* Emerald Mist Gradient Overlay */
+  .emerald-mist {
+    position: relative;
+  }
+
+  .emerald-mist::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.2) 0%,
+      transparent 60%
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* Smoke Effect (BETA) */
+  .smoke-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .smoke-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.02) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* Bottom Dock */
+  .bottom-dock {
+    @apply fixed bottom-4 left-1/2 -translate-x-1/2 z-50;
+    @apply flex items-center gap-2 px-4 py-3;
+    @apply bg-surface/80 backdrop-blur-xl border border-gray-800/50 rounded-3xl;
+    @apply shadow-card;
+  }
+
+  .dock-item {
+    @apply relative flex flex-col items-center justify-center;
+    @apply w-14 h-14 rounded-2xl;
+    @apply text-text-muted transition-all duration-200;
+    @apply hover:text-accent hover:bg-surface/50 hover:scale-105;
+    @apply active:scale-95;
+  }
+
+  .dock-item.active {
+    @apply text-accent bg-accent/10;
+  }
+
+  .dock-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* Loading Spinner */
+  .spinner {
+    @apply w-5 h-5 border-2 border-accent/30 border-t-accent rounded-full;
+    animation: spin 0.8s linear infinite;
+  }
+
+  /* Smooth Page Transitions */
+  .page-transition {
+    @apply animate-fade-in;
+  }
+
+  /* Card Hover Effect */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+    @apply hover:scale-[1.02] hover:-translate-y-1;
+  }
+
+  /* Text Gradient */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+  }
+
+  /* Hero Section */
+  .hero-section {
+    @apply relative overflow-hidden rounded-3xl;
+    @apply bg-gradient-to-br from-surface to-surface-light;
+  }
+
+  /* Menu Card */
+  .menu-card {
+    @apply glass-card overflow-hidden;
+    @apply hover:shadow-glow-strong;
+  }
+
+  .menu-card-image {
+    @apply aspect-video w-full object-cover;
+    @apply transition-transform duration-500;
+  }
+
+  .menu-card:hover .menu-card-image {
+    @apply scale-105;
+  }
+
+  /* Focus Styles */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-base;
+  }
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Custom Tap Target Size */
+  .tap-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Safe Area Insets */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* ============================================
+   Responsive Typography
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  @apply text-4xl md:text-5xl lg:text-6xl;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl;
+}
+
+/* ============================================
+   Print Styles
+   ============================================ */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

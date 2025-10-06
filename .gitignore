@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+**/node_modules/
+/.pnp
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+backend/.venv/
+
+# Editor directories and files
+.vscode/
+.idea/
+
+# Build / output
+/dist
+/build
+
+# Logs
+.log
+logs/
+
+# Env
+.env
+
+.pnp.js
+package-lock.json
+
+# Testing
+/coverage
+
+# Next.js
+/ .next/
+.next/
+
+# Ignore nested build and dependency folders
+**/.next/
+
+# Ignore embedded repo folder (website) and other vendored frontends
+website/
+frontend/node_modules/
+panda-next/node_modules/
+/out/
+
+# Production
+/build
+/dist
+
+# Misc
+.DS_Store
+*.pem
+.vscode
+.idea
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Prisma
+/prisma/dev.db
+/prisma/dev.db-journal
+/prisma/migrations
+
+# Logs
+*.log
+server.log
