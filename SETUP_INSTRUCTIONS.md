@@ -53,7 +53,7 @@
    - Натисніть Edit (редагувати)
    - В розділі "Authorized redirect URIs" додайте:
      ```
-     https://easy-launch-tool.preview.emergentagent.com/api/auth/callback/google
+     https://md-consolidation.preview.emergentagent.com/api/auth/callback/google
      ```
    - **ВАЖЛИВО:** Натисніть ENTER після вводу URL
    - Натисніть "Save" (Зберегти)
@@ -66,7 +66,7 @@
    - Google потребує час для застосування змін
 
 6. **Тестування**
-   - Відкрийте: https://easy-launch-tool.preview.emergentagent.com/auth/login
+   - Відкрийте: https://md-consolidation.preview.emergentagent.com/auth/login
    - Натисніть "Увійти через Google"
    - Має працювати!
 
@@ -104,7 +104,7 @@ cd /app
 npm run dev
 ```
 
-Відкрийте в браузері: https://easy-launch-tool.preview.emergentagent.com
+Відкрийте в браузері: https://md-consolidation.preview.emergentagent.com
 
 ---
 

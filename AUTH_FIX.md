@@ -9,7 +9,7 @@
 
 ## Причина
 `NEXTAUTH_URL` в `.env` файлі був налаштований на `http://localhost:3000`, 
-але додаток працює на `https://easy-launch-tool.preview.emergentagent.com`
+але додаток працює на `https://md-consolidation.preview.emergentagent.com`
 
 NextAuth використовує `NEXTAUTH_URL` для формування callback URLs, і коли URL не співпадає,
 авторизація не може завершитись успішно.
@@ -23,8 +23,8 @@ NEXTAUTH_URL="http://localhost:3000"
 APP_URL="http://localhost:3000"
 
 # Стало:
-NEXTAUTH_URL="https://easy-launch-tool.preview.emergentagent.com"
-APP_URL="https://easy-launch-tool.preview.emergentagent.com"
+NEXTAUTH_URL="https://md-consolidation.preview.emergentagent.com"
+APP_URL="https://md-consolidation.preview.emergentagent.com"
 ```
 
 ### 2. Перезапущено сервер
@@ -43,7 +43,7 @@ APP_URL="https://easy-launch-tool.preview.emergentagent.com"
 2. Перейти в Credentials → OAuth 2.0 Client IDs
 3. Додати Authorized Redirect URI:
    ```
-   https://easy-launch-tool.preview.emergentagent.com/api/auth/callback/google
+   https://md-consolidation.preview.emergentagent.com/api/auth/callback/google
    ```
 4. Зберегти та зачекати 5 хвилин
 
@@ -51,7 +51,7 @@ APP_URL="https://easy-launch-tool.preview.emergentagent.com"
 
 Відкрийте:
 ```
-https://easy-launch-tool.preview.emergentagent.com/auth/login
+https://md-consolidation.preview.emergentagent.com/auth/login
 ```
 
 Спробуйте увійти через:
