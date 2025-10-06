@@ -317,3 +317,26 @@ model WheelPrize {
   created_at  DateTime @default(now())
 }
 
+// QR Code Validation Events (for anti-replay and audit log)
+model QRValidationEvent {
+  id             String   @id @default(cuid())
+  qr_type        String   // visit, promo, referral, staff_check
+  qr_nonce       String   @unique // Prevents replay attacks
+  qr_subject     String   // Description of QR purpose
+  qr_issued_at   DateTime // When QR was generated
+  qr_expires_at  DateTime // When QR expires
+  user_id        String   // User who owns the QR
+  validator_id   String   // Staff/Admin who validated
+  validated_at   DateTime @default(now())
+  success        Boolean  // Whether validation succeeded
+  error_message  String?  // Error if validation failed
+  
+  user      User @relation("qr_owner", fields: [user_id], references: [id], onDelete: Cascade)
+  validator User @relation("qr_validator", fields: [validator_id], references: [id], onDelete: Cascade)
+  
+  @@index([qr_nonce])
+  @@index([user_id])
+  @@index([validator_id])
+  @@index([validated_at])
+}
+
