@@ -23,7 +23,7 @@ const navItems = [
 ]
 
 const actionItems = [
-  { icon: Gift, label: 'Колесо', href: '#wheel', glow: true },
+  { icon: Gift, label: 'Колесо', href: '/wheel', glow: true },
   { icon: Heart, label: 'Оцінка', href: '/staff', pulse: true },
 ]
 
