@@ -115,7 +115,7 @@ export default async function FAQPage() {
           <p className="text-text-secondary text-sm mb-4">
             Слідкуйте за новинами в соцмережах
           </p>
-          <a href="#" className="btn btn-secondary w-full">
+          <a href="https://instagram.com/panda.lounge" target="_blank" rel="noopener noreferrer" className="btn btn-secondary w-full">
             Підписатися
           </a>
         </div>
