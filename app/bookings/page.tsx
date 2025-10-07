@@ -256,7 +256,7 @@ export default function BookingsPage() {
                 Підтвердіть бронювання
               </h2>
 
-              <div className="bg-gradient-to-br from-orange-500/10 to-red-600/10 border border-orange-500/30 rounded-2xl p-6 space-y-4">
+              <div className="bg-accent/10 border border-accent/30 rounded-2xl p-6 space-y-4">
                 <div className="flex justify-between items-center pb-3 border-b border-gray-700">
                   <span className="text-gray-400">Дата</span>
                   <span className="text-white font-semibold">
