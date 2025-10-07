@@ -318,9 +318,9 @@ export default function BookingsPage() {
 
         {/* Info Cards */}
         <div className="mt-8 grid md:grid-cols-2 gap-6">
-          <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-2xl p-6">
+          <div className="bg-accent/10 border border-accent/30 rounded-2xl p-6">
             <div className="text-4xl mb-3">⏰</div>
-            <h3 className="text-xl font-bold text-blue-400 mb-2">Час роботи</h3>
+            <h3 className="text-xl font-bold text-accent mb-2">Час роботи</h3>
             <p className="text-gray-400">
               Пн-Чт: 12:00 - 00:00<br />
               Пт-Нд: 12:00 - 02:00
