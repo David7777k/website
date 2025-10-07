@@ -102,12 +102,23 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
     }
   }, [session])
 
-  const handleSpin = async () => {
-    if (state !== 'READY') return
+  const handleSpin = useCallback(async () => {
+    // FSM: Only allow spin from READY state
+    if (state !== 'READY' || isSpinning) {
+      console.warn('Cannot spin: invalid state', { state, isSpinning })
+      return
+    }
+
+    // Prevent multiple simultaneous spins
+    const currentAttempt = ++spinAttemptRef.current
+    setIsSpinning(true)
 
     try {
+      // FSM: READY -> SPINNING
       setState('SPINNING')
       setWonPrize(null)
+      setWonCoupon(null)
+      setErrorMessage('')
       
       const res = await fetch('/api/wheel/spin', {
         method: 'POST',
@@ -116,17 +127,28 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
       
       const data = await res.json()
       
+      // Check if this attempt is still valid (no concurrent spins)
+      if (currentAttempt !== spinAttemptRef.current) {
+        console.warn('Spin attempt cancelled (concurrent spin detected)')
+        return
+      }
+      
       if (!res.ok || !data.success) {
-        // Handle error
+        // FSM: SPINNING -> ERROR -> COOLDOWN
         setState('ERROR')
         setErrorMessage(data.message || 'Помилка спіну')
+        
+        // Show error for 3 seconds, then go to cooldown
         setTimeout(() => {
-          setState('COOLDOWN')
+          if (spinAttemptRef.current === currentAttempt) {
+            setState('COOLDOWN')
+            setIsSpinning(false)
+          }
         }, 3000)
         return
       }
 
-      // Find prize in our display list
+      // Find prize in our display list for animation
       const prizeIndex = prizes.findIndex(p => 
         p.name === data.prize.name || 
         p.type === data.prize.type
@@ -136,32 +158,53 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
       const segmentAngle = 360 / prizes.length
       const targetAngle = targetIndex * segmentAngle
       
-      // Add multiple full rotations + target angle
+      // Add multiple full rotations + target angle + random offset
       const spins = 5 + Math.floor(Math.random() * 3) // 5-7 full spins
-      const finalRotation = rotation + (spins * 360) + targetAngle
+      const randomOffset = Math.random() * 15 - 7.5 // ±7.5 degrees
+      const finalRotation = rotation + (spins * 360) + targetAngle + randomOffset
       
       setRotation(finalRotation)
       
-      // Show prize after spin completes
+      // FSM: SPINNING -> RESULT (after animation completes)
       setTimeout(() => {
-        setWonPrize(data.prize)
-        setStatusData({
-          ...statusData,
-          canSpin: false,
-          nextSpinDate: data.nextSpinDate
-        })
-        setState('RESULT')
-      }, 4000)
+        if (spinAttemptRef.current === currentAttempt) {
+          setWonPrize(data.prize)
+          setWonCoupon(data.coupon || null)
+          setStatusData({
+            ...statusData,
+            canSpin: false,
+            nextSpinDate: data.nextSpinDate,
+            state: 'COOLDOWN'
+          })
+          setState('RESULT')
+          setIsSpinning(false)
+          
+          // Auto transition to COOLDOWN after showing result
+          setTimeout(() => {
+            if (spinAttemptRef.current === currentAttempt && state === 'RESULT') {
+              setState('COOLDOWN')
+            }
+          }, 8000) // Show result for 8 seconds
+        }
+      }, 4000) // Animation duration
 
     } catch (error: any) {
       console.error('Spin error:', error)
-      setState('ERROR')
-      setErrorMessage('Помилка обертання колеса')
-      setTimeout(() => {
-        setState('READY')
-      }, 3000)
+      
+      if (spinAttemptRef.current === currentAttempt) {
+        // FSM: SPINNING -> ERROR -> READY (retry allowed)
+        setState('ERROR')
+        setErrorMessage(error.message || 'Помилка обертання колеса')
+        setIsSpinning(false)
+        
+        setTimeout(() => {
+          if (spinAttemptRef.current === currentAttempt) {
+            setState('READY')
+          }
+        }, 3000)
+      }
     }
-  }
+  }, [state, isSpinning, prizes, rotation, statusData])
 
   const formatTimeUntilNextSpin = () => {
     if (!statusData?.timeLeft) return ''
