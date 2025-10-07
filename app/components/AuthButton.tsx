@@ -1,14 +1,18 @@
 "use client"
 import React, { useState } from 'react'
+import { useSession, signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import AuthModal from './AuthModal'
 
 export default function AuthButton() {
   const [authModalOpen, setAuthModalOpen] = useState(false)
-  // Mock session state - replace with real NextAuth
-  const [session, setSession] = useState<any>(null)
+  const { data: session, status } = useSession()
+  const router = useRouter()
 
-  const handleSignOut = () => {
-    setSession(null)
+  const handleSignOut = async () => {
+    await signOut({ redirect: false })
+    router.push('/')
+    router.refresh()
   }
 
   if (session) {
