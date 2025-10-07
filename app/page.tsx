@@ -87,7 +87,7 @@ export default function HomePage() {
       icon: Gift,
       title: 'Колесо удачі',
       subtitle: 'Виграй приз',
-      href: '#wheel',
+      href: '/wheel',
       color: 'from-accent-hover to-accent-light',
       pulse: true
     },
