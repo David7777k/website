@@ -1,39 +1,234 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '../../../../lib/prisma'
+import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth-system'
+import { prisma } from '@/lib/prisma'
 
-export async function POST(req: Request) {
-  const body = await req.json()
-  const userId = body.userId
-  if (!userId) return NextResponse.json({ error: 'auth_required' }, { status: 401 })
+/**
+ * POST /api/wheel/spin
+ * Spin the wheel and get a prize
+ * Returns: { success: boolean, prize: object, nextSpinDate: Date }
+ */
+export async function POST(req: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions)
+    
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized', message: 'Потрібна авторизація' },
+        { status: 401 }
+      )
+    }
 
-  // Check last spin
-  const last = await prisma.wheelSpin.findFirst({ where: { user_id: userId }, orderBy: { spun_at: 'desc' } })
-  const now = new Date()
-  if (last && last.next_allowed_at > now) {
-    return NextResponse.json({ error: 'cooldown', next_allowed_at: last.next_allowed_at }, { status: 429 })
+    const userId = session.user.id
+    const clientIp = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+    const userAgent = req.headers.get('user-agent') || 'unknown'
+
+    // ANTI-ABUSE: Check last spin
+    const lastSpin = await prisma.wheelSpin.findFirst({
+      where: { user_id: userId },
+      orderBy: { spun_at: 'desc' }
+    })
+
+    const now = new Date()
+
+    if (lastSpin) {
+      const nextAllowedAt = new Date(lastSpin.next_allowed_at)
+      
+      if (now < nextAllowedAt) {
+        const timeLeft = nextAllowedAt.getTime() - now.getTime()
+        const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
+        const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+        
+        // Log abuse attempt
+        await prisma.auditLog.create({
+          data: {
+            user_id: userId,
+            action: 'wheel_spin_blocked',
+            entity_type: 'WheelSpin',
+            details: JSON.stringify({
+              reason: 'cooldown_active',
+              nextAllowedAt,
+              attempt_ip: clientIp
+            }),
+            ip_address: clientIp,
+            user_agent: userAgent
+          }
+        })
+
+        return NextResponse.json(
+          {
+            success: false,
+            error: 'COOLDOWN_ACTIVE',
+            message: `Колесо заблоковано. Наступний спін через: ${daysLeft}д ${hoursLeft}г`,
+            nextSpinDate: nextAllowedAt,
+            timeLeft: {
+              days: daysLeft,
+              hours: hoursLeft
+            }
+          },
+          { status: 429 } // Too Many Requests
+        )
+      }
+    }
+
+    // Get active prizes
+    const activePrizes = await prisma.wheelPrize.findMany({
+      where: { is_active: true }
+    })
+
+    if (activePrizes.length === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'NO_PRIZES',
+          message: 'Призи тимчасово недоступні'
+        },
+        { status: 503 }
+      )
+    }
+
+    // Select random prize based on probability
+    const totalWeight = activePrizes.reduce((sum, p) => sum + p.probability, 0)
+    let random = Math.random() * totalWeight
+    
+    let selectedPrize = activePrizes[0]
+    for (const prize of activePrizes) {
+      random -= prize.probability
+      if (random <= 0) {
+        selectedPrize = prize
+        break
+      }
+    }
+
+    // Check if prize has max_per_period limit
+    if (selectedPrize.max_per_period && selectedPrize.current_count >= selectedPrize.max_per_period) {
+      // Prize limit reached, select next available
+      const availablePrizes = activePrizes.filter(
+        p => !p.max_per_period || p.current_count < p.max_per_period
+      )
+      
+      if (availablePrizes.length === 0) {
+        // Fallback to first prize
+        selectedPrize = activePrizes[0]
+      } else {
+        selectedPrize = availablePrizes[Math.floor(Math.random() * availablePrizes.length)]
+      }
+    }
+
+    // Calculate next spin date (7 days from now)
+    const nextAllowedAt = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000)
+
+    // TRANSACTION: Create spin record + update prize counter + create coupon
+    const result = await prisma.$transaction(async (tx) => {
+      // 1. Record the spin
+      const spin = await tx.wheelSpin.create({
+        data: {
+          user_id: userId,
+          prize_id: selectedPrize.id,
+          prize_name: selectedPrize.name,
+          state: 'COMPLETED',
+          next_allowed_at: nextAllowedAt,
+          ip: clientIp
+        }
+      })
+
+      // 2. Update prize counter if has limit
+      if (selectedPrize.max_per_period) {
+        await tx.wheelPrize.update({
+          where: { id: selectedPrize.id },
+          data: { current_count: { increment: 1 } }
+        })
+      }
+
+      // 3. Create coupon/promo for the user (7 days validity)
+      let coupon = null
+      if (selectedPrize.type === 'discount' && selectedPrize.value) {
+        const couponCode = `WHEEL${Date.now().toString(36).toUpperCase()}`
+        const expiresAt = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000) // 7 days
+
+        coupon = await tx.coupon.create({
+          data: {
+            user_id: userId,
+            type: selectedPrize.type,
+            value_pct: selectedPrize.value,
+            kind: 'wheel_prize',
+            code: couponCode,
+            expires_at: expiresAt
+          }
+        })
+      }
+
+      // 4. Log the action
+      await tx.auditLog.create({
+        data: {
+          user_id: userId,
+          action: 'wheel_spin_success',
+          entity_type: 'WheelSpin',
+          entity_id: spin.id.toString(),
+          details: JSON.stringify({
+            prize_id: selectedPrize.id,
+            prize_name: selectedPrize.name,
+            coupon_code: coupon?.code,
+            next_allowed_at: nextAllowedAt
+          }),
+          ip_address: clientIp,
+          user_agent: userAgent
+        }
+      })
+
+      return { spin, coupon }
+    })
+
+    return NextResponse.json({
+      success: true,
+      prize: {
+        id: selectedPrize.id,
+        name: selectedPrize.name,
+        description: selectedPrize.description,
+        type: selectedPrize.type,
+        value: selectedPrize.value,
+        color: selectedPrize.color,
+        icon: selectedPrize.icon
+      },
+      coupon: result.coupon ? {
+        code: result.coupon.code,
+        expiresAt: result.coupon.expires_at
+      } : null,
+      nextSpinDate: nextAllowedAt,
+      message: `Вітаємо! Ви виграли: ${selectedPrize.name}`
+    })
+
+  } catch (error: any) {
+    console.error('Wheel spin error:', error)
+    
+    // Log error
+    try {
+      const session = await getServerSession(authOptions)
+      if (session?.user?.id) {
+        await prisma.auditLog.create({
+          data: {
+            user_id: session.user.id,
+            action: 'wheel_spin_error',
+            entity_type: 'WheelSpin',
+            details: JSON.stringify({
+              error: error.message,
+              stack: error.stack
+            }),
+            ip_address: req.headers.get('x-forwarded-for') || 'unknown'
+          }
+        })
+      }
+    } catch (logError) {
+      console.error('Failed to log error:', logError)
+    }
+
+    return NextResponse.json(
+      { 
+        success: false,
+        error: 'INTERNAL_ERROR',
+        message: 'Помилка обертання колеса. Спробуйте пізніше.'
+      },
+      { status: 500 }
+    )
   }
-
-  // Simple prize logic (demo)
-  const prizes = [
-    { prize: 'free_tea', weight: 35 },
-    { prize: 'panda_5', weight: 30 },
-    { prize: 'kitchen_5', weight: 20 },
-    { prize: 'track_free', weight: 10 },
-    { prize: 'cocktail_10', weight: 5 }
-  ]
-  const total = prizes.reduce((s, p) => s + p.weight, 0)
-  let r = Math.random() * total
-  let chosen = prizes[0]
-  for (const p of prizes) {
-    if (r < p.weight) { chosen = p; break }
-    r -= p.weight
-  }
-
-  const nextAllowed = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-  const spin = await prisma.wheelSpin.create({ data: { user_id: userId, prize: chosen.prize, next_allowed_at: nextAllowed } })
-
-  // create coupon
-  const coupon = await prisma.coupon.create({ data: { user_id: userId, type: 'wheel', value_pct: chosen.prize.includes('5') ? 5 : null, kind: chosen.prize, code: `W-${Date.now() % 100000}`, expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) } })
-
-  return NextResponse.json({ prize: chosen.prize, coupon: { code: coupon.code, expires_at: coupon.expires_at } })
 }
