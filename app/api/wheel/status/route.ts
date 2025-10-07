@@ -40,6 +40,11 @@ export async function GET(req: NextRequest) {
 
     if (!lastSpin) {
       // Never spun before - can spin!
+      logger.debug({
+        userId,
+        action: 'wheel_status_first_spin'
+      })
+      
       return NextResponse.json({
         canSpin: true,
         state: 'READY',
@@ -55,6 +60,13 @@ export async function GET(req: NextRequest) {
       const timeLeft = nextAllowedAt.getTime() - now.getTime()
       const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
       const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+      
+      logger.debug({
+        userId,
+        action: 'wheel_status_cooldown',
+        details: { daysLeft, hoursLeft, minutesLeft }
+      })
       
       return NextResponse.json({
         canSpin: false,
@@ -65,12 +77,18 @@ export async function GET(req: NextRequest) {
         timeLeft: {
           days: daysLeft,
           hours: hoursLeft,
-          minutes: Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))
+          minutes: minutesLeft
         }
       })
     }
 
     // Cooldown expired - can spin again!
+    logger.debug({
+      userId,
+      action: 'wheel_status_ready',
+      details: { lastPrize: lastSpin.prize_name }
+    })
+    
     return NextResponse.json({
       canSpin: true,
       state: 'READY',
@@ -79,7 +97,15 @@ export async function GET(req: NextRequest) {
     })
 
   } catch (error: any) {
-    console.error('Wheel status error:', error)
+    logger.error({
+      action: 'wheel_status_error',
+      error: error,
+      details: {
+        message: error.message,
+        stack: error.stack
+      }
+    })
+    
     return NextResponse.json(
       { 
         error: 'Internal server error',
