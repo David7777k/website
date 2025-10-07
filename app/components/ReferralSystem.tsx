@@ -85,10 +85,10 @@ export default function ReferralSystem() {
 
   const getLevelInfo = (level: string) => {
     const levels = {
-      bronze: { name: 'Бронза', color: 'from-orange-700 to-orange-900', icon: '🥉', min: 0 },
+      bronze: { name: 'Бронза', color: 'from-accent-dark/50 to-accent-dark/70', icon: '🥉', min: 0 },
       silver: { name: 'Срібло', color: 'from-gray-400 to-gray-600', icon: '🥈', min: 5 },
-      gold: { name: 'Золото', color: 'from-yellow-400 to-yellow-600', icon: '🥇', min: 15 },
-      platinum: { name: 'Платина', color: 'from-purple-400 to-purple-600', icon: '💎', min: 30 }
+      gold: { name: 'Золото', color: 'from-accent to-accent-hover', icon: '🥇', min: 15 },
+      platinum: { name: 'Платина', color: 'from-accent-hover to-accent-light', icon: '💎', min: 30 }
     }
     return levels[level as keyof typeof levels] || levels.bronze
   }
