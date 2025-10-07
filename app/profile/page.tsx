@@ -54,6 +54,10 @@ export default function ProfilePage() {
   useEffect(() => {
     if (status === 'authenticated') {
       fetchProfileData()
+      // Auto-generate QR code on first load
+      if (!qrCode) {
+        handleGenerateQR()
+      }
     }
   }, [status])
 
