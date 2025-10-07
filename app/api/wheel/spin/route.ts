@@ -217,7 +217,7 @@ export async function POST(req: NextRequest) {
         })
       }
 
-      // 4. Log the action
+      // 4. Log the action to audit trail
       await tx.auditLog.create({
         data: {
           user_id: userId,
@@ -227,8 +227,12 @@ export async function POST(req: NextRequest) {
           details: JSON.stringify({
             prize_id: selectedPrize.id,
             prize_name: selectedPrize.name,
+            prize_type: selectedPrize.type,
+            prize_value: selectedPrize.value,
             coupon_code: coupon?.code,
-            next_allowed_at: nextAllowedAt
+            coupon_expires: coupon?.expires_at,
+            next_allowed_at: nextAllowedAt.toISOString(),
+            requestId
           }),
           ip_address: clientIp,
           user_agent: userAgent
@@ -236,6 +240,21 @@ export async function POST(req: NextRequest) {
       })
 
       return { spin, coupon }
+    })
+    
+    // Structured logging for successful spin
+    logger.info({
+      userId,
+      action: 'wheel_spin_completed',
+      entityType: 'WheelSpin',
+      entityId: result.spin.id.toString(),
+      ip: clientIp,
+      details: {
+        prizeName: selectedPrize.name,
+        prizeType: selectedPrize.type,
+        hasCoupon: !!result.coupon,
+        requestId
+      }
     })
 
     return NextResponse.json({
