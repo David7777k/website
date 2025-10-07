@@ -42,21 +42,21 @@ export default function HomePage() {
       icon: '🔥',
       title: 'Преміум кальяни',
       description: 'Авторські мікси від професійних кальянщиків з багаторічним досвідом',
-      color: 'from-red-500/20 to-orange-500/20',
+      color: 'from-accent/20 to-accent-hover/20',
       badge: 'Топ вибір'
     },
     {
       icon: '🎵',
       title: 'Spotify джукбокс',
       description: 'Обирай улюблені треки та створюй атмосферу вечора',
-      color: 'from-green-500/20 to-teal-500/20',
+      color: 'from-accent-dark/20 to-accent/20',
       badge: 'Live'
     },
     {
       icon: '🍽️',
       title: 'Кухня & коктейлі',
       description: 'Авторські страви та безалкогольні коктейлі від шеф-кухаря',
-      color: 'from-blue-500/20 to-indigo-500/20',
+      color: 'from-accent/20 to-accent-light/20',
       badge: 'Новинки'
     },
   ]
