@@ -58,19 +58,30 @@ export async function POST(req: NextRequest) {
         const daysLeft = Math.floor(timeLeft / (1000 * 60 * 60 * 24))
         const hoursLeft = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
         
-        // Log abuse attempt
-        await prisma.auditLog.create({
-          data: {
-            user_id: userId,
-            action: 'wheel_spin_blocked',
-            entity_type: 'WheelSpin',
-            details: JSON.stringify({
-              reason: 'cooldown_active',
-              nextAllowedAt,
-              attempt_ip: clientIp
-            }),
-            ip_address: clientIp,
-            user_agent: userAgent
+        // Log abuse attempt with structured logging
+        await logger.auditLog(prisma, {
+          userId,
+          action: 'wheel_spin_blocked',
+          entityType: 'WheelSpin',
+          ip: clientIp,
+          userAgent,
+          details: {
+            reason: 'cooldown_active',
+            nextAllowedAt: nextAllowedAt.toISOString(),
+            timeLeftMs: timeLeft,
+            lastSpinId: lastSpin.id,
+            requestId
+          }
+        })
+        
+        logger.warn({
+          userId,
+          action: 'wheel_spin_cooldown_violation',
+          ip: clientIp,
+          details: {
+            daysLeft,
+            hoursLeft,
+            nextAllowedAt: nextAllowedAt.toISOString()
           }
         })
 
