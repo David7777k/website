@@ -57,30 +57,50 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
 
   useEffect(() => {
     if (open) {
+      // Reset state when modal opens
+      setWonPrize(null)
+      setWonCoupon(null)
+      setIsSpinning(false)
+      spinAttemptRef.current = 0
       fetchStatus()
     }
   }, [open])
 
-  const fetchStatus = async () => {
+  const fetchStatus = useCallback(async () => {
     try {
       setState('LOADING')
+      setErrorMessage('')
+      
+      if (!session?.user) {
+        setState('LOCKED')
+        setErrorMessage('Увійдіть для доступу до колеса фортуни')
+        return
+      }
+
       const res = await fetch('/api/wheel/status')
       const data = await res.json()
       
-      setStatusData(data)
-      setPrizes(defaultPrizes) // Use default prizes for now
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to fetch status')
+      }
       
-      if (data.canSpin) {
+      setStatusData(data)
+      setPrizes(defaultPrizes) // Use default prizes for display
+      
+      // FSM: determine state from server response
+      if (data.state === 'LOCKED' || !data.canSpin && data.state === 'COOLDOWN') {
+        setState('COOLDOWN')
+      } else if (data.canSpin) {
         setState('READY')
       } else {
         setState('COOLDOWN')
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Status fetch error:', error)
       setState('ERROR')
-      setErrorMessage('Не вдалося завантажити статус колеса')
+      setErrorMessage(error.message || 'Не вдалося завантажити статус колеса')
     }
-  }
+  }, [session])
 
   const handleSpin = async () => {
     if (state !== 'READY') return
