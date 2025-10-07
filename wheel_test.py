@@ -41,28 +41,31 @@ class WheelTester:
         self.log(f"Authenticating user: {user['email']}")
         
         try:
-            # Get CSRF token first
+            # Step 1: Get CSRF token
             csrf_response = self.session.get(f"{BASE_URL}/api/auth/csrf")
             if csrf_response.status_code == 200:
                 csrf_data = csrf_response.json()
                 csrf_token = csrf_data.get('csrfToken')
                 self.log(f"Got CSRF token: {csrf_token[:20]}...")
             else:
-                self.log("Failed to get CSRF token, continuing without it", "WARN")
-                csrf_token = None
+                self.log("Failed to get CSRF token", "ERROR")
+                return False
             
-            # Prepare authentication data
+            # Step 2: Visit the login page to get proper session setup
+            login_page = self.session.get(f"{BASE_URL}/auth/login")
+            if login_page.status_code != 200:
+                self.log(f"Failed to access login page: {login_page.status_code}", "ERROR")
+                return False
+            
+            # Step 3: Authenticate via NextAuth credentials endpoint
             auth_data = {
                 "email": user["email"],
                 "password": user["password"],
+                "csrfToken": csrf_token,
                 "redirect": "false",
                 "json": "true"
             }
             
-            if csrf_token:
-                auth_data["csrfToken"] = csrf_token
-            
-            # Authenticate via NextAuth credentials endpoint
             auth_response = self.session.post(
                 f"{BASE_URL}/api/auth/signin/credentials",
                 data=auth_data,
@@ -71,16 +74,39 @@ class WheelTester:
             
             self.log(f"Auth response status: {auth_response.status_code}")
             
-            # Check for session cookies
+            # Step 4: Check if we got redirected to callback
+            if auth_response.status_code in [200, 302]:
+                try:
+                    response_data = auth_response.json()
+                    if response_data.get('url'):
+                        # Follow the callback URL
+                        callback_response = self.session.get(response_data['url'], allow_redirects=True)
+                        self.log(f"Callback response status: {callback_response.status_code}")
+                except:
+                    pass
+            
+            # Step 5: Verify session by checking session endpoint
+            session_response = self.session.get(f"{BASE_URL}/api/auth/session")
+            if session_response.status_code == 200:
+                try:
+                    session_data = session_response.json()
+                    if session_data and session_data.get('user'):
+                        self.log(f"✅ Successfully authenticated {user['email']}")
+                        self.log(f"Session user: {session_data['user'].get('email')}")
+                        return True
+                except:
+                    pass
+            
+            # Check for session cookies as fallback
             cookies = self.session.cookies.get_dict()
-            session_cookies = [k for k in cookies.keys() if 'next-auth' in k or 'session' in k.lower()]
+            session_cookies = [k for k in cookies.keys() if 'next-auth' in k and 'session' in k]
             
             if session_cookies:
-                self.log(f"✅ Successfully authenticated {user['email']}")
+                self.log(f"✅ Successfully authenticated {user['email']} (via cookies)")
                 self.log(f"Session cookies: {session_cookies}")
                 return True
             else:
-                self.log(f"❌ Authentication failed for {user['email']} - no session cookies", "ERROR")
+                self.log(f"❌ Authentication failed for {user['email']} - no valid session", "ERROR")
                 self.log(f"Available cookies: {list(cookies.keys())}")
                 return False
                 
