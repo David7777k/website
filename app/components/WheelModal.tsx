@@ -444,45 +444,81 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
                 <AnimatePresence>
                   {state === 'RESULT' && wonPrize && (
                     <motion.div
-                      className="glass-card p-6 text-center relative overflow-hidden"
+                      className="glass-card p-8 text-center relative overflow-hidden border-2 border-accent"
                       initial={{ scale: 0.8, opacity: 0, y: 20 }}
                       animate={{ scale: 1, opacity: 1, y: 0 }}
                       exit={{ scale: 0.8, opacity: 0, y: 20 }}
                       transition={{ type: 'spring', duration: 0.6 }}
                     >
-                      <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent" />
-                      <div className="relative space-y-4">
+                      {/* Confetti effect */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-accent-light/10 to-transparent" />
+                      
+                      <div className="relative space-y-5">
                         <motion.div 
-                          className="text-6xl"
+                          className="text-7xl"
                           animate={{ 
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 10, -10, 0]
+                            scale: [1, 1.3, 1],
+                            rotate: [0, 15, -15, 0]
                           }}
-                          transition={{ duration: 0.6 }}
+                          transition={{ 
+                            duration: 0.8,
+                            repeat: 2
+                          }}
                         >
                           {wonPrize.icon}
                         </motion.div>
-                        <div>
-                          <h3 className="text-2xl font-bold text-accent mb-2">
-                            🎉 Вітаємо!
+                        
+                        <div className="space-y-3">
+                          <Badge variant="accent" className="text-base px-4 py-2">
+                            <Trophy size={16} />
+                            Вітаємо з виграшем!
+                          </Badge>
+                          
+                          <h3 className="text-3xl font-black text-gradient">
+                            {wonPrize.name}
                           </h3>
-                          <p className="text-xl font-semibold">
-                            Ви виграли: {wonPrize.name}
-                          </p>
+                          
                           {wonPrize.description && (
-                            <p className="text-sm text-text-muted mt-2">
+                            <p className="text-base text-text-muted">
                               {wonPrize.description}
                             </p>
                           )}
+                          
+                          {wonCoupon && (
+                            <div className="glass-card p-4 mt-4 space-y-2">
+                              <p className="text-sm text-text-muted">Ваш промокод:</p>
+                              <div className="flex items-center justify-center gap-2">
+                                <code className="text-xl font-bold text-accent bg-accent/10 px-4 py-2 rounded-lg">
+                                  {wonCoupon.code}
+                                </code>
+                              </div>
+                              <p className="text-xs text-text-muted">
+                                Дійсний до: {new Date(wonCoupon.expiresAt).toLocaleDateString('uk-UA')}
+                              </p>
+                            </div>
+                          )}
                         </div>
-                        <Button 
-                          variant="primary" 
-                          className="mt-4"
-                          onClick={onClose}
-                        >
-                          <GiftIcon size={18} />
-                          Переглянути в профілі
-                        </Button>
+                        
+                        <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                          <Button 
+                            variant="primary" 
+                            className="flex-1"
+                            onClick={() => {
+                              // Navigate to profile to see coupons
+                              window.location.href = '/profile'
+                            }}
+                          >
+                            <GiftIcon size={18} />
+                            Мої купони
+                          </Button>
+                          <Button 
+                            variant="secondary"
+                            className="flex-1"
+                            onClick={onClose}
+                          >
+                            Закрити
+                          </Button>
+                        </div>
                       </div>
                     </motion.div>
                   )}
