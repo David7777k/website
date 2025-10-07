@@ -73,8 +73,9 @@ export async function POST(req: NextRequest) {
         role: true,
         created_at: true,
         visits: {
+          where: { status: 'confirmed' },
           take: 1,
-          orderBy: { visited_at: 'desc' }
+          orderBy: { confirmed_at: 'desc' }
         },
         _count: {
           select: {
