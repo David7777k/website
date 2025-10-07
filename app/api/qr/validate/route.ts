@@ -121,7 +121,7 @@ export async function POST(req: NextRequest) {
         phone: user.phone,
         role: user.role,
         totalVisits: user._count.visits,
-        lastVisit: user.visits[0]?.visited_at || null
+        lastVisit: user.visits[0]?.confirmed_at || null
       },
       message: getSuccessMessage(result.payload!.type),
       event_id: result.event_id
