@@ -133,22 +133,38 @@ npm run dev
 **Колесо:** WheelSpin, WheelPrize  
 **Другое:** MusicOrder, Referral, Tip, Staff, Event, MenuItem, FAQ
 
-### Переключение на PostgreSQL
+### Перехід на PostgreSQL (Production)
 
-```bash
-# 1. Измените в prisma/schema.prisma
+**Крок 1:** Оновіть `prisma/schema.prisma`
+```prisma
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+```
 
-# 2. Обновите .env
-DATABASE_URL="postgresql://user:pass@host:5432/db"
+**Крок 2:** Оновіть `.env`
+```bash
+# PostgreSQL connection string
+DATABASE_URL="postgresql://user:password@host:5432/panda_lounge?schema=public"
+```
 
-# 3. Примените миграции
+**Крок 3:** Виконайте міграції
+```bash
+# Deploy migrations to PostgreSQL
 npx prisma migrate deploy
+
+# Generate Prisma Client
+npx prisma generate
+
+# Seed initial data
 npm run prisma:seed
 ```
+
+**Рекомендовані провайдери PostgreSQL:**
+- [Supabase](https://supabase.com) - Безкоштовний план
+- [Neon](https://neon.tech) - Serverless PostgreSQL
+- [Vercel Postgres](https://vercel.com/storage/postgres) - Інтеграція з Vercel
 
 ---
 
