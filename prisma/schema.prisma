@@ -351,3 +351,20 @@ model QRValidationEvent {
   @@index([validated_at])
 }
 
+// Audit Log for all important actions
+model AuditLog {
+  id          String   @id @default(cuid())
+  user_id     String?  // Who performed the action
+  action      String   // wheel_spin, promo_create, visit_confirm, etc
+  entity_type String?  // User, WheelSpin, PromoCode, etc
+  entity_id   String?  // ID of affected entity
+  details     String?  // JSON with additional data
+  ip_address  String?
+  user_agent  String?
+  created_at  DateTime @default(now())
+  
+  @@index([user_id])
+  @@index([action])
+  @@index([created_at])
+}
+
