@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Sparkles, Trophy, Gift as GiftIcon, Loader2 } from 'lucide-react'
+import { X, Sparkles, Trophy, Gift as GiftIcon, Loader2, AlertCircle } from 'lucide-react'
 import Button from './ui/Button'
 import Badge from './ui/Badge'
 import { useSession } from 'next-auth/react'
@@ -23,7 +23,13 @@ interface Prize {
   probability: number
 }
 
-type WheelState = 'LOADING' | 'READY' | 'SPINNING' | 'RESULT' | 'COOLDOWN' | 'ERROR'
+interface Coupon {
+  code: string
+  expiresAt: string
+}
+
+// FSM States: LOCKED -> READY -> SPINNING -> RESULT -> COOLDOWN
+type WheelState = 'LOCKED' | 'LOADING' | 'READY' | 'SPINNING' | 'RESULT' | 'COOLDOWN' | 'ERROR'
 
 export default function WheelModal({ open, onClose }: WheelModalProps) {
   const { data: session } = useSession()
