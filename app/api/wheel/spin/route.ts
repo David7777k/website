@@ -107,6 +107,12 @@ export async function POST(req: NextRequest) {
     })
 
     if (activePrizes.length === 0) {
+      logger.error({
+        userId,
+        action: 'wheel_spin_no_prizes',
+        details: { requestId }
+      })
+      
       return NextResponse.json(
         {
           success: false,
@@ -114,6 +120,29 @@ export async function POST(req: NextRequest) {
           message: 'Призи тимчасово недоступні'
         },
         { status: 503 }
+      )
+    }
+    
+    // Validate prize probability distribution
+    const totalProbability = activePrizes.reduce((sum, p) => sum + p.probability, 0)
+    if (totalProbability <= 0) {
+      logger.error({
+        userId,
+        action: 'wheel_spin_invalid_probabilities',
+        details: { 
+          totalProbability,
+          prizesCount: activePrizes.length,
+          requestId
+        }
+      })
+      
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'INVALID_PRIZE_CONFIG',
+          message: 'Помилка конфігурації призів'
+        },
+        { status: 500 }
       )
     }
 
