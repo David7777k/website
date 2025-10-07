@@ -290,25 +290,36 @@ export const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }) {
-      if (token) {
-        session.user.id = token.userId as string
-        session.user.role = token.role as string
+      if (token && session.user) {
+        session.user.id = token.userId as string || token.sub as string
+        session.user.role = (token.role as string) || 'guest'
       }
 
       return session
+    },
+    
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url
+      return baseUrl
     }
   },
 
   pages: {
     signIn: '/auth/login',
     signUp: '/auth/register',
-    error: '/auth/error'
+    error: '/auth/login'
   },
 
   events: {
     async signIn({ user, account, profile }) {
       // Log successful sign in
-      console.log(`User ${user.email} signed in via ${account?.provider}`)
+      console.log(`✅ [Auth] User ${user.email} signed in via ${account?.provider}`)
+    },
+    async signOut({ token }) {
+      console.log(`👋 [Auth] User signed out`)
     }
   }
 }
