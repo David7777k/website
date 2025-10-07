@@ -45,7 +45,7 @@ export default function BottomNav() {
         {/* Tips Button - единственная кнопка для чаевых */}
         <button 
           onClick={() => setTipsModalOpen(true)}
-          className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-red-500 text-white text-xl shadow-xl hover:scale-110 transition-all duration-300 group glow-animation"
+          className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent-hover text-white text-xl shadow-xl hover:scale-110 transition-all duration-300 group glow-animation"
         >
           💰
           {/* Tooltip */}
