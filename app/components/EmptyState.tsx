@@ -96,7 +96,7 @@ export const EmptyBonuses = () => (
     description="Почніть відвідувати нас та крутити колесо фортуни, щоб отримати бонуси!"
     action={{
       label: "Крутити колесо",
-      href: "/#wheel"
+      href: "/wheel"
     }}
   />
 )
