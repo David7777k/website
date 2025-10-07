@@ -2,17 +2,29 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-system'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 
 /**
  * POST /api/wheel/spin
- * Spin the wheel and get a prize
- * Returns: { success: boolean, prize: object, nextSpinDate: Date }
+ * FSM: Spin the wheel and get a prize
+ * Returns: { success: boolean, prize: object, coupon: object, nextSpinDate: Date }
+ * 
+ * FSM States: LOCKED -> READY -> SPINNING -> RESULT -> COOLDOWN
+ * Cooldown: 7 days between spins
+ * Anti-abuse: IP tracking, audit logging
  */
 export async function POST(req: NextRequest) {
+  const requestId = Math.random().toString(36).substring(7)
+  
   try {
     const session = await getServerSession(authOptions)
     
     if (!session?.user?.id) {
+      logger.warn({
+        action: 'wheel_spin_unauthorized',
+        details: { requestId }
+      })
+      
       return NextResponse.json(
         { success: false, error: 'Unauthorized', message: 'Потрібна авторизація' },
         { status: 401 }
@@ -22,6 +34,13 @@ export async function POST(req: NextRequest) {
     const userId = session.user.id
     const clientIp = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
     const userAgent = req.headers.get('user-agent') || 'unknown'
+    
+    logger.info({
+      userId,
+      action: 'wheel_spin_attempt',
+      ip: clientIp,
+      details: { requestId }
+    })
 
     // ANTI-ABUSE: Check last spin
     const lastSpin = await prisma.wheelSpin.findFirst({
