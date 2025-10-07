@@ -96,10 +96,10 @@ export default function QRDisplay({ type = 'visit' }: QRDisplayProps) {
 
   const getTypeColor = (t: string) => {
     const colors: Record<string, string> = {
-      visit: 'from-green-500 to-emerald-500',
-      promo: 'from-purple-500 to-pink-500',
-      referral: 'from-blue-500 to-cyan-500',
-      staff_check: 'from-orange-500 to-amber-500'
+      visit: 'from-accent to-accent-hover',
+      promo: 'from-accent-dark to-accent',
+      referral: 'from-accent to-accent-light',
+      staff_check: 'from-accent-hover to-accent-light'
     }
     return colors[t] || 'from-gray-500 to-gray-600'
   }
