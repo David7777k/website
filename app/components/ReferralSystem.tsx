@@ -339,7 +339,7 @@ export default function ReferralSystem() {
       {activeTab === 'tokens' && (
         <div className="space-y-6">
           {/* Token Balance */}
-          <div className="bg-gradient-to-br from-yellow-600 to-yellow-700 rounded-3xl p-8 text-white text-center">
+          <div className="bg-gradient-to-br from-accent to-accent-hover rounded-3xl p-8 text-white text-center">
             <div className="text-6xl mb-3">🪙</div>
             <p className="text-xl mb-2">Ваш баланс токенів</p>
             <h2 className="text-5xl font-black mb-4">{referralData.tokensBalance}</h2>
