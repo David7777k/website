@@ -95,12 +95,17 @@ export async function POST(req: NextRequest) {
 
     // If it's a visit QR, create visit record
     if (result.payload!.type === 'visit') {
+      // Generate unique visit code
+      const visitCode = `V${Date.now().toString(36).toUpperCase()}`
+      
       await prisma.visit.create({
         data: {
           user_id: user.id,
-          visited_at: new Date(),
-          confirmed_by: validatorId,
-          qr_validation_id: result.event_id
+          visit_code: visitCode,
+          status: 'confirmed',
+          staff_name: session.user?.name || 'Staff',
+          confirmed_at: new Date(),
+          expires_at: new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
         }
       })
     }
