@@ -313,15 +313,19 @@ model Notification {
 }
 
 model WheelPrize {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  type        String   // discount, free_item, points
-  value       Int?     // percentage or points
-  probability Int      // 1-100
-  color       String   @default("#10B981")
-  is_active   Boolean  @default(true)
-  created_at  DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  name           String
+  description    String?
+  type           String   // discount, free_item, points, special
+  value          Int?     // percentage or points
+  probability    Int      // 1-100 (weight for random selection)
+  color          String   @default("#10B981")
+  icon           String   @default("🎁")
+  is_active      Boolean  @default(true)
+  max_per_period Int?     // Optional: max this prize per period
+  current_count  Int      @default(0) // Counter for period
+  created_at     DateTime @default(now())
+  updated_at     DateTime @default(now())
 }
 
 // QR Code Validation Events (for anti-replay and audit log)
