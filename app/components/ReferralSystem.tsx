@@ -276,7 +276,7 @@ export default function ReferralSystem() {
               </button>
               <button
                 onClick={() => shareToSocial('instagram')}
-                className="p-4 bg-gradient-to-br from-purple-600 to-pink-500 text-white rounded-xl hover:from-purple-700 hover:to-pink-600 transition-colors"
+                className="p-4 bg-gradient-to-br from-accent to-accent-hover text-white rounded-xl hover:from-accent-dark hover:to-accent transition-colors"
               >
                 <div className="text-3xl mb-2">📷</div>
                 <div className="font-semibold">Instagram</div>
