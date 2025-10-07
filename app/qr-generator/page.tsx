@@ -65,10 +65,10 @@ export default function QRGeneratorPage() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-block p-4 bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl mb-4 shadow-2xl">
+          <div className="inline-block p-4 bg-gradient-to-br from-accent to-accent-hover rounded-3xl mb-4 shadow-2xl">
             <span className="text-6xl">🎨</span>
           </div>
-          <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600 mb-2">
+          <h1 className="text-4xl font-black text-gradient mb-2">
             Генератор QR-кодів
           </h1>
           <p className="text-gray-400 text-lg">
