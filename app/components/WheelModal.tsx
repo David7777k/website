@@ -264,15 +264,32 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
             {state === 'LOADING' && (
               <div className="text-center py-12">
                 <Loader2 className="w-12 h-12 animate-spin text-accent mx-auto mb-4" />
-                <p className="text-text-muted">Завантаження...</p>
+                <p className="text-text-muted">Завантаження статусу...</p>
+              </div>
+            )}
+
+            {/* Locked State (Not authenticated) */}
+            {state === 'LOCKED' && (
+              <div className="text-center py-12 space-y-4">
+                <div className="text-6xl mb-4">🔒</div>
+                <p className="text-warn text-lg font-semibold">{errorMessage}</p>
+                <Button variant="primary" onClick={onClose}>
+                  Увійти
+                </Button>
               </div>
             )}
 
             {/* Error State */}
             {state === 'ERROR' && (
-              <div className="text-center py-12">
-                <div className="text-6xl mb-4">⚠️</div>
-                <p className="text-danger text-lg font-semibold">{errorMessage}</p>
+              <div className="text-center py-12 space-y-4">
+                <AlertCircle className="w-16 h-16 text-danger mx-auto" />
+                <div>
+                  <p className="text-danger text-lg font-semibold mb-2">Помилка</p>
+                  <p className="text-text-muted">{errorMessage}</p>
+                </div>
+                <Button variant="secondary" onClick={fetchStatus}>
+                  Спробувати знову
+                </Button>
               </div>
             )}
 
