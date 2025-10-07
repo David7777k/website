@@ -96,11 +96,16 @@ model WheelSpin {
   id              Int      @id @default(autoincrement())
   user            User     @relation(fields: [user_id], references: [id])
   user_id         String
-  prize           String
+  prize_id        Int?     // Link to WheelPrize
+  prize_name      String   // Prize text for history
+  state           String   @default("COMPLETED") // FSM: COMPLETED, FAILED
   spun_at         DateTime @default(now())
   next_allowed_at DateTime
   client_fp       String?
   ip              String?
+  
+  @@index([user_id, spun_at])
+  @@index([next_allowed_at])
 }
 
 model Coupon {
