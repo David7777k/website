@@ -77,9 +77,9 @@ export default function AuthButton() {
       <AuthModal 
         open={authModalOpen} 
         onClose={() => setAuthModalOpen(false)}
-        onSuccess={(user) => {
-          setSession({ user })
+        onSuccess={() => {
           setAuthModalOpen(false)
+          router.refresh()
         }}
       />
     </>
