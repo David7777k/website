@@ -67,28 +67,28 @@ export default function HomePage() {
       title: 'Афіша',
       subtitle: 'Події тижня',
       href: '/events',
-      color: 'from-purple-500 to-pink-500'
+      color: 'from-accent to-accent-hover'
     },
     {
       icon: MenuIcon,
       title: 'Меню',
       subtitle: 'Страви & напої',
       href: '/menu',
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-accent-dark to-accent'
     },
     {
       icon: Music,
       title: 'Музика',
       subtitle: 'Джукбокс',
       href: '/music',
-      color: 'from-green-500 to-emerald-500'
+      color: 'from-accent to-accent-light'
     },
     {
       icon: Gift,
       title: 'Колесо удачі',
       subtitle: 'Виграй приз',
       href: '#wheel',
-      color: 'from-orange-500 to-amber-500',
+      color: 'from-accent-hover to-accent-light',
       pulse: true
     },
   ]
