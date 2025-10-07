@@ -2,19 +2,30 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth-system'
 import { prisma } from '@/lib/prisma'
+import { logger } from '@/lib/logger'
 
 /**
  * GET /api/wheel/status
  * Check if user can spin the wheel
- * Returns: { canSpin: boolean, state: string, nextSpinDate?: Date, lastPrize?: string }
+ * FSM States: LOCKED (not authenticated) | READY (can spin) | COOLDOWN (must wait)
+ * Returns: { canSpin: boolean, state: string, nextSpinDate?: Date, lastPrize?: string, timeLeft?: object }
  */
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     
     if (!session?.user?.id) {
+      logger.debug({
+        action: 'wheel_status_unauthorized'
+      })
+      
       return NextResponse.json(
-        { error: 'Unauthorized', canSpin: false, state: 'LOCKED' },
+        { 
+          error: 'Unauthorized', 
+          canSpin: false, 
+          state: 'LOCKED',
+          message: 'Увійдіть для доступу до колеса фортуни'
+        },
         { status: 401 }
       )
     }
