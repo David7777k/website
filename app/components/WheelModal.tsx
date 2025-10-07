@@ -35,11 +35,14 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
   const { data: session } = useSession()
   const [state, setState] = useState<WheelState>('LOADING')
   const [prizes, setPrizes] = useState<Prize[]>([])
-  const [wonPrize, setWonPrize] = useState<any>(null)
+  const [wonPrize, setWonPrize] = useState<Prize | null>(null)
+  const [wonCoupon, setWonCoupon] = useState<Coupon | null>(null)
   const [rotation, setRotation] = useState(0)
   const [statusData, setStatusData] = useState<any>(null)
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [isSpinning, setIsSpinning] = useState(false)
   const wheelRef = useRef<HTMLDivElement>(null)
+  const spinAttemptRef = useRef(0)
 
   // Default prizes for display
   const defaultPrizes: Prize[] = [
