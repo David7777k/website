@@ -170,10 +170,10 @@ export default async function EventsPage() {
             Підписуйся на наші соціальні мережі та отримуй сповіщення про всі нові події
           </p>
           <div className="flex flex-wrap justify-center gap-4 mt-6">
-            <a href="#" className="btn btn-primary">
+            <a href="https://instagram.com/panda.lounge" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               📱 Instagram
             </a>
-            <a href="#" className="btn btn-secondary">
+            <a href="https://t.me/panda_lounge" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
               📢 Telegram
             </a>
           </div>
