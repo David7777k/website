@@ -147,7 +147,7 @@ export default function QRGeneratorPage() {
               disabled={!qrData}
               className={`w-full py-4 rounded-2xl font-bold text-lg transition-all ${
                 qrData
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:shadow-2xl hover:scale-105'
+                  ? 'btn-primary hover:shadow-2xl hover:scale-105'
                   : 'bg-gray-700 text-gray-500 cursor-not-allowed'
               }`}
             >
