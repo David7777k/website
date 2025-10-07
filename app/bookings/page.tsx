@@ -239,7 +239,7 @@ export default function BookingsPage() {
                   disabled={!name || !phone}
                   className={`flex-1 py-3 rounded-xl font-bold transition-all ${
                     name && phone
-                      ? 'bg-gradient-to-r from-orange-500 to-red-600 text-white hover:shadow-xl'
+                      ? 'btn-primary hover:shadow-xl'
                       : 'bg-gray-700 text-gray-500 cursor-not-allowed'
                   }`}
                 >
