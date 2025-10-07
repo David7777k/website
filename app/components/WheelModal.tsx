@@ -383,6 +383,7 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
                         <Button 
                           variant="primary" 
                           onClick={handleSpin}
+                          disabled={isSpinning}
                           className="text-lg px-12 py-4 shadow-glow-strong"
                         >
                           <Sparkles size={20} />
@@ -390,7 +391,7 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
                         </Button>
                         <Badge variant="accent">
                           <Trophy size={14} />
-                          Безкоштовний спін доступний
+                          Безкоштовний спін доступний!
                         </Badge>
                       </>
                     )}
@@ -400,7 +401,7 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
                         <Button 
                           variant="primary" 
                           disabled
-                          className="text-lg px-12 py-4"
+                          className="text-lg px-12 py-4 opacity-80"
                         >
                           <motion.div
                             animate={{ rotate: 360 }}
@@ -411,6 +412,9 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
                           </motion.div>
                           <span className="ml-2">Крутимо...</span>
                         </Button>
+                        <Badge variant="default">
+                          Визначаємо переможця
+                        </Badge>
                       </>
                     )}
                     
@@ -419,13 +423,18 @@ export default function WheelModal({ open, onClose }: WheelModalProps) {
                         <Button 
                           variant="secondary" 
                           disabled
-                          className="text-lg px-12 py-4"
+                          className="text-lg px-12 py-4 opacity-60"
                         >
-                          Колесо заблоковано
+                          🔒 Колесо заблоковано
                         </Button>
                         <Badge variant="warn">
-                          Наступний спін через: {formatTimeUntilNextSpin()}
+                          ⏰ Наступний спін через: {formatTimeUntilNextSpin()}
                         </Badge>
+                        {statusData?.lastPrize && (
+                          <p className="text-sm text-text-muted">
+                            Останній приз: {statusData.lastPrize}
+                          </p>
+                        )}
                       </>
                     )}
                   </div>
