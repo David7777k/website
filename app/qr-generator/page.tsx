@@ -194,19 +194,19 @@ export default function QRGeneratorPage() {
 
         {/* Examples */}
         <div className="mt-8 grid md:grid-cols-3 gap-4">
-          <div className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border border-blue-500/30 rounded-xl p-4">
+          <div className="bg-accent/10 border border-accent/30 rounded-xl p-4">
             <div className="text-3xl mb-2">🎫</div>
-            <h3 className="font-bold text-blue-400 text-sm mb-1">Візит</h3>
+            <h3 className="font-bold text-accent text-sm mb-1">Візит</h3>
             <p className="text-gray-400 text-xs">Для підтвердження відвідування</p>
           </div>
-          <div className="bg-gradient-to-br from-purple-500/10 to-purple-600/10 border border-purple-500/30 rounded-xl p-4">
+          <div className="bg-accent-dark/10 border border-accent-dark/30 rounded-xl p-4">
             <div className="text-3xl mb-2">🎁</div>
-            <h3 className="font-bold text-purple-400 text-sm mb-1">Промокод</h3>
+            <h3 className="font-bold text-accent-dark text-sm mb-1">Промокод</h3>
             <p className="text-gray-400 text-xs">Для знижок та акцій</p>
           </div>
-          <div className="bg-gradient-to-br from-green-500/10 to-green-600/10 border border-green-500/30 rounded-xl p-4">
+          <div className="bg-accent-hover/10 border border-accent-hover/30 rounded-xl p-4">
             <div className="text-3xl mb-2">💰</div>
-            <h3 className="font-bold text-green-400 text-sm mb-1">Чайові</h3>
+            <h3 className="font-bold text-accent-hover text-sm mb-1">Чайові</h3>
             <p className="text-gray-400 text-xs">Для швидких чайових</p>
           </div>
         </div>
