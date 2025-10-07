@@ -277,27 +277,40 @@ export async function POST(req: NextRequest) {
     })
 
   } catch (error: any) {
-    console.error('Wheel spin error:', error)
+    // Structured error logging
+    logger.error({
+      action: 'wheel_spin_error',
+      entityType: 'WheelSpin',
+      error: error,
+      details: {
+        message: error.message,
+        stack: error.stack,
+        requestId
+      }
+    })
     
-    // Log error
+    // Log error to database audit trail
     try {
       const session = await getServerSession(authOptions)
       if (session?.user?.id) {
-        await prisma.auditLog.create({
-          data: {
-            user_id: session.user.id,
-            action: 'wheel_spin_error',
-            entity_type: 'WheelSpin',
-            details: JSON.stringify({
-              error: error.message,
-              stack: error.stack
-            }),
-            ip_address: req.headers.get('x-forwarded-for') || 'unknown'
+        await logger.auditLog(prisma, {
+          userId: session.user.id,
+          action: 'wheel_spin_error',
+          entityType: 'WheelSpin',
+          ip: req.headers.get('x-forwarded-for') || 'unknown',
+          userAgent: req.headers.get('user-agent') || 'unknown',
+          details: {
+            error: error.message,
+            requestId
           }
         })
       }
     } catch (logError) {
-      console.error('Failed to log error:', logError)
+      logger.error({
+        action: 'audit_log_failed',
+        error: logError as Error,
+        details: { originalError: error.message }
+      })
     }
 
     return NextResponse.json(
